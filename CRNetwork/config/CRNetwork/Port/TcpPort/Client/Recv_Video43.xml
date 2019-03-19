@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name ="Port@TcpPort@Client@Recv_Video43" version="0.1"/>
+  </Info>
+  <ParameterList>
+    <parameter name="Protocol" value="TCP"/> <!-- TCP, UDP, UART-->
+    <parameter name="ServiceType" value="CLIENT"/> <!-- CLIENT, SERVER-->
+    <parameter name="PortType" value="SIMPLEX"/> <!-- TBD, SIMPLEX, FULLDUPLEX --> 
+    <parameter name="CommModelType" value="RECEIVER"/> <!-- TBD, SENDER, RECEIVER, BOTH -->
+    <parameter name="CustomizedProtocol" value="CRNetwork"/> <!-- TBD, CRNetwork-->
+    <parameter name="NetworkParameter" value="config@CRNetwork@Network@Socket@TCP_VideoRecv43.xml"/>
+    <parameter name="ARSNetServiceParameter" value="config@CRNetwork@Port@TcpPort@Service@ARSNetService_RecvVideo03.xml"/>
+  </ParameterList>
+</ParameterContainer>
+

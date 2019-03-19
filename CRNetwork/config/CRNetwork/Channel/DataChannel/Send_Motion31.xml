@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name ="Channel@DataChannel@Send_Motion31" version="0.1"/>
+  </Info>
+  <ParameterList>
+  	<parameter name="ChannelType" value="SIMPLEX"/> <!-- TBD, SIMPLEX, FULLDUPLEX -->
+    <parameter name="CommModelType" value="SENDER"/> <!-- TBD, SENDER, RECEIVER, BOTH -->
+  	<parameter name="DataType" value="DATA"/> <!-- TBD, DATA, CONTROL--> 
+  	<parameter name="MaxDataSize" value="4096"/>
+  	<parameter name="ContentType" value="PHYSICS"/> <!-- TBD, VIDEO, AUDIO, PHYSICS, CONTROL, HAPTIC--> 
+	  <parameter name="AccessType" value="DEDICATED"/> <!-- DEDICATED, SHARED -->
+	  <parameter name="TargetFPS" value="30"/> 
+	  <parameter name="PortParameter" value="config@CRNetwork@Port@UdpPort@Client@Send_Motion31.xml"/>
+  </ParameterList>
+</ParameterContainer>

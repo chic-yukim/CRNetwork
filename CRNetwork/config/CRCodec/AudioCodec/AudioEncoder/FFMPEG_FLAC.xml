@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name ="CodecNode/SourceAudio01" version="1.0"/>
+    <!--Container name ="AudioEncoder@FFMPEG_FLAC" version="1.0"/-->
+  </Info>
+  <ParameterList>
+    <parameter name="BitRate" value="448000"/>
+    <parameter name="SampleRate" value="44100"/> <!--  -->
+    <parameter name="ChannelCount" value="2"/> <!-- 2, 6  -->
+    <parameter name="SampleCount" value="1024"/> 
+    <parameter name="BytePerChannel" value="2"/>
+  </ParameterList>
+</ParameterContainer>

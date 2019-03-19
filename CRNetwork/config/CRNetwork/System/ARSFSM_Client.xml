@@ -1,0 +1,105 @@
+<StateMachine>
+	<Configuration>
+ 		<Property startState="" bufferSize="60" />
+	</Configuration>
+	<TransitionRuleList>
+		<TransitionRule name="Trans:CS11" fromState="State:SenderCreated" event="Event:Network:SenderInitialize" toState="State:SenderInitialized" type="Conditional" err="Error:ClientSendError"/>
+		<TransitionRule name="Trans:CS12" fromState="State:SenderInitialized" event="Event:Network:SenderSetNetwork" toState="State:SenderSetNetwork" type="Determined" err="Error:ClientSendError"/>
+		<TransitionRule name="Trans:CS13" fromState="State:SenderSetNetwork" event="Event:Network:SenderOpen" toState="State:SenderOpened" type="Determined" err="Error:ClientSendError"/>
+		<TransitionRule name="Trans:CS14" fromState="State:SenderOpened" event="Event:Network:SenderStart" toState="State:SenderStarted" type="Determined" err="Error:ClientSendError"/>
+		<TransitionRule name="Trans:CS15" fromState="State:SenderOpened" event="Event:Network:SenderClose" toState="State:SenderStarted" type="Conditional" err="Error:ClientSendError"/>
+		<TransitionRule name="Trans:CS16" fromState="State:SenderStarted" event="Event:Network:SenderStop" toState="State:SenderStopped" type="Conditional" err="Error:ClientSendError"/>
+		<TransitionRule name="Trans:CS17" fromState="State:SenderStarted" event="Event:Network:SenderStart" toState="State:SenderStarted" type="Conditional" err="Error:ClientSendError"/>
+		<TransitionRule name="Trans:CS21" fromState="State:SenderStopped" event="Event:Network:SenderClose" toState="State:SenderClosed" type="Determined" err="Error:ClientSendError"/>
+		<TransitionRule name="Trans:CS22" fromState="State:SenderClosed" event="Event:Network:SenderInitialize" toState="State:SenderInitialized" type="Conditional" err="Error:ClientSendError"/>
+		<TransitionRule name="Trans:CS23" fromState="State:SenderClosed" event="Event:Network:SenderStop" toState="State:SenderClosed" type="Conditional" err="Error:ClientSendError"/>
+		<TransitionRule name="Trans:CS24" fromState="State:SenderClosed" event="Event:Network:SenderFinalize" toState="State:SenderFinal" type="Conditional" err="Error:ClientSendError"/>
+
+		<TransitionRule name="Trans:CS31" fromState="State:ReceiverCreated" event="Event:Network:ReceiverInitialize" toState="State:ReceiverInitialized" type="Conditional" err="Error:ClientRecvError"/>
+		<TransitionRule name="Trans:CS32" fromState="State:ReceiverInitialized" event="Event:Network:ReceiverSetNetwork" toState="State:ReceiverSetNetwork" type="Determined" err="Error:ClientRecvError"/>
+		<TransitionRule name="Trans:CS33" fromState="State:ReceiverSetNetwork" event="Event:Network:ReceiverOpen" toState="State:ReceiverOpened" type="Determined" err="Error:ClientRecvError"/>
+		<TransitionRule name="Trans:CS34" fromState="State:ReceiverOpened" event="Event:Network:ReceiverStart" toState="State:ReceiverStarted" type="Determined" err="Error:ClientRecvError"/>
+		<TransitionRule name="Trans:CS35" fromState="State:ReceiverOpened" event="Event:Network:ReceiverClose" toState="State:ReceiverStarted" type="Conditional" err="Error:ClientRecvError"/>
+		<TransitionRule name="Trans:CS36" fromState="State:ReceiverStarted" event="Event:Network:ReceiverStop" toState="State:ReceiverStopped" type="Conditional" err="Error:ClientRecvError"/>
+		<TransitionRule name="Trans:CS37" fromState="State:ReceiverStarted" event="Event:Network:ReceiverStart" toState="State:ReceiverStarted" type="Conditional" err="Error:ClientRecvError"/>
+		<TransitionRule name="Trans:CS41" fromState="State:ReceiverStopped" event="Event:Network:ReceiverClose" toState="State:ReceiverClosed" type="Determined" err="Error:ClientRecvError"/>
+		<TransitionRule name="Trans:CS42" fromState="State:ReceiverClosed" event="Event:Network:ReceiverInitialize" toState="State:ReceiverInitialized" type="Conditional" err="Error:ClientRecvError"/>
+		<TransitionRule name="Trans:CS43" fromState="State:ReceiverClosed" event="Event:Network:ReceiverStop" toState="State:ReceiverClosed" type="Conditional" err="Error:ClientRecvError"/>
+		<TransitionRule name="Trans:CS44" fromState="State:ReceiverClosed" event="Event:Network:ReceiverFinalize" toState="State:ReceiverFinal" type="Conditional" err="Error:ClientRecvError"/>
+		
+    <TransitionRule name="Trans:CS101" fromState="State:BothCreated" event="Event:Network:ReceiverInitialize" toState="State:BothReceiverInitialized" type="Conditional" err="Error:ClientBothError"/>
+    <TransitionRule name="Trans:CS102" fromState="State:BothReceiverInitialized" event="Event:Network:ReceiverSetNetwork" toState="State:BothReceiverSetNetwork" type="Determined" err="Error:ClientBothError"/>
+    <TransitionRule name="Trans:CS103" fromState="State:BothReceiverSetNetwork" event="Event:Network:SenderInitialize" toState="State:BothSenderInitialized" type="Determined" err="Error:ClientBothError"/>
+    <TransitionRule name="Trans:CS104" fromState="State:BothSenderInitialized" event="Event:Network:SenderSetNetwork" toState="State:BothSenderSetNetwork" type="Determined" err="Error:ClientBothError"/>
+    <TransitionRule name="Trans:CS110" fromState="State:BothSenderSetNetwork" event="Event:Network:ReceiverOpen" toState="State:BothReceiverOpened" type="Determined" err="Error:ClientBothError"/>
+    <TransitionRule name="Trans:CS111" fromState="State:BothReceiverOpened" event="Event:Network:SenderOpen" toState="State:BothSenderOpened" type="Determined" err="Error:ClientBothError"/>
+    <TransitionRule name="Trans:CS112" fromState="State:BothReceiverOpened" event="Event:Network:ReceiverClose" toState="State:BothReceiverClosed" type="Conditional" err="Error:ClientBothError"/>
+    <TransitionRule name="Trans:CS113" fromState="State:BothSenderOpened" event="Event:Network:ReceiverStart" toState="State:BothReceiverStarted" type="Determined" err="Error:ClientBothError"/>
+    <TransitionRule name="Trans:CS114" fromState="State:BothReceiverStarted" event="Event:Network:SenderStart" toState="State:BothSenderStarted" type="Determined" err="Error:ClientBothError"/>
+    <TransitionRule name="Trans:CS120" fromState="State:BothSenderStarted" event="Event:Network:ReceiverStop" toState="State:BothReceiverStopped" type="Conditional" err="Error:ClientBothError"/>
+    <TransitionRule name="Trans:CS121" fromState="State:BothSenderStarted" event="Event:Network:ReceiverStart" toState="State:BothSenderStarted" type="Conditional" err="Error:ClientBothError"/>
+    <TransitionRule name="Trans:CS122" fromState="State:BothReceiverStopped" event="Event:Network:SenderStop" toState="State:BothSenderStopped" type="Determined" err="Error:ClientBothError"/>
+    <TransitionRule name="Trans:CS123" fromState="State:BothSenderStopped" event="Event:Network:ReceiverClose" toState="State:BothReceiverClosed" type="Determined" err="Error:ClientBothError"/>
+    <TransitionRule name="Trans:CS130" fromState="State:BothReceiverClosed" event="Event:Network:SenderClose" toState="State:BothSenderClosed" type="Determined" err="Error:ClientBothError"/>
+    <TransitionRule name="Trans:CS131" fromState="State:BothSenderClosed" event="Event:Network:ReceiverFinalize" toState="State:BothReceiverFinal" type="Conditional" err="Error:ClientBothError"/>
+    <TransitionRule name="Trans:CS132" fromState="State:BothSenderClosed" event="Event:Network:ReceiverInitialize" toState="State:BothReceiverInitialized" type="Conditional" err="Error:ClientBothError"/>
+    <TransitionRule name="Trans:CS133" fromState="State:BothSenderClosed" event="Event:Network:ReceiverStart" toState="State:BothSenderClosed" type="Conditional" err="Error:ClientBothError"/>
+    <TransitionRule name="Trans:CS134" fromState="State:BothReceiverFinal" event="Event:Network:SenderFinalize" toState="State:BothSenderFinal" type="Conditional" err="Error:ClientBothError"/>
+  </TransitionRuleList>
+	<EventList>
+		<Event name="Event:Network:SenderInitialize" location="Inner" process="Sync" /> <!-- location=Inner/Outer, process=Sync/ASync -->
+		<Event name="Event:Network:SenderSetNetwork" location="Inner" process="Sync" />
+		<Event name="Event:Network:SenderOpen" location="Outer" process="Sync" />
+		<Event name="Event:Network:SenderStart" location="Outer" process="Sync" />
+		<Event name="Event:Network:SenderStop" location="Outer" process="Sync" />
+		<Event name="Event:Network:SenderClose" location="Outer" process="Sync" />
+		<Event name="Event:Network:SenderFinalize" location="Outer" process="Sync" />
+		<Event name="Event:Network:ReceiverInitialize" location="Inner" process="Sync" />
+		<Event name="Event:Network:ReceiverSetNetwork" location="Inner" process="Sync" />
+		<Event name="Event:Network:ReceiverOpen" location="Outer" process="Sync" />
+		<Event name="Event:Network:ReceiverStart" location="Outer" process="Sync" />
+		<Event name="Event:Network:ReceiverStop" location="Outer" process="Sync" />
+		<Event name="Event:Network:ReceiverClose" location="Outer" process="Sync" />
+		<Event name="Event:Network:ReceiverFinalize" location="Outer" process="Sync" />
+  </EventList>
+	<StateList>
+		<State name="State:SenderCreated"/>
+		<State name="State:SenderInitialized"/>
+		<State name="State:SenderSetNetwork"/>
+		<State name="State:SenderOpened"/>
+		<State name="State:SenderStarted"/>
+		<State name="State:SenderStopped"/>
+		<State name="State:SenderClosed"/>
+		<State name="State:SenderFinal"/>
+		<State name="State:ReceiverCreated"/>
+		<State name="State:ReceiverInitialized"/>
+		<State name="State:ReceiverSetNetwork"/>
+		<State name="State:ReceiverOpened"/>
+		<State name="State:ReceiverStarted"/>
+		<State name="State:ReceiverStopped"/>
+		<State name="State:ReceiverClosed"/>
+		<State name="State:ReceiverFinal"/>
+    <State name="State:BothCreated"/>
+    <State name="State:BothReceiverInitialized"/>
+    <State name="State:BothSenderInitialized"/>
+    <State name="State:BothReceiverSetNetwork"/>
+    <State name="State:BothSenderSetNetwork"/>
+    <State name="State:BothReceiverOpened"/>
+    <State name="State:BothSenderOpened"/>
+    <State name="State:BothReceiverStarted"/>
+    <State name="State:BothSenderStarted"/>
+    <State name="State:BothReceiverStopped"/>
+    <State name="State:BothSenderStopped"/>
+    <State name="State:BothReceiverClosed"/>
+    <State name="State:BothSenderClosed"/>
+    <State name="State:BothReceiverFinal"/>
+    <State name="State:BothSenderFinal"/>
+  </StateList>
+	<ErrorList>
+		<Error name="Error:TBD"/>
+		<Error name="Error:ReadyError"/>
+		<Error name="Error:ClientSendError"/>
+		<Error name="Error:ClientRecvError"/>
+    <Error name="Error:ClientBothError"/>
+  </ErrorList>
+</StateMachine>

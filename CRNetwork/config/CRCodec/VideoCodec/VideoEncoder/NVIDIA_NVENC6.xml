@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name ="CodecNode/SourceVideo01" version="1.0"/>
+    <!--Container name ="VideoEncoder@NVIDIA_NVENC6" version="1.0"/-->
+  </Info>
+  <ParameterList>
+    <parameter name="Width" value="1920"/>
+    <parameter name="Height" value="1080"/>
+    <parameter name="Fps" value="30"/>
+    <parameter name="CodecType" value="H264"/> <!--H264, HECV-->
+    <parameter name="DeviceID" value="-1"/>
+    <parameter name="DeviceType" value="CUDA"/> <!-- CUDA, DX9, DX10, DX11 -->
+    <parameter name="EncoderPreset" value="LOWLATENCY_HP" /> <!-- HQ, HP, LOWLATENCY_HP, LOWLATENCY_HQ, LOSSLESS -->
+    <parameter name="YUVFormat" value="NV12PL"/> <!-- YUV444PL, NV12PL, YV12PL, IYUVPL -->
+    <parameter name="RCMode" value="SINGLEPASS_CBR"/> <!-- CONSTANT_QP, SINGLEPASS_VBR, SINGLEPASS_CBR, SINGLEPASS_VBRMINQP, TWOPASS_FRAMEQUALITY, TWOPASS_FRAMESIZECAP, TWOPASS_VBR -->
+    <parameter name="InternalMaxQueueSize" value="4"/>
+    <parameter name="MotionEstimationOnly" value="TBD"/> <!-- TBD, MEONLY01, MEONLY02 -->
+    <parameter name="OutFileSaved" value="no"/> <!-- yes, no -->
+    <parameter name="OutputFileName" value="NVIDIA_NVENC6.h264"/>
+  </ParameterList>
+</ParameterContainer>

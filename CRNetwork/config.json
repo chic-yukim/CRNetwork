@@ -1,0 +1,10 @@
+{
+    "information":
+    {
+        "category" : "application",
+        "name": "HandsTogether",
+        "author": "#[AUTHORNAME]",
+        "version": "0.1",
+        "description": "This is HandsTogether Project."
+    }
+}

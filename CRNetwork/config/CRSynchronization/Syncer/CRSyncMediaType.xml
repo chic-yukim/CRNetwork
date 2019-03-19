@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<MediaTypeContainer>
+  <Info>
+    <Container name ="MediaTypeContainer" version="0.1"/>
+  </Info>
+  <MediaTypeList>
+    <MediaType>      <!--Seqeunce Data-->
+      <Raw           name="Sequence"                     value="1"/>
+    </MediaType>
+    <MediaType>     <!--Video Full HD + 480p Depth Data-->
+      <Raw           name="RawVideoFullRGBDepth"         value="100"/>
+      <Compressed    name="EncodedVideoFullRGBDepth"     value="101"/>
+      <Decompressed  name="DecodedVideoFullRGBDepth"     value="102"/>
+    </MediaType>
+    <MediaType>      <!--Video RGB Data-->
+      <Raw           name="RawVideoRGB"                  value="110"/>
+      <Compressed    name="EncodedVideoRGB"              value="111"/>
+      <Decompressed  name="DecodedVideoRGB"              value="112"/>
+    </MediaType>
+    <MediaType>      <!--Video Depth Data-->
+      <Raw           name="RawVideoDepth"                value="120"/>
+      <Compressed    name="EncodedVideoDepth"            value="121"/>
+      <Decompressed  name="DecodedVideoDepth"            value="122"/>
+    </MediaType>
+    <MediaType>      <!--Sound Data-->
+      <Raw           name="RawSound"                     value="200"/>
+      <Compressed    name="EncodedSound"                 value="201"/>
+      <Decompressed  name="DecodedSound"                 value="202"/>
+    </MediaType>
+        <MediaType>  <!--Haptic Data-->
+      <Raw           name="RawMotion"                    value="300"/>
+    </MediaType>
+    <MediaType>      <!--Haptic Data-->
+      <Raw           name="RawHaptic"                    value="310"/>
+    </MediaType>
+    <MediaType>      <!--Graphic Mesh Data-->
+      <Raw           name="RawMesh"                      value="400"/>
+    </MediaType>
+    <MediaType>      <!--Graphic Vertex Data-->
+      <Raw           name="RawVertex"                    value="410"/>
+    </MediaType>
+    <MediaType>      <!--Mass Data-->
+      <Raw           name="MassData"                     value="500"/>
+    </MediaType>
+    <MediaType>      <!--Header Data-->
+      <Raw           name="CRSFHeader"                   value="900"/>
+    </MediaType>
+  </MediaTypeList>
+</MediaTypeContainer>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name ="AudioEncoder@FFMPEG_OPUS" version="1.0"/>
+  </Info>
+  <ParameterList>
+    <parameter name="BitRate" value="448000"/>
+    <parameter name="SampleRate" value="16000"/> <!--  -->
+    <parameter name="ChannelCount" value="2"/> <!-- 2, 6  -->
+    <parameter name="SampleCount" value="1024"/>
+    <parameter name="BytePerChannel" value="2"/>
+  </ParameterList>
+</ParameterContainer>

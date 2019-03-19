@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name="Syncer@InterSyncer@InterSyncer_SourceVideoHaptic.xml" version="0.1" />
+  </Info>
+  <ParameterList>
+    <parameter name="Name"                         value="VideoHaptic Source InterSyncer"/>
+    <parameter name="MessageSize"                  value="1024" />
+    <parameter name="MessageCount"                 value="10" />
+    <parameter name="InterSyncerParameter"         value=""/>
+    <parameter name="PlayoutControllerParameter"   value=""/>
+  </ParameterList>
+</ParameterContainer>

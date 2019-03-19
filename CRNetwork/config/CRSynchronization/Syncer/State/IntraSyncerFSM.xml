@@ -1,0 +1,53 @@
+<StateMachine>
+	<Configuration>
+ 		<Property startState="State:Hello" bufferSize="20" />
+	</Configuration>
+<TransitionRuleList>
+		<TransitionRule name="Trans:1"   fromState="State:Hello"        event="Event:IntraSyncer:Initialize"     toState="State:Initializing" type="Conditional" err="Error:IntraSyncerStateError"/>
+    <TransitionRule name="Trans:2"   fromState="State:Initializing" event="Event:IntraSyncer:Initialize"     toState="State:Initializing" type="Conditional" err="Error:IntraSyncerStateError"/>
+    <TransitionRule name="Trans:2-1" fromState="State:Initializing" event="Event:IntraSyncer:InitializedAll" toState="State:Initialized"  type="Conditional" err="Error:IntraSyncerStateError"/>
+		<TransitionRule name="Trans:2-2" fromState="State:Initializing" event="Event:IntraSyncer:Error"          toState="State:Error"        type="Conditional" err="Error:IntraSyncerStateError"/>
+		<TransitionRule name="Trans:3"   fromState="State:Initialized"  event="Event:IntraSyncer:Start"          toState="State:Starting"     type="Conditional" err="Error:IntraSyncerStateError"/>
+    <TransitionRule name="Trans:3-1" fromState="State:Initialized"  event="Event:IntraSyncer:Error"          toState="State:Error"        type="Conditional" err="Error:IntraSyncerStateError"/>
+    <TransitionRule name="Trans:4"   fromState="State:Starting"     event="Event:IntraSyncer:Start"          toState="State:Starting"     type="Conditional" err="Error:IntraSyncerStateError"/>
+    <TransitionRule name="Trans:4-1" fromState="State:Starting"     event="Event:IntraSyncer:StartedAll"     toState="State:Started"      type="Conditional" err="Error:IntraSyncerStateError"/>
+    <TransitionRule name="Trans:4-2" fromState="State:Starting"     event="Event:IntraSyncer:Error"          toState="State:Error"        type="Conditional" err="Error:IntraSyncerStateError"/>		
+		<TransitionRule name="Trans:5"   fromState="State:Started"      event="Event:IntraSyncer:Stop"           toState="State:Stopping"     type="Conditional" err="Error:IntraSyncerStateError"/>
+    <TransitionRule name="Trans:5-1" fromState="State:Started"      event="Event:IntraSyncer:Error"          toState="State:Error"        type="Conditional" err="Error:IntraSyncerStateError"/>
+    <TransitionRule name="Trans:6"   fromState="State:Stopping"     event="Event:IntraSyncer:Stop"           toState="State:Stopping"     type="Conditional" err="Error:IntraSyncerStateError"/>
+    <TransitionRule name="Trans:6-1" fromState="State:Stopping"     event="Event:IntraSyncer:StoppedAll"     toState="State:Stopped"      type="Conditional" err="Error:IntraSyncerStateError"/>
+		<TransitionRule name="Trans:6-2" fromState="State:Stopping"     event="Event:IntraSyncer:Error"          toState="State:Error"        type="Conditional" err="Error:IntraSyncerStateError"/>
+		<TransitionRule name="Trans:7"   fromState="State:Stopped"      event="Event:IntraSyncer:Finalize"       toState="State:Finalizing"   type="Conditional" err="Error:IntraSyncerStateError"/>
+    <TransitionRule name="Trans:7-1" fromState="State:Stopped"      event="Event:IntraSyncer:Error"          toState="State:Error"        type="Conditional" err="Error:IntraSyncerStateError"/>
+    <TransitionRule name="Trans:8"   fromState="State:Finalizing"   event="Event:IntraSyncer:Finalize"       toState="State:Finalizing"   type="Conditional" err="Error:IntraSyncerStateError"/>
+		<TransitionRule name="Trans:8-1" fromState="State:Finalizing"   event="Event:IntraSyncer:FinalizedAll"   toState="State:Finalized"    type="Conditional" err="Error:IntraSyncerStateError"/>
+    <TransitionRule name="Trans:8-2" fromState="State:Finalizing"   event="Event:IntraSyncer:Error"          toState="State:Error"        type="Conditional" err="Error:IntraSyncerStateError"/>
+	</TransitionRuleList>
+	<EventList>
+		<Event name="Event:IntraSyncer:Initialize" location="Outer" process="Sync"/>      <!-- location=Inner/Outer, process=Sync/ASync -->
+		<Event name="Event:IntraSyncer:InitializedAll" location="Inner" process="Sync"/>  <!-- location=Inner/Outer, process=Sync/ASync -->
+		<Event name="Event:IntraSyncer:Start" location="Outer" process="Sync"/>           <!-- location=Inner/Outer, process=Sync/ASync -->
+		<Event name="Event:IntraSyncer:StartedAll" location="Inner" process="Sync"/>      <!-- location=Inner/Outer, process=Sync/ASync -->
+		<Event name="Event:IntraSyncer:Stop" location="Outer" process="Sync"/>            <!-- location=Inner/Outer, process=Sync/ASync -->
+		<Event name="Event:IntraSyncer:StoppedAll" location="Inner" process="Sync"/>      <!-- location=Inner/Outer, process=Sync/ASync -->
+		<Event name="Event:IntraSyncer:Finalize" location="Outer" process="Sync"/>        <!-- location=Inner/Outer, process=Sync/ASync -->
+    <Event name="Event:IntraSyncer:FinalizedAll" location="Outer" process="Sync"/>    <!-- location=Inner/Outer, process=Sync/ASync -->
+		<Event name="Event:IntraSyncer:Error" location="Inner" process="Sync"/>           <!-- location=Inner/Outer, process=Sync/ASync -->
+	</EventList>
+	<StateList>
+		<State name="State:Hello"/>
+		<State name="State:Initializing"/>
+		<State name="State:Initialized"/>
+		<State name="State:Starting"/>
+		<State name="State:Started"/>
+		<State name="State:Stopping"/>
+		<State name="State:Stopped"/>
+    <State name="State:Finalizing"/>
+    <State name="State:Finalized"/>
+		<State name="State:Error"/>
+	</StateList>
+	<ErrorList>
+		<Error name="Error:TBD"/>
+		<Error name="Error:IntraSyncerStateError"/>
+	</ErrorList>
+</StateMachine>

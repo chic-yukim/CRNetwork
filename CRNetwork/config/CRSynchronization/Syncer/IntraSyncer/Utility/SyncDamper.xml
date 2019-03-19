@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name="Port@TcpPort@Service@StreamDamper" version="0.1" />
+  </Info>
+  <ParameterList>
+    <parameter name="MaxBufferSize" value="100" />
+    <!-- bytes -->
+    <parameter name="MaxBufferCount" value="100" />
+    <parameter name="MaxQueueSize" value="100" />
+    <!--BufferCount -->
+    <parameter name="BufferAllocType" value="Prealloc" />
+  </ParameterList>
+</ParameterContainer>

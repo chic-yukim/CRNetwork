@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SynchronizationConfig>
+  <Info>
+    <Container name="CRSyncConfig" version="1.0" />
+    <Usage type ="Default"/>
+  </Info>
+  <FSM>
+    <StateManager name ="SyncStateManager" value="config@CRSynchronization@State@SyncStateManager.xml"/>
+  </FSM>
+  <SyncerLinkList>
+    <SyncerLink name="Data/Audio_Link1" SyncNode="SyncNode/SourceAudio01" IntraSyncer="IntraSyncer@SourceAudio01"/>
+    <SyncerLink name="Data/Audio_Link2" SyncNode="SyncNode/DestinationAudio01" IntraSyncer="IntraSyncer@DestinationAudio01"/>
+  </SyncerLinkList>
+  <SyncNodeList>
+    <SourceList>
+       <Source name="SyncNode/SourceAudio01"/>
+    </SourceList>
+    <DestinationList>
+       <Destination name="SyncNode/DestinationAudio01"/>
+    </DestinationList>
+  </SyncNodeList>
+  <SyncerList>
+    <IntraSyncerList>
+      <IntraSyncer name="IntraSyncer@SourceAudio01" config="Config@CRSynchronization@Syncer@IntraSyncer@IntraSyncer_SourceAudio.xml"/>
+      <IntraSyncer name="IntraSyncer@DestinationAudio01" config="Config@CRSynchronization@Syncer@IntraSyncer@IntraSyncer_DestinationAudio.xml"/>
+    </IntraSyncerList>
+    <InterSyncerList>
+      <InterSyncer name="SourceVideoAudioInterSyncer" relationA="SourceVideo01" relationB="SourceAudio01" config="Config@CRSynchronization@Syncer@InterSyncer@InterSyncer_SourceVideoAudio.xml"/>
+      <InterSyncer name="DestinationVideoAudioInterSyncer" relationA="DestinationVideo01" relationB="DestinationAudio01" config="Config@CRSynchronization@Syncer@InterSyncer@InterSyncer_DestinationVideoAudio.xml"/>
+    </InterSyncerList>
+  </SyncerList>
+</SynchronizationConfig>

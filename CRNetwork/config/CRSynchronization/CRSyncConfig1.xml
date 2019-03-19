@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SynchronizationConfig>
+  <Info>
+    <Container name="CRSyncConfig" version="1.0" />
+    <Type name = "NTP"/> <!-- NTP, NTPless-->
+  </Info>
+  <FSM>
+    <StateManager name ="SyncStateManager" value="config@CRSynchronization@State@SyncStateManager.xml"/>
+  </FSM>
+  <SyncerLinkList>
+    <SyncerLink name="Data/Video_Link1" SyncNode="SyncNode/SourceVideo01" IntraSyncer="IntraSyncer@SourceVideo01"/>
+    <SyncerLink name="Data/Video_Link2" SyncNode="SyncNode/DestinationVideo01" IntraSyncer="IntraSyncer@DestinationVideo01"/>
+  </SyncerLinkList>
+  <SyncNodeList>
+    <SourceList>
+      <Source name="SyncNode/SourceVideo01"/>
+      <Source name="SyncNode/SourceSyncControl"/>
+    </SourceList>
+    <DestinationList>
+      <Destination name="SyncNode/DestinationVideo01"/>
+      <Destination name="SyncNode/DestinationSyncControl"/>
+    </DestinationList>
+  </SyncNodeList>
+  <NetTimeNodeList>
+    <SourceList>
+      <Source name="NetTimeNode/SourceNetTime01"/>
+    </SourceList>
+    <DestinationList>
+      <Destination name="NetTimeNode/DestinationNetTime01"/>
+    </DestinationList>
+  </NetTimeNodeList>
+  <SyncerList>
+    <IntraSyncerList>
+      <IntraSyncer name="IntraSyncer@SourceVideo01" config="Config@CRSynchronization@Syncer@IntraSyncer@IntraSyncer_SourceVideo.xml"/>
+      <IntraSyncer name="IntraSyncer@DestinationVideo01" config="Config@CRSynchronization@Syncer@IntraSyncer@IntraSyncer_DestinationVideo.xml"/>
+    </IntraSyncerList>
+    <InterSyncerList>
+      <InterSyncer name="SourceVideoAudioInterSyncer" relationA="SourceVideo01" relationB="SourceAudio01" config="Config@CRSynchronization@Syncer@InterSyncer@InterSyncer_SourceVideoAudio.xml"/>
+      <InterSyncer name="DestinationVideoAudioInterSyncer" relationA="DestinationVideo01" relationB="DestinationAudio01" config="Config@CRSynchronization@Syncer@InterSyncer@InterSyncer_DestinationVideoAudio.xml"/>
+    </InterSyncerList>
+  </SyncerList>
+  <NetTimeList>
+    <NetTime name="NetTimeNode" config="Config@CRSynchronization@Syncer@NetTime@CRNetTimeConfig.xml"/>
+  </NetTimeList>
+</SynchronizationConfig>

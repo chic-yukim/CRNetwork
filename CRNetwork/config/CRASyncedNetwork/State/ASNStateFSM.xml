@@ -1,0 +1,50 @@
+<StateMachine>
+	<Configuration>
+ 		<Property startState="State:ASN:Hello" bufferSize="20" />
+	</Configuration>
+<TransitionRuleList>
+		<TransitionRule name="Trans:1" fromState="State:ASN:Hello" event="Event:ASN:Prepare" toState="State:ASN:Preparing" type="Determined" err="Error:ASNStateError"/>
+		<TransitionRule name="Trans:2" fromState="State:ASN:Preparing" event="Event:ASN:Prepare" toState="State:ASN:Preparing" type="Conditional" err="Error:ASNStateError"/>
+		<TransitionRule name="Trans:3" fromState="State:ASN:Preparing" event="Event:ASN:PreparedAll" toState="State:ASN:Prepared" type="Conditional" err="Error:ASNStateError"/>
+		<TransitionRule name="Trans:13" fromState="State:ASN:Preparing" event="Event:ASN:Start" toState="State:ASN:Preparing" type="Conditional" err="Error:ASNStateError"/>
+		<TransitionRule name="Trans:4" fromState="State:ASN:Prepared" event="Event:ASN:Start" toState="State:ASN:Starting" type="Conditional" err="Error:ASNStateError"/>
+		<TransitionRule name="Trans:12" fromState="State:ASN:Prepared" event="Event:ASN:Finalize" toState="State:ASN:Finalizing" type="Conditional" err="Error:ASNStateError"/>
+		<TransitionRule name="Trans:5" fromState="State:ASN:Starting" event="Event:ASN:Start" toState="State:ASN:Starting" type="Conditional" err="Error:ASNStateError"/>
+		<TransitionRule name="Trans:6" fromState="State:ASN:Starting" event="Event:ASN:StartedAll" toState="State:ASN:Started" type="Conditional" err="Error:ASNStateError"/>
+		<TransitionRule name="Trans:7" fromState="State:ASN:Started" event="Event:ASN:Stop" toState="State:ASN:Stopping" type="Conditional" err="Error:ASNStateError"/>
+		<TransitionRule name="Trans:12" fromState="State:ASN:Started" event="Event:ASN:Finalize" toState="State:ASN:Finalizing" type="Conditional" err="Error:ASNStateError"/>
+		<TransitionRule name="Trans:8" fromState="State:ASN:Stopping" event="Event:ASN:Stop" toState="State:ASN:Stopping" type="Conditional" err="Error:ASNStateError"/>
+		<TransitionRule name="Trans:9" fromState="State:ASN:Stopping" event="Event:ASN:StoppedAll" toState="State:ASN:Stopped" type="Conditional" err="Error:ASNStateError"/>
+		<TransitionRule name="Trans:10" fromState="State:ASN:Stopped" event="Event:ASN:Start" toState="State:ASN:Started" type="Conditional" err="Error:ASNStateError"/>
+		<TransitionRule name="Trans:11" fromState="State:ASN:Starting" event="Event:ASN:Stop" toState="State:ASN:Stopping" type="Conditional" err="Error:ASNStateError"/>
+		<TransitionRule name="Trans:12" fromState="State:ASN:Stopped" event="Event:ASN:Finalize" toState="State:ASN:Finalizing" type="Conditional" err="Error:ASNStateError"/>
+		<TransitionRule name="Trans:12" fromState="State:ASN:Finalizing" event="Event:ASN:Finalize" toState="State:ASN:Finalizing" type="Conditional" err="Error:ASNStateError"/>
+		<TransitionRule name="Trans:12" fromState="State:ASN:Finalizing" event="Event:ASN:FinalizedAll" toState="State:ASN:Finalized" type="Conditional" err="Error:ASNStateError"/>
+	</TransitionRuleList>
+	<EventList>
+		<Event name="Event:ASN:Prepare" location="Outer" process="Sync"/>  <!-- location=Inner/Outer, process=Sync/ASync -->
+		<Event name="Event:ASN:PreparedAll" location="Inner" process="Sync"/>  <!-- location=Inner/Outer, process=Sync/ASync -->
+		<Event name="Event:ASN:Start" location="Outer" process="Sync"/>  <!-- location=Inner/Outer, process=Sync/ASync -->
+		<Event name="Event:ASN:StartedAll" location="Inner" process="Sync"/>  <!-- location=Inner/Outer, process=Sync/ASync -->
+		<Event name="Event:ASN:Stop" location="Outer" process="Sync"/>  <!-- location=Inner/Outer, process=Sync/ASync -->
+		<Event name="Event:ASN:StoppedAll" location="Inner" process="Sync"/>  <!-- location=Inner/Outer, process=Sync/ASync -->
+		<Event name="Event:ASN:Finalize" location="Outer" process="Sync"/>  <!-- location=Inner/Outer, process=Sync/ASync -->
+		<Event name="Event:ASN:FinalizedAll" location="Inner" process="Sync"/>  <!-- location=Inner/Outer, process=Sync/ASync -->
+	</EventList>
+	<StateList>
+		<State name="State:ASN:Hello"/>
+		<State name="State:ASN:Preparing"/>
+		<State name="State:ASN:Prepared"/>
+		<State name="State:ASN:Starting"/>
+		<State name="State:ASN:Started"/>
+		<State name="State:ASN:Stopping"/>
+		<State name="State:ASN:Stopped"/>
+		<State name="State:ASN:Finalizing"/>
+		<State name="State:ASN:Finalized"/>
+		<State name="State:ASN:Bye"/>
+	</StateList>
+	<ErrorList>
+		<Error name="Error:TBD"/>
+		<Error name="Error:ASNStateError"/>
+	</ErrorList>
+</StateMachine>

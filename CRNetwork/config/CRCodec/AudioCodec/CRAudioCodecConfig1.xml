@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name ="CRAudioCodecConfiguration" version="1.0"/>
+  </Info>
+  <ParameterList>
+    <parameter name="CodecType" value="BOTH"/>     <!-- TBD, COMPRESS, DECOMPRESS, BOTH -->
+    <parameter name="CompressCoreType" value="FFMPEG_FLAC"/>    <!-- TBD, NVIDIA, FFMPEG_FLAC, FFMPEG_AAC, FFMPEG_OPUS -->
+    <parameter name="DeCompressCoreType" value="FFMPEG_FLAC"/>   <!-- TBD, NVIDIA, FFMPEG_FLAC, FFMPEG_AAC, FFMPEG_OPUS -->
+    <parameter name="EncoderParameter" value="config@CRCodec@AudioCodec@AudioEncoder@FFMPEG_FLAC.xml"/>
+    <parameter name="DecoderParameter" value="config@CRCodec@AudioCodec@AudioDecoder@FFMPEG_FLAC.xml"/>
+  </ParameterList>
+</ParameterContainer>

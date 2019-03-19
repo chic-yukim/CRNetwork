@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name ="Port@UdpPort@Client@Send_Motion12" version="0.1"/>
+  </Info>
+  <ParameterList>
+    <parameter name="Protocol" value="UDP"/> <!-- TCP, UDP, UART-->
+    <parameter name="ServiceType" value="CLIENT"/> <!-- CLIENT, SERVER-->
+    <parameter name="PortType" value="SIMPLEX"/> <!-- TBD, SIMPLEX, FULLDUPLEX -->
+    <parameter name="CommModelType" value="SENDER"/> <!-- TBD, SENDER, RECEIVER, BOTH -->
+    <parameter name="CustomizedProtocol" value="CRNetwork"/> <!-- TBD, CRNetwork-->
+    <parameter name="NetworkParameter" value="config@CRNetwork@Network@Socket@UDP_MotionSend12.xml"/>
+    <parameter name="ARSNetServiceParameter" value="config@CRNetwork@Port@UDPPort@Service@ARSNetService_SendMotion02.xml"/>
+  </ParameterList>
+</ParameterContainer>
+

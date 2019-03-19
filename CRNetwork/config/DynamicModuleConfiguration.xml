@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modules>
+    <CRNetwork>
+        <user>
+            <user1>
+                <position>
+                    <x>0.6</x>
+                    <y>0</y>
+                    <z>1.2</z>
+                </position>
+                <hpr>
+                    <x>90</x>
+                </hpr>
+            </user1>
+
+            <user2>
+                <position>
+                    <x>0</x>
+                    <y>-0.6</y>
+                    <z>1.2</z>
+                </position>
+                <hpr>
+                    <x>0</x>
+                </hpr>
+            </user2>
+
+            <user3>
+                <position>
+                    <x>-0.6</x>
+                    <y>0</y>
+                    <z>1.2</z>
+                </position>
+                <hpr>
+                    <x>-90</x>
+                </hpr>
+            </user3>
+        </user>
+    </CRNetwork>
+</modules>

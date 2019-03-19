@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NetworkConfig>
+  <Info>
+    <Container name ="CRNetConfigClient2" version="1.0"/>
+    <Topology name ="CS" role="Client"/> <!-- CS, P2P, Relay--> <!-- Client, Server-->
+    <StateConfig type="file" value ="config@CRNetwork@System@NetStateManager.xml"/>
+    <Monitoring name="TBD" type="TBD"/> <!-- TBD, LatencyCheck, --> <!-- TBD, RTT,-->
+  </Info>
+  <CommunicationLinkList>
+    <CommLink name="Control/Control_LinkS2" CommNode="CommNode/SourceControl" Channel="Channel/Send/Control02"/>
+    <CommLink name="Control/Control_LinkR2" CommNode="CommNode/DestinationControl" Channel="Channel/Recv/Control02"/>
+  </CommunicationLinkList>
+  <CommunicationNodeList>
+	  <SourceList>
+	    <Source name="CommNode/SourceControl" value="CommNode@Source1.xml"/>
+    </SourceList>
+	  <DestinationList>
+		  <Destination name="CommNode/DestinationControl" value="CommNode@Source1Destination1.xml"/>
+	  </DestinationList>
+  </CommunicationNodeList>
+  <ChannelList>
+    <Channel name="Channel/Send/Control02" value="config@CRNetwork@Channel@ControlChannel@Send_Control02_1G.xml"/>
+    <Channel name="Channel/Recv/Control02" value="config@CRNetwork@Channel@ControlChannel@Recv_Control02_1G.xml"/>
+  </ChannelList>
+</NetworkConfig>

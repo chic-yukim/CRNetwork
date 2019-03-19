@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system>
+    <logging>
+        <level>debug</level>
+    </logging>
+
+    <systemindex>1</systemindex>
+
+    <dynamic_modules>
+        <module>
+            <id>crprofiler</id>
+        </module>
+        <application>
+            <id>CRNetwork</id>
+        </application>
+    </dynamic_modules>
+</system>

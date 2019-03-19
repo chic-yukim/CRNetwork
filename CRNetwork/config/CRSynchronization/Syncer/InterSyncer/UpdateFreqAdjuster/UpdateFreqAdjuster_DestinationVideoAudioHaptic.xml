@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name="Syncer@InterSyncer@UpdateFreqAdjuster@UpdateFreqAdjuster_DestinationVideoAudioHaptic.xml" version="0.1" />
+  </Info>
+  <ParameterList>
+    <parameter name="Name"          value="Video Audio Haptic Update Freq. Adjuster"/>
+    <parameter name="Resolution"    value="100"/>
+    <parameter name="WeightFactor"  value="1"/> <!-- 0 < WeightFactor <= 1 -->
+    <parameter name="Predictor"     value="Kalman"/>
+  </ParameterList>
+</ParameterContainer>

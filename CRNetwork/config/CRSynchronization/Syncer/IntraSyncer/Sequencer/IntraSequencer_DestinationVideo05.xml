@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name="Sequencer@IntraSequencer@IntraSequencer_DestinationVideo.xml" version="0.1" />
+  </Info>
+  <ParameterList>
+    <parameter name="Name"                    value="Video Destination Intra Sequencer 05"/>
+    <parameter name="MessageSize"             value="100" />;
+    <parameter name="MessageCount"            value="100" />
+    <parameter name="SequencerParameter"      value="config@CRSynchronization@Syncer@IntraSyncer@Sequencer@Sequence_Video.xml"/>
+    <parameter name="SequencerBoardParameter" value="config@CRSynchronization@Syncer@IntraSyncer@Sequencer@SequenceBoard_Video.xml"/>
+  </ParameterList>
+</ParameterContainer>
