@@ -358,8 +358,7 @@ void HandsTogether::SetupNetworkReceiver()
             add_task([this, user](rppanda::FunctionalTask*) {
                 if (openvr_manager_)
                 {
-                    auto object = openvr_manager_->get_object(0);
-                    user->SetAvatarModel(object->GetNodePath().copy_to(cr_world_->GetNodePath()));
+                    user->SetAvatarModel(openvr_manager_->get_plugin()->load_model(0));
                 }
                 else
                 {
