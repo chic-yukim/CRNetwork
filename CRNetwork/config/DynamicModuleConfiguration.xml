@@ -34,6 +34,17 @@
                     <x>-90</x>
                 </hpr>
             </user3>
+
+            <user4>
+                <position>
+                    <x>0</x>
+                    <y>0.6</y>
+                    <z>1.2</z>
+                </position>
+                <hpr>
+                    <x>180</x>
+                </hpr>
+            </user4>
         </user>
     </CRNetwork>
 </modules>
