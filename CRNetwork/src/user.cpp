@@ -103,7 +103,7 @@ void UserEntity::LoadHandModel(crsf::TAvatarMemoryObject* hand_memory_object, co
     m_pHand->ConstructPhysicsInteractor_FixedVertex_Sphere("resources/models/hands/PhysicsInteractorIndex_full_new.txt", 0.0025, false, false, "both");
 
     for (const auto& interactor : m_pHand->GetPhysicsInteractorList())
-        interactor.second->GetInteractorModel()->SetTag("system_index", std::to_string(m_systemIndex));
+        interactor.second->SetTag("system_index", std::to_string(m_systemIndex));
 }
 
 void UserEntity::SetVoice(crsf::TSoundMemoryObject* voice_mo)
