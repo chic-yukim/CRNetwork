@@ -26,6 +26,7 @@ find_package(imgui CONFIG REQUIRED)
 set_target_properties(imgui::imgui PROPERTIES MAP_IMPORTED_CONFIG_RELWITHDEBINFO RELEASE)
 
 render_pipeline_find_plugins("openvr")
+CRSeedLib_FIND_MODULES("openvr")
 # ==================================================================================================
 
 # === target =======================================================================================
