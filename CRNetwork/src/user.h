@@ -55,6 +55,7 @@ protected:
     crsf::TWorldObject* head_;
     crsf::TWorldObject* avatar_ = nullptr;
 
+    crsf::TAvatarMemoryObject* hand_mo_ = nullptr;
     crsf::TPointMemoryObject* point_mo_ = nullptr;
     crsf::TSoundMemoryObject* voice_mo_ = nullptr;
 };

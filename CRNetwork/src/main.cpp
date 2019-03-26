@@ -109,10 +109,10 @@ void HandsTogether::OnStart()
 
 void HandsTogether::OnExit()
 {
-    network_manager_->Exit();
+    m_users.clear();
     crsf::TAudioRenderEngine::GetInstance()->Deactivate();
     crsf::TPhysicsManager::GetInstance()->Exit();
-    m_users.clear();
+    network_manager_->Exit();
 }
 
 void HandsTogether::SetupNetwork()

@@ -68,13 +68,15 @@ void UserEntity::SetAvatarModel(const NodePath& np)
 
 void UserEntity::LoadHandModel(crsf::TAvatarMemoryObject* hand_memory_object, const LVecBase3f& m_vec3ZeroToSensor)
 {
+    hand_mo_ = hand_memory_object;
+
     auto rendering_engine = crsf::TGraphicRenderEngine::GetInstance();
     auto world = rendering_engine->GetWorld();
 
     // Set hand property
     crsf::TCRProperty crHandProperty;
     crHandProperty.m_propAvatar.SetJointNumber(44);
-    crHandProperty.m_propHand.m_strName = hand_memory_object->GetProperty().m_strName;
+    crHandProperty.m_propHand.m_strName = hand_mo_->GetProperty().m_strName;
     crHandProperty.m_propHand.m_vec3ZeroToSensor = m_vec3ZeroToSensor;
     crHandProperty.m_propHand.SetRenderMode(false, false, true);
 
@@ -97,7 +99,7 @@ void UserEntity::LoadHandModel(crsf::TAvatarMemoryObject* hand_memory_object, co
     // Set DSM for hand
     m_pHandInteractionEngineConnector = std::make_unique<crsf::THandInteractionEngineConnector>();
     m_pHandInteractionEngineConnector->Init(m_pHand.get());
-    m_pHandInteractionEngineConnector->ConnectHand(std::bind(&UserEntity::RenderHandModel, this, std::placeholders::_1), hand_memory_object);
+    m_pHandInteractionEngineConnector->ConnectHand(std::bind(&UserEntity::RenderHandModel, this, std::placeholders::_1), hand_mo_);
 
     // Add hand physics interactor
     m_pHand->ConstructPhysicsInteractor_FixedVertex_Sphere("resources/models/hands/PhysicsInteractorIndex_full_new.txt", 0.0025, false, false, "both");
@@ -144,7 +146,14 @@ LocalUserEntity::LocalUserEntity(unsigned int system_index) : UserEntity(system_
     point_mo_ = dsm->CreatePointMemoryObject(props);
 }
 
-LocalUserEntity::~LocalUserEntity() = default;
+LocalUserEntity::~LocalUserEntity()
+{
+    if (hand_mo_)
+        hand_mo_->DetachAvatarListener(std::to_string(m_systemIndex) + "-SendHand");
+
+    if (voice_mo_)
+        voice_mo_->DetachSoundListener(std::to_string(m_systemIndex) + "-SendVoice");
+}
 
 void LocalUserEntity::SetHeadMatrix(const LMatrix4f& mat)
 {
@@ -161,7 +170,7 @@ void LocalUserEntity::LoadHandModel(crsf::TAvatarMemoryObject* hand_memory_objec
     UserEntity::LoadHandModel(hand_memory_object, m_vec3ZeroToSensor);
 
     // hand to remote
-    hand_memory_object->AttachAvatarListener([this](crsf::TAvatarMemoryObject* amo) {
+    hand_mo_->AttachAvatarListener(std::to_string(m_systemIndex) + "-SendHand", [this](crsf::TAvatarMemoryObject* amo) {
         static double last = 0;
 
         auto now = rpcore::Globals::clock->get_real_time();
@@ -184,7 +193,7 @@ void LocalUserEntity::SetVoice(crsf::TSoundMemoryObject* voice_mo)
     if (!voice_mo_)
         return;
 
-    voice_mo_->AttachSoundListener([this](crsf::TSoundMemoryObject* smo) {
+    voice_mo_->AttachSoundListener(std::to_string(m_systemIndex) + "-SendVoice", [this](crsf::TSoundMemoryObject* smo) {
         auto nm = crsf::TNetworkManager::GetInstance();
         if (nm->GetStatus() == 4)
             nm->Send(smo, 2);
@@ -197,12 +206,16 @@ RemoteUserEntity::RemoteUserEntity(unsigned int system_index) : UserEntity(syste
 {
 }
 
-RemoteUserEntity::~RemoteUserEntity() = default;
+RemoteUserEntity::~RemoteUserEntity()
+{
+    if (point_mo_)
+        point_mo_->DetachPointListener(std::to_string(m_systemIndex) + "-UpdateHead");
+}
 
 void RemoteUserEntity::SetPointMemoryObject(crsf::TPointMemoryObject* pmo)
 {
     UserEntity::SetPointMemoryObject(pmo);
-    point_mo_->AttachPointListener([this](crsf::TPointMemoryObject* pmo) {
+    point_mo_->AttachPointListener(std::to_string(m_systemIndex) + "-UpdateHead", [this](crsf::TPointMemoryObject* pmo) {
         SetHeadMatrix(pmo->GetPointMemory(0).m_Pose.GetMatrix());
     });
 }
