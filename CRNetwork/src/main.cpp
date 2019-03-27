@@ -12,8 +12,6 @@
 #include <regex>
 #include <unordered_set>
 
-#include <materialCollection.h>
-
 #include <render_pipeline/rppanda/showbase/messenger.hpp>
 #include <render_pipeline/rppanda/showbase/loader.hpp>
 #include <render_pipeline/rppanda/showbase/showbase.hpp>
@@ -33,12 +31,9 @@
 #include <crsf/CRModel/TGraphicModel.h>
 #include <crsf/CRModel/TWorld.h>
 #include <crsf/CRModel/TCube.h>
-#include <crsf/CRModel/TCharacter.h>
 #include <crsf/RemoteWorldInterface/TNetworkManager.h>
 #include <crsf/RenderingEngine/TGraphicRenderEngine.h>
 #include <crsf/RenderingEngine/TAudioRenderEngine.h>
-
-#include <openvr_module.h>
 
 #include <rpplugins/openvr/plugin.hpp>
 

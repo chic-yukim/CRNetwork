@@ -1,11 +1,4 @@
-#include "User.h"
-
-#include <nodePath.h>
-#include <materialCollection.h>
-
-#include <render_pipeline/rppanda/showbase/showbase.hpp>
-#include <render_pipeline/rpcore/globals.hpp>
-#include <render_pipeline/rpcore/util/rpgeomnode.hpp>
+#include "user.h"
 
 #include <crsf/CoexistenceInterface/TDynamicStageMemory.h>
 #include <crsf/CoexistenceInterface/TAvatarMemoryObject.h>
@@ -16,12 +9,9 @@
 #include <crsf/CRModel/TWorld.h>
 #include <crsf/CRModel/TCRHand.h>
 #include <crsf/CRModel/TCRHand.h>
-#include <crsf/CRModel/TSphere.h>
 #include <crsf/CRModel/TCharacter.h>
 #include <crsf/CRModel/THandPhysicsInteractor.h>
 #include <crsf/RenderingEngine/TGraphicRenderEngine.h>
-#include <crsf/RemoteWorldInterface/TNetworkManager.h>
-#include <crsf/System/TCRProperty.h>
 #include <crsf/RenderingEngine/TAudioRenderEngine.h>
 
 UserEntity::UserEntity(unsigned int system_index) : m_systemIndex(system_index)
@@ -144,15 +134,18 @@ LocalUserEntity::LocalUserEntity(unsigned int system_index) : UserEntity(system_
     props.m_strName = "UserPoint";
     props.m_propPoint.m_nPointNumber = 1;
     point_mo_ = dsm->CreatePointMemoryObject(props);
+    dsm->EnableNetworking(point_mo_, 3, 1 / 30.0);
 }
 
 LocalUserEntity::~LocalUserEntity()
 {
+    auto dsm = crsf::TDynamicStageMemory::GetInstance();
+
     if (hand_mo_)
-        hand_mo_->DetachAvatarListener(std::to_string(m_systemIndex) + "-SendHand");
+        dsm->DisableNetworking(hand_mo_);
 
     if (voice_mo_)
-        voice_mo_->DetachSoundListener(std::to_string(m_systemIndex) + "-SendVoice");
+        dsm->DisableNetworking(voice_mo_);
 }
 
 void LocalUserEntity::SetHeadMatrix(const LMatrix4f& mat)
@@ -163,27 +156,14 @@ void LocalUserEntity::SetHeadMatrix(const LMatrix4f& mat)
     p.m_nIndex = 0;
     p.m_Pose.SetMatrix(mat);
     point_mo_->SetPointMemory(0, p);
+    point_mo_->UpdatePointMemoryObject();
 }
 
 void LocalUserEntity::LoadHandModel(crsf::TAvatarMemoryObject* hand_memory_object, const LVecBase3f& m_vec3ZeroToSensor)
 {
     UserEntity::LoadHandModel(hand_memory_object, m_vec3ZeroToSensor);
 
-    // hand to remote
-    hand_mo_->AttachAvatarListener(std::to_string(m_systemIndex) + "-SendHand", [this](crsf::TAvatarMemoryObject* amo) {
-        static double last = 0;
-
-        auto now = rpcore::Globals::clock->get_real_time();
-        if (now - last < 1.0 / 30.0)
-            return;
-        last = now;
-
-        auto nm = crsf::TNetworkManager::GetInstance();
-        if (nm->GetStatus() != 4)
-            return;
-        nm->Send(amo, 3);
-        nm->Send(point_mo_, 3);
-    });
+    crsf::TDynamicStageMemory::GetInstance()->EnableNetworking(hand_mo_, 3, 1 / 30.0);
 }
 
 void LocalUserEntity::SetVoice(crsf::TSoundMemoryObject* voice_mo)
@@ -193,11 +173,7 @@ void LocalUserEntity::SetVoice(crsf::TSoundMemoryObject* voice_mo)
     if (!voice_mo_)
         return;
 
-    voice_mo_->AttachSoundListener(std::to_string(m_systemIndex) + "-SendVoice", [this](crsf::TSoundMemoryObject* smo) {
-        auto nm = crsf::TNetworkManager::GetInstance();
-        if (nm->GetStatus() == 4)
-            nm->Send(smo, 2);
-    });
+    crsf::TDynamicStageMemory::GetInstance()->EnableNetworking(voice_mo_, 2);
 }
 
 // ************************************************************************************************
