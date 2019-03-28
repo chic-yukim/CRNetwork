@@ -88,8 +88,14 @@ void HandsTogether::OnStart()
         rendering_engine_->SetControllerInitialPosHpr(LVecBase3(0, -4.0f, 2.5f), LVecBase3(0, -24, 0));
     rendering_engine_->ResetControllerInitial();
 
-    add_task([this](rppanda::FunctionalTask*) {
-        SetupNetwork();
+    SetupNetwork();
+
+    do_method_later(1.0f, [this](rppanda::FunctionalTask*) {
+        if (network_manager_->GetStatus() != 4)
+        {
+            m_logger->debug("Waiting for establishing network connection ...");
+            return AsyncTask::DS_again;
+        }
 
         MakeScene();
         MakeHand();
