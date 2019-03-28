@@ -5,7 +5,7 @@
   </Info>
   <ParameterList>
     <parameter name="NetworkType" value="Socket_TCP"/>
-    <parameter name="ServerIP" value="161.122.113.165"/>  <!-- only for client-->
+    <parameter name="ServerIP" value="192.168.100.25"/>  <!-- only for client-->
     <parameter name="SocketPort" value="8431"/> <!-- only for client-->
   	<parameter name="NetworkBufferSize" value="1048576"/> <!-- byte -->
     <parameter name="SocketBufferSize" value="32768"/> <!-- byte -->
