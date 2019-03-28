@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <network>
-    <configpath>CRASNConfig_4Client_NC_VSMH_4Channel_1.xml</configpath>
+    <configpath>CRASNConfig_6Client_NC_VSMH_4Channel_1.xml</configpath>
     <channellist>
         <ch1>
             <buffer>6220800</buffer>
