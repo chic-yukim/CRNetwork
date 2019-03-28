@@ -89,11 +89,13 @@ void HandsTogether::OnStart()
     rendering_engine_->ResetControllerInitial();
 
     add_task([this](rppanda::FunctionalTask*) {
+        SetupNetwork();
+
         MakeScene();
         MakeHand();
-
         SetupMicrophone();
-        SetupNetwork();
+
+        scene_setup_finished_ = true;
         return AsyncTask::DS_done;
     }, "ExampleInterfaceNetworkd::MakeScene");
 
@@ -113,7 +115,6 @@ void HandsTogether::OnExit()
 void HandsTogether::SetupNetwork()
 {
     SetupNetworkReceiver();
-
     network_manager_->Init();
 }
 
@@ -300,7 +301,7 @@ void HandsTogether::MakeHand()
     {
         ResetControllerMatch();
 
-        user->add_task([this, user](rppanda::FunctionalTask* task) {
+        user->add_task([this, user](rppanda::FunctionalTask*) {
             auto world = rendering_engine_->GetWorld();
 
             user->SetHeadMatrix(openvr_manager_->get_object(0)->GetMatrix(world));
@@ -348,9 +349,13 @@ void HandsTogether::SetupNetworkReceiver()
         if (std::regex_match(crmemory->GetProperty().m_strName, match, std::regex("^.*-UserPoint$")))
         {
             auto pmo = dynamic_cast<crsf::TPointMemoryObject*>(crmemory);
-            auto user = GetUser(pmo->GetSystemIndex());
-            user->SetPointMemoryObject(pmo);
-            add_task([this, user](rppanda::FunctionalTask*) {
+            add_task([this, pmo](rppanda::FunctionalTask*) {
+                if (!scene_setup_finished_)
+                    return AsyncTask::DS_cont;
+
+                auto user = GetUser(pmo->GetSystemIndex());
+                user->SetPointMemoryObject(pmo);
+
                 if (openvr_manager_)
                 {
                     user->SetAvatarModel(openvr_manager_->get_plugin()->load_model(0));
@@ -363,7 +368,7 @@ void HandsTogether::SetupNetworkReceiver()
                 }
 
                 return AsyncTask::DS_done;
-            }, "LoadAvatarModel");
+            }, "load_avatar_" + std::to_string(pmo->GetSystemIndex()));
         }
         return false;
     });
@@ -376,11 +381,15 @@ void HandsTogether::SetupNetworkReceiver()
         if (std::regex_match(crmemory->GetProperty().m_strName, match, std::regex("^.*-Hands$")))
         {
             auto amo = dynamic_cast<crsf::TAvatarMemoryObject*>(crmemory);
-            auto user = GetUser(amo->GetSystemIndex());
-            add_task([this, user, amo](rppanda::FunctionalTask*) {
+            add_task([this, amo](rppanda::FunctionalTask*) {
+                if (!scene_setup_finished_)
+                    return AsyncTask::DS_cont;
+
+                auto user = GetUser(amo->GetSystemIndex());
                 user->LoadHandModel(amo);
+
                 return AsyncTask::DS_done;
-            }, "LoadHandModel");
+            }, "load_hand_" + std::to_string(amo->GetSystemIndex()));
         }
         return false;
     });
@@ -393,8 +402,15 @@ void HandsTogether::SetupNetworkReceiver()
         if (std::regex_match(crmemory->GetProperty().m_strName, match, std::regex("^.*-AudioCapture$")))
         {
             auto smo = dynamic_cast<crsf::TSoundMemoryObject*>(crmemory);
-            auto user = GetUser(smo->GetSystemIndex());
-            user->SetVoice(smo);
+            add_task([this, smo](rppanda::FunctionalTask*) {
+                if (!scene_setup_finished_)
+                    return AsyncTask::DS_cont;
+
+                auto user = GetUser(smo->GetSystemIndex());
+                user->SetVoice(smo);
+
+                return AsyncTask::DS_done;
+            }, "load_voice_" + std::to_string(smo->GetSystemIndex()));
         }
 
         return false;

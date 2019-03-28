@@ -71,6 +71,7 @@ private:
 
     crsf::TCube*                        m_pCube;
 
+    bool scene_setup_finished_ = false;
     std::unordered_map<unsigned int, std::unique_ptr<UserEntity>> m_users;
 
     std::array<unsigned int, 2> m_pControllerID;
