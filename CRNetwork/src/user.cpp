@@ -134,7 +134,7 @@ LocalUserEntity::LocalUserEntity(unsigned int system_index) : UserEntity(system_
     props.m_strName = "UserPoint";
     props.m_propPoint.m_nPointNumber = 1;
     point_mo_ = dsm->CreatePointMemoryObject(props);
-    dsm->EnableNetworking(point_mo_, 3, 1 / 30.0);
+    dsm->EnableNetworking(point_mo_, 3);
 }
 
 LocalUserEntity::~LocalUserEntity()
@@ -163,7 +163,7 @@ void LocalUserEntity::LoadHandModel(crsf::TAvatarMemoryObject* hand_memory_objec
 {
     UserEntity::LoadHandModel(hand_memory_object, m_vec3ZeroToSensor);
 
-    crsf::TDynamicStageMemory::GetInstance()->EnableNetworking(hand_mo_, 3, 1 / 30.0);
+    crsf::TDynamicStageMemory::GetInstance()->EnableNetworking(hand_mo_, 3);
 }
 
 void LocalUserEntity::SetVoice(crsf::TSoundMemoryObject* voice_mo)

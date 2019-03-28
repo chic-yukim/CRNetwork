@@ -10,6 +10,7 @@
             <buffer>8192</buffer>
         </ch2>
         <ch3>
+            <muxing/>
             <buffer>20000</buffer>
         </ch3>
         <ch4>
