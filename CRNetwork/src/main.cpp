@@ -316,16 +316,22 @@ void HandsTogether::MakeHand()
 
             if (m_pControllerID[0] != 0)
             {
-                auto pose = amo->GetAvatarMemory(21);
-                pose.SetMatrix(openvr_manager_->get_object(m_pControllerID[0])->GetMatrix(world));
-                amo->SetAvatarMemory(21, pose);
+                if (auto object = openvr_manager_->get_object(m_pControllerID[0]))
+                {
+                    auto pose = amo->GetAvatarMemory(21);
+                    pose.SetMatrix(object->GetMatrix(world));
+                    amo->SetAvatarMemory(21, pose);
+                }
             }
 
             if (m_pControllerID[1] != 0)
             {
-                auto pose = amo->GetAvatarMemory(43);
-                pose.SetMatrix(openvr_manager_->get_object(m_pControllerID[1])->GetMatrix(world));
-                amo->SetAvatarMemory(43, pose);
+                if (auto object = openvr_manager_->get_object(m_pControllerID[1]))
+                {
+                    auto pose = amo->GetAvatarMemory(43);
+                    pose.SetMatrix(object->GetMatrix(world));
+                    amo->SetAvatarMemory(43, pose);
+                }
             }
 
             amo->UpdateAvatarMemoryObject();
@@ -464,7 +470,7 @@ bool HandsTogether::UpdateObjectEvent(const std::shared_ptr<crsf::TCRModel>& MyM
     std::unordered_set<unsigned int> touched_users;
 
     const auto local_system_index = dsm_->GetSystemIndex();
-    auto contact_info = MyModel->GetPhysicsModel()->GetContactInfo();
+    const auto contact_info = MyModel->GetPhysicsModel()->GetContactInfo();
 
     bool is_hand_contacted[2] = { false, false };
     for (const auto& model : contact_info->GetContactedModel())
