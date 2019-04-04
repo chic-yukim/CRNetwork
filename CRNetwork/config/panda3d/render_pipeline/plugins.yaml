@@ -214,5 +214,4 @@ overrides:
         specular_cone_steps: 150
 
     openvr:
-        #openvr_sdk_path: /$$crsf/thirdparty/openvr
         load_render_model: false
