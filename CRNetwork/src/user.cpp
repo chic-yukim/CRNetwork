@@ -32,6 +32,8 @@ UserEntity::UserEntity(unsigned int system_index) : m_systemIndex(system_index)
 UserEntity::~UserEntity()
 {
     StopVoice();
+
+    root_->DetachWorldObject();
 }
 
 void UserEntity::SetPointMemoryObject(crsf::TPointMemoryObject* pmo)
@@ -72,7 +74,7 @@ void UserEntity::SetControllerModel(int side, const NodePath& np)
 
     auto model = crsf::CreateObject(np);
     controllers_[side].model = model.get();
-    head_->AddWorldObject(controllers_[side].model);
+    controllers_[side].root->AddWorldObject(controllers_[side].model);
 }
 
 void UserEntity::SetVoice(crsf::TSoundMemoryObject* voice_mo)
