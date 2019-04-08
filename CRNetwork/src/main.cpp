@@ -25,8 +25,6 @@
 #include <crsf/CoexistenceInterface/TDynamicStageMemory.h>
 #include <crsf/CoexistenceInterface/TPointMemoryObject.h>
 #include <crsf/CoexistenceInterface/TSoundMemoryObject.h>
-#include <crsf/CoexistenceInterface/TAvatarMemoryObject.h>
-#include <crsf/CREngine/TPhysicsManager.h>
 #include <crsf/CREngine/TDynamicModuleManager.h>
 #include <crsf/CRModel/TGraphicModel.h>
 #include <crsf/CRModel/TWorld.h>
@@ -61,10 +59,6 @@ HandsTogether::~HandsTogether() = default;
 void HandsTogether::OnLoad()
 {
     cr_world_ = rendering_engine_->GetWorld();
-
-    crsf::TPhysicsManager* physics_manager = crsf::TPhysicsManager::GetInstance();
-    physics_manager->Init(crsf::EPHYX_ENGINE_BULLET);
-    physics_manager->SetGravity(LVecBase3(0.0f, 0.0f, -0.98f));
 }
 
 void HandsTogether::OnStart()
@@ -91,14 +85,14 @@ void HandsTogether::OnStart()
     SetupNetwork();
 
     do_method_later(1.0f, [this](rppanda::FunctionalTask*) {
-        if (network_manager_->GetStatus() != 4)
+        if (!network_manager_->IsConnected())
         {
             m_logger->debug("Waiting for establishing network connection ...");
             return AsyncTask::DS_again;
         }
 
         MakeScene();
-        MakeHand();
+        SetupLocalUser();
         SetupMicrophone();
 
         scene_setup_finished_ = true;
@@ -112,9 +106,10 @@ void HandsTogether::OnStart()
 
 void HandsTogether::OnExit()
 {
+    remove_all_tasks();
+
     m_users.clear();
     crsf::TAudioRenderEngine::GetInstance()->Deactivate();
-    crsf::TPhysicsManager::GetInstance()->Exit();
     network_manager_->Exit();
 }
 
@@ -122,11 +117,6 @@ void HandsTogether::SetupNetwork()
 {
     SetupNetworkReceiver();
     network_manager_->Init();
-}
-
-void HandsTogether::StartPhysicsEngine()
-{
-	crsf::TPhysicsManager::GetInstance()->Start();
 }
 
 UserEntity* HandsTogether::GetUser(unsigned int system_index)
@@ -142,8 +132,6 @@ UserEntity* HandsTogether::GetUser(unsigned int system_index)
 
 void HandsTogether::ResetUserPose()
 {
-    auto cube_position = m_pCube->GetPosition();
-
     LVecBase3f head_position;
     LVecBase3f head_hpr;
     head_position.set(
@@ -196,51 +184,8 @@ void HandsTogether::ResetControllerMatch()
     m_logger->info("Found {} controllers", hand_index);
 }
 
-void HandsTogether::ToggleControllerVisibility()
-{
-    if (!openvr_manager_)
-        return;
-
-    for (auto id : { m_pControllerID[0], m_pControllerID[1] })
-    {
-        if (id == 0)
-            continue;
-
-        if (auto object = openvr_manager_->get_object(id))
-        {
-            if (object->IsHidden())
-                object->Show();
-            else
-                object->Hide();
-        }
-    }
-}
-
 void HandsTogether::MakeScene()
 {
-    // Load table model file
-    crsf::TWorldObject* table = cr_world_->LoadPandaModel("resources/models/Ikea_Lisabo_table/Ikea_Lisabo_table.bam");
-    table->SetScale(LVecBase3(1.05f));
-    table->SetPosition(LVecBase3(0.0f), cr_world_);
-
-    {
-        // Set table graphics
-        crsf::TCube::Parameters params;
-        params.m_strName = "test_table";
-        params.m_vec3Origin = LVecBase3(0.0f, 0.0f, 0.74f);
-        params.m_vec3HalfExtent = LVecBase3(0.7f, 0.39f, 0.037f);
-        auto m_pTable = crsf::CreateObject<crsf::TCube>(params);
-        auto m_pTableGraphicModel = m_pTable->CreateGraphicModel();
-        m_pTableGraphicModel->Hide();
-        cr_world_->AddWorldObject(m_pTable);
-
-        // Set table physics
-        crsf::TPhysicsModel::Parameters phyx_params;
-        phyx_params.m_fMass = 0.0f;
-        auto pTablePhysicsModel = m_pTable->CreatePhysicsModel(phyx_params);
-        crsf::TPhysicsManager::GetInstance()->AddModel(m_pTable);
-    }
-
     // Set cube graphics
     crsf::TCube::Parameters params;
     params.m_strName = "test_Cube";
@@ -256,90 +201,45 @@ void HandsTogether::MakeScene()
 
     cr_world_->AddWorldObject(pCube);
 
-    // Set cube physics
-    crsf::TPhysicsModel::Parameters phyx_params;
-    phyx_params.m_fMass = 1000.0f;
-    auto pCubePhysicsModel = pCube->CreatePhysicsModel(phyx_params);
-    crsf::TPhysicsManager::GetInstance()->AddModel(pCube);
-
-    crsf::TPhysicsManager::GetInstance()->AddTask([this]() {
-        m_pCube->SetPosition(0.0f, 0.0f, 0.82f);
-        m_pCube->SetRotation(LQuaternionf::ident_quat());
-        return false;
-    }, "StaticCube");
-
-    pCubePhysicsModel->AttachUpdateListener(boost::bind(&HandsTogether::UpdateObjectEvent, this, _1), "HandsTogether::UpdateObjectEvent::pCubePhysicsModel");
-
-    auto user = GetUser(dsm_->GetSystemIndex());     // make local user
-    ResetUserPose();
+    add_task([this](rppanda::FunctionalTask*) {
+        CheckCubeState();
+        return AsyncTask::DS_cont;
+    }, "check_cube_state");
 }
 
-void HandsTogether::MakeHand()
+void HandsTogether::SetupLocalUser()
 {
-    LVecBase3 m_vec3ZeroToSensor(0);
-    if (crsf::TDynamicModuleManager::GetInstance()->IsModuleEnabled("leap_motion"))
-    {
-        float m_vec3ZeroToSensor_x = m_property.get("handprop.m_vec3ZeroToSensor_x", 0.0f);
-        float m_vec3ZeroToSensor_y = m_property.get("handprop.m_vec3ZeroToSensor_y", -0.4f);
-        float m_vec3ZeroToSensor_z = m_property.get("handprop.m_vec3ZeroToSensor_z", 1.2f);
-        m_vec3ZeroToSensor = LVecBase3f(m_vec3ZeroToSensor_x, m_vec3ZeroToSensor_y, m_vec3ZeroToSensor_z);;
-    }
-
-    // remove device dependency for local hands
-    crsf::TAvatarMemoryObject* hand_amo;
-    if (dsm_->HasMemoryObject<crsf::TAvatarMemoryObject>("Hands"))
-    {
-        hand_amo = dsm_->GetAvatarMemoryObjectByName("Hands");
-    }
-    else
-    {
-        crsf::TCRProperty props;
-        props.m_strName = "Hands";
-        props.m_propAvatar.m_nJointNumber = 44;
-        hand_amo = dsm_->CreateAvatarMemoryObject(props);
-    }
-
     auto user = GetUser(dsm_->GetSystemIndex());
+    ResetUserPose();
 
-    user->LoadHandModel(hand_amo, m_vec3ZeroToSensor);
+    if (!openvr_manager_)
+        return;
 
-    if (openvr_manager_)
-    {
-        ResetControllerMatch();
+    ResetControllerMatch();
 
-        user->add_task([this, user](rppanda::FunctionalTask*) {
-            auto world = rendering_engine_->GetWorld();
+    user->add_task([this, user](rppanda::FunctionalTask*) {
+        auto world = rendering_engine_->GetWorld();
 
-            user->SetHeadMatrix(openvr_manager_->get_object(0)->GetMatrix(world));
+        user->SetHeadMatrix(openvr_manager_->get_object(0)->GetMatrix(world));
 
-            auto amo = dsm_->GetAvatarMemoryObjectByName("Hands");
-
-            if (m_pControllerID[0] != 0)
+        if (m_pControllerID[0] != 0)
+        {
+            if (auto object = openvr_manager_->get_object(m_pControllerID[0]))
             {
-                if (auto object = openvr_manager_->get_object(m_pControllerID[0]))
-                {
-                    auto pose = amo->GetAvatarMemory(21);
-                    pose.SetMatrix(object->GetMatrix(world));
-                    amo->SetAvatarMemory(21, pose);
-                }
+                user->SetControllerMatrix(0, object->GetMatrix(world));
             }
+        }
 
-            if (m_pControllerID[1] != 0)
+        if (m_pControllerID[1] != 0)
+        {
+            if (auto object = openvr_manager_->get_object(m_pControllerID[1]))
             {
-                if (auto object = openvr_manager_->get_object(m_pControllerID[1]))
-                {
-                    auto pose = amo->GetAvatarMemory(43);
-                    pose.SetMatrix(object->GetMatrix(world));
-                    amo->SetAvatarMemory(43, pose);
-                }
+                user->SetControllerMatrix(1, object->GetMatrix(world));
             }
+        }
 
-            amo->UpdateAvatarMemoryObject();
-            return AsyncTask::DS_cont;
-        }, "update_hand_pose", -5);
-
-        ToggleControllerVisibility();
-    }
+        return AsyncTask::DS_cont;
+    }, "update_openvr_to_user", -5);
 }
 
 void HandsTogether::SetupMicrophone()
@@ -358,7 +258,7 @@ void HandsTogether::SetupNetworkReceiver()
             return false;
 
         std::smatch match;
-        if (std::regex_match(crmemory->GetProperty().m_strName, match, std::regex("^.*-UserPoint$")))
+        if (std::regex_match(crmemory->GetProperty().m_strName, match, std::regex("^.*-UserState$")))
         {
             auto pmo = dynamic_cast<crsf::TPointMemoryObject*>(crmemory);
             add_task([this, pmo](rppanda::FunctionalTask*) {
@@ -371,37 +271,29 @@ void HandsTogether::SetupNetworkReceiver()
                 if (openvr_manager_)
                 {
                     user->SetAvatarModel(openvr_manager_->get_plugin()->load_model(0));
+
+                    auto controller_model = openvr_manager_->get_plugin()->load_model("vr_controller_vive_1_5");
+                    for (size_t k = 0; k < 2; ++k)
+                    {
+                        user->SetControllerModel(k, controller_model.copy_to(rpcore::Globals::render));
+                    }
                 }
                 else
                 {
                     auto head = rpcore::create_cube("head");
                     head.set_scale(0.1f);
                     user->SetAvatarModel(head);
+
+                    auto controller = rpcore::create_cube("controller");
+                    controller.set_scale(0.05f);
+                    for (size_t k = 0; k < 2; ++k)
+                    {
+                        user->SetControllerModel(k, controller.copy_to(rpcore::Globals::render));
+                    }
                 }
 
                 return AsyncTask::DS_done;
             }, "load_avatar_" + std::to_string(pmo->GetSystemIndex()));
-        }
-        return false;
-    });
-
-    dsm_->AttachCreateEventListener<crsf::TAvatarMemoryObject>([this](crsf::TCRMemory* crmemory) {
-        if (dsm_->IsLocalMemory(crmemory))
-            return false;
-
-        std::smatch match;
-        if (std::regex_match(crmemory->GetProperty().m_strName, match, std::regex("^.*-Hands$")))
-        {
-            auto amo = dynamic_cast<crsf::TAvatarMemoryObject*>(crmemory);
-            add_task([this, amo](rppanda::FunctionalTask*) {
-                if (!scene_setup_finished_)
-                    return AsyncTask::DS_cont;
-
-                auto user = GetUser(amo->GetSystemIndex());
-                user->LoadHandModel(amo);
-
-                return AsyncTask::DS_done;
-            }, "load_hand_" + std::to_string(amo->GetSystemIndex()));
         }
         return false;
     });
@@ -465,52 +357,46 @@ void HandsTogether::UpdateCubeColor(bool contacted)
     mat.set_base_color(contacted ? LColor(0.2, 0.2, 1.0, 1) : LColorf(1.0, 0.2, 0.2, 1));
 }
 
-bool HandsTogether::UpdateObjectEvent(const std::shared_ptr<crsf::TCRModel>& MyModel)
+void HandsTogether::CheckCubeState()
 {
-    std::unordered_set<unsigned int> touched_users;
+    static bool prev_all_touched = false;
 
-    const auto local_system_index = dsm_->GetSystemIndex();
-    const auto contact_info = MyModel->GetPhysicsModel()->GetContactInfo();
-
-    bool is_hand_contacted[2] = { false, false };
-    for (const auto& model : contact_info->GetContactedModel())
+    const auto my_system_index = dsm_->GetSystemIndex();
+    bool my_touched[2] = { false, false };
+    bool all_touched = true;
+    const auto& cube_pos = m_pCube->GetPosition();
+    for (const auto& user : m_users)
     {
-        if (model->GetModelGroup() != crsf::EMODEL_GROUP_HANDPHYSICSINTERACTOR)
-            continue;
-
-        std::smatch match;
-        if (std::regex_match(model->GetName(), match, std::regex(".*Hands_PhysicsInteractor_3DModel_Fixed0_([0-9]+)")))
+        bool touched = false;
+        for (size_t k = 0; k < 2; ++k)
         {
-            unsigned int system_index = std::stoi(model->GetTag("system_index"));
-            if (m_users.find(system_index) == m_users.end())
+            auto controller = user.second->GetController(k);
+            if (controller)
             {
-                m_logger->error("Invalid system index ({}). Please set correct tag.", system_index);
-                break;
-            }
-
-            touched_users.insert(system_index);
-            if (system_index == local_system_index)
-            {
-                if (std::stoi(match[1]) <= 9043)
-                    is_hand_contacted[0] = true;
-                else
-                    is_hand_contacted[1] = true;
+                if ((controller->GetPosition() - cube_pos).length() < 0.12)
+                {
+                    touched = true;
+                    if (user.second->GetSystemIndex() == my_system_index)
+                        my_touched[k] = true;
+                }
             }
         }
+
+        all_touched = all_touched && touched;
     }
 
-    m_logger->trace("Touched Users: {}, current users: {}", touched_users.size(), m_users.size());
-    if (touched_users.size() == m_users.size())
+    if (all_touched)
     {
-        int contact_id = (is_hand_contacted[0] ? 1 : 0) * 1 + (is_hand_contacted[1] ? 1 : 0) * 2;
+        int contact_id = (my_touched[0] ? 1 : 0) + ((my_touched[1] ? 1 : 0) << 1);
         rpcore::Globals::base->get_messenger()->send("AllUserTouched", EventParameter(contact_id), true);
     }
     else
     {
-        rpcore::Globals::base->get_messenger()->send("NotTouched", true);
+        if (prev_all_touched)
+            rpcore::Globals::base->get_messenger()->send("NotTouched", true);
     }
 
-    return false;
+    prev_all_touched = all_touched;
 }
 
 void HandsTogether::SetupEvent()
@@ -518,5 +404,4 @@ void HandsTogether::SetupEvent()
     accept("openvr::k_EButton_Grip", [this](const Event* ev) { ResetUserPose(); });
     accept("AllUserTouched", [this](const Event* ev) { AllUserTouchedEvent(ev); });
     accept("NotTouched", [this](const Event* ev) { NotTouchedEvent(ev); });
-    accept("0", [this](const Event*) { StartPhysicsEngine(); });
 }

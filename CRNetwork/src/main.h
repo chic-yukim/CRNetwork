@@ -16,7 +16,6 @@ namespace crsf {
 class TDynamicStageMemory;
 class TGraphicRenderEngine;
 class TNetworkManager;
-class TCRModel;
 class TCube;
 class TWorld;
 }
@@ -40,20 +39,18 @@ private:
     friend class MainGUI;
 
     void MakeScene();
-    void MakeHand();
+    void SetupLocalUser();
     void SetupMicrophone();
     void SetupNetworkReceiver();
 
     void SetupEvent();
 
     void SetupNetwork();
-    void StartPhysicsEngine();
 
     UserEntity* GetUser(unsigned int system_index);
     void ResetUserPose();
     void ResetControllerMatch();
-    void ToggleControllerVisibility();
-    bool UpdateObjectEvent(const std::shared_ptr<crsf::TCRModel>& MyModel);
+    void CheckCubeState();
 
     void AllUserTouchedEvent(const Event* ev);
     void NotTouchedEvent(const Event* ev);

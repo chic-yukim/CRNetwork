@@ -32,9 +32,6 @@ void MainGUI::on_imgui_new_frame()
 {
     ImGui::Begin("HandsTogether", &is_open_);
 
-    if (ImGui::Button("Start Physics Engine"))
-        app_.StartPhysicsEngine();
-
     if (ImGui::Button("Reset User Pose"))
         app_.ResetUserPose();
 
@@ -44,11 +41,6 @@ void MainGUI::on_imgui_new_frame()
     if (ImGui::Button("Vibrate Controller"))
     {
         app_.VibrateController(0);
-    }
-
-    if (ImGui::Button("Show/Hide Controller"))
-    {
-        app_.ToggleControllerVisibility();
     }
 
     ui_openvr();

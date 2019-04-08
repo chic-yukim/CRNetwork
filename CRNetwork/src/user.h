@@ -9,9 +9,6 @@
 
 namespace crsf {
 class TWorldObject;
-class TCRHand;
-class THandInteractionEngineConnector;
-class TAvatarMemoryObject;
 class TPointMemoryObject;
 class TSoundMemoryObject;
 }
@@ -28,26 +25,20 @@ public:
     crsf::TPointMemoryObject* GetPointMemoryObject() const;
     virtual void SetPointMemoryObject(crsf::TPointMemoryObject* pmo);
 
+    virtual crsf::TWorldObject* GetHead() const;
     virtual void SetHeadMatrix(const LMatrix4f& mat);
-
-    crsf::TCRHand* GetHand() const;
-
     virtual void SetAvatarModel(const NodePath& np);
-    virtual void LoadHandModel(crsf::TAvatarMemoryObject* hand_memory_object, const LVecBase3f& m_vec3ZeroToSensor=LVecBase3f(0));
+
+    virtual crsf::TWorldObject* GetController(int side) const;
+    virtual void SetControllerMatrix(int side, const LMatrix4f& mat);
+    virtual void SetControllerModel(int side, const NodePath& np);
 
     virtual void SetVoice(crsf::TSoundMemoryObject* voice_mo);
     virtual void PlayVoice() {}
     virtual void StopVoice() {}
 
-    // Hand parameter
-    std::unique_ptr<crsf::TCRHand> m_pHand;
-    crsf::TWorldObject* m_pHandObject;
-    std::unique_ptr<crsf::THandInteractionEngineConnector> m_pHandInteractionEngineConnector;
-
 protected:
     UserEntity(unsigned int system_index);
-
-    void RenderHandModel(crsf::TAvatarMemoryObject *pAvatarMemoryObject);
 
     const unsigned int m_systemIndex;
 
@@ -55,7 +46,13 @@ protected:
     crsf::TWorldObject* head_;
     crsf::TWorldObject* avatar_ = nullptr;
 
-    crsf::TAvatarMemoryObject* hand_mo_ = nullptr;
+    struct ControllerData
+    {
+        crsf::TWorldObject* root;
+        crsf::TWorldObject* model = nullptr;
+    };
+    std::array<ControllerData, 2> controllers_;
+
     crsf::TPointMemoryObject* point_mo_ = nullptr;
     crsf::TSoundMemoryObject* voice_mo_ = nullptr;
 };
@@ -70,9 +67,14 @@ inline crsf::TPointMemoryObject* UserEntity::GetPointMemoryObject() const
     return point_mo_;
 }
 
-inline crsf::TCRHand* UserEntity::GetHand() const
+inline crsf::TWorldObject* UserEntity::GetHead() const
 {
-    return m_pHand.get();
+    return head_;
+}
+
+inline crsf::TWorldObject* UserEntity::GetController(int side) const
+{
+    return controllers_[side].root;
 }
 
 // ************************************************************************************************
@@ -83,9 +85,6 @@ public:
     LocalUserEntity(unsigned int system_index);
     ~LocalUserEntity() override;
 
-    void SetHeadMatrix(const LMatrix4f& mat) override;
-
-    void LoadHandModel(crsf::TAvatarMemoryObject* hand_memory_object, const LVecBase3f& m_vec3ZeroToSensor = LVecBase3f(0)) override;
     void SetVoice(crsf::TSoundMemoryObject* voice_mo) override;
 };
 
