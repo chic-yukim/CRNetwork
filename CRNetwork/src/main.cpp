@@ -37,7 +37,10 @@
 
 #include "main_gui/main_gui.hpp"
 #include "openvr_manager.hpp"
-#include "user.h"
+#include "local_user.hpp"
+#include "remote_user.hpp"
+
+#include <render_pipeline/rpcore/util/rpgeomnode.hpp>
 
 CRSEEDLIB_MODULE_CREATOR(HandsTogether);
 
@@ -119,15 +122,15 @@ void HandsTogether::SetupNetwork()
     network_manager_->Init();
 }
 
-UserEntity* HandsTogether::GetUser(unsigned int system_index)
+User* HandsTogether::GetUser(unsigned int system_index)
 {
     if (m_users.find(system_index) != m_users.end())
         return m_users[system_index].get();
 
     if (system_index == dsm_->GetSystemIndex())
-        return m_users.emplace(system_index, std::make_unique<LocalUserEntity>(system_index)).first->second.get();
+        return m_users.emplace(system_index, std::make_unique<LocalUser>(system_index)).first->second.get();
     else
-        return m_users.emplace(system_index, std::make_unique<RemoteUserEntity>(system_index)).first->second.get();
+        return m_users.emplace(system_index, std::make_unique<RemoteUser>(system_index)).first->second.get();
 }
 
 void HandsTogether::ResetUserPose()

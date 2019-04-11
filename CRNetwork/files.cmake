@@ -14,12 +14,16 @@ set(source_src_main_gui
 )
 
 set(source_src
+    "${PROJECT_SOURCE_DIR}/src/local_user.cpp"
+    "${PROJECT_SOURCE_DIR}/src/local_user.hpp"
     "${PROJECT_SOURCE_DIR}/src/main.cpp"
     "${PROJECT_SOURCE_DIR}/src/main.h"
     "${PROJECT_SOURCE_DIR}/src/openvr_manager.cpp"
     "${PROJECT_SOURCE_DIR}/src/openvr_manager.hpp"
+    "${PROJECT_SOURCE_DIR}/src/remote_user.cpp"
+    "${PROJECT_SOURCE_DIR}/src/remote_user.hpp"
     "${PROJECT_SOURCE_DIR}/src/user.cpp"
-    "${PROJECT_SOURCE_DIR}/src/user.h"
+    "${PROJECT_SOURCE_DIR}/src/user.hpp"
 )
 
 # grouping

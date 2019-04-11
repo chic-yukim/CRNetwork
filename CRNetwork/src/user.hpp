@@ -15,10 +15,10 @@ class TSoundMemoryObject;
 
 class NodePath;
 
-class UserEntity : public rppanda::DirectObject
+class User : public rppanda::DirectObject
 {
 public:
-    virtual ~UserEntity();
+    virtual ~User();
 
     unsigned int GetSystemIndex() const;
 
@@ -38,7 +38,7 @@ public:
     virtual void StopVoice() {}
 
 protected:
-    UserEntity(unsigned int system_index);
+    User(unsigned int system_index);
 
     const unsigned int m_systemIndex;
 
@@ -57,48 +57,22 @@ protected:
     crsf::TSoundMemoryObject* voice_mo_ = nullptr;
 };
 
-inline unsigned int UserEntity::GetSystemIndex() const
+inline unsigned int User::GetSystemIndex() const
 {
     return m_systemIndex;
 }
 
-inline crsf::TPointMemoryObject* UserEntity::GetPointMemoryObject() const
+inline crsf::TPointMemoryObject* User::GetPointMemoryObject() const
 {
     return point_mo_;
 }
 
-inline crsf::TWorldObject* UserEntity::GetHead() const
+inline crsf::TWorldObject* User::GetHead() const
 {
     return head_;
 }
 
-inline crsf::TWorldObject* UserEntity::GetController(int side) const
+inline crsf::TWorldObject* User::GetController(int side) const
 {
     return controllers_[side].root;
 }
-
-// ************************************************************************************************
-
-class LocalUserEntity : public UserEntity
-{
-public:
-    LocalUserEntity(unsigned int system_index);
-    ~LocalUserEntity() override;
-
-    void SetVoice(crsf::TSoundMemoryObject* voice_mo) override;
-};
-
-// ************************************************************************************************
-
-class RemoteUserEntity : public UserEntity
-{
-public:
-    RemoteUserEntity(unsigned int system_index);
-    ~RemoteUserEntity() override;
-
-    void SetPointMemoryObject(crsf::TPointMemoryObject* pmo) override;
-
-    void SetVoice(crsf::TSoundMemoryObject* voice_mo) override;
-    void PlayVoice() override;
-    void StopVoice() override;
-};
