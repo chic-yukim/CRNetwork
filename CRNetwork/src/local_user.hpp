@@ -8,5 +8,5 @@ public:
     LocalUser(unsigned int system_index);
     ~LocalUser() override;
 
-    void SetVoice(crsf::TSoundMemoryObject* voice_mo) override;
+    void set_voice(crsf::TSoundMemoryObject* voice_mo) override;
 };

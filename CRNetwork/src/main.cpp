@@ -223,13 +223,13 @@ void HandsTogether::SetupLocalUser()
     user->add_task([this, user](rppanda::FunctionalTask*) {
         auto world = rendering_engine_->GetWorld();
 
-        user->SetHeadMatrix(openvr_manager_->get_object(0)->GetMatrix(world));
+        user->set_head_matrix(openvr_manager_->get_object(0)->GetMatrix(world));
 
         if (m_pControllerID[0] != 0)
         {
             if (auto object = openvr_manager_->get_object(m_pControllerID[0]))
             {
-                user->SetControllerMatrix(0, object->GetMatrix(world));
+                user->set_controller_matrix(0, object->GetMatrix(world));
             }
         }
 
@@ -237,7 +237,7 @@ void HandsTogether::SetupLocalUser()
         {
             if (auto object = openvr_manager_->get_object(m_pControllerID[1]))
             {
-                user->SetControllerMatrix(1, object->GetMatrix(world));
+                user->set_controller_matrix(1, object->GetMatrix(world));
             }
         }
 
@@ -251,7 +251,7 @@ void HandsTogether::SetupMicrophone()
     m_pAudioRenderingEngine->Setup();
     m_pAudioRenderingEngine->Render();
 
-    GetUser(dsm_->GetSystemIndex())->SetVoice(crsf::TAudioRenderEngine::GetInstance()->GetCaptureMemoryObject());
+    GetUser(dsm_->GetSystemIndex())->set_voice(crsf::TAudioRenderEngine::GetInstance()->GetCaptureMemoryObject());
 }
 
 void HandsTogether::SetupNetworkReceiver()
@@ -269,29 +269,29 @@ void HandsTogether::SetupNetworkReceiver()
                     return AsyncTask::DS_cont;
 
                 auto user = GetUser(pmo->GetSystemIndex());
-                user->SetPointMemoryObject(pmo);
+                user->set_point_memory_object(pmo);
 
                 if (openvr_manager_)
                 {
-                    user->SetAvatarModel(openvr_manager_->get_plugin()->load_model(0));
+                    user->set_avatar_model(openvr_manager_->get_plugin()->load_model(0));
 
                     auto controller_model = openvr_manager_->get_plugin()->load_model("vr_controller_vive_1_5");
                     for (size_t k = 0; k < 2; ++k)
                     {
-                        user->SetControllerModel(k, controller_model.copy_to(rpcore::Globals::render));
+                        user->set_controller_model(k, controller_model.copy_to(rpcore::Globals::render));
                     }
                 }
                 else
                 {
                     auto head = rpcore::create_cube("head");
                     head.set_scale(0.1f);
-                    user->SetAvatarModel(head);
+                    user->set_avatar_model(head);
 
                     auto controller = rpcore::create_cube("controller");
                     controller.set_scale(0.05f);
                     for (size_t k = 0; k < 2; ++k)
                     {
-                        user->SetControllerModel(k, controller.copy_to(rpcore::Globals::render));
+                        user->set_controller_model(k, controller.copy_to(rpcore::Globals::render));
                     }
                 }
 
@@ -314,7 +314,7 @@ void HandsTogether::SetupNetworkReceiver()
                     return AsyncTask::DS_cont;
 
                 auto user = GetUser(smo->GetSystemIndex());
-                user->SetVoice(smo);
+                user->set_voice(smo);
 
                 return AsyncTask::DS_done;
             }, "load_voice_" + std::to_string(smo->GetSystemIndex()));
@@ -373,13 +373,13 @@ void HandsTogether::CheckCubeState()
         bool touched = false;
         for (size_t k = 0; k < 2; ++k)
         {
-            auto controller = user.second->GetController(k);
+            auto controller = user.second->get_controller(k);
             if (controller)
             {
                 if ((controller->GetPosition() - cube_pos).length() < 0.12)
                 {
                     touched = true;
-                    if (user.second->GetSystemIndex() == my_system_index)
+                    if (user.second->get_system_index() == my_system_index)
                         my_touched[k] = true;
                 }
             }

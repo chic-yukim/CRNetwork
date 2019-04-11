@@ -46,9 +46,9 @@ LocalUser::~LocalUser()
         dsm->DisableNetworking(voice_mo_);
 }
 
-void LocalUser::SetVoice(crsf::TSoundMemoryObject* voice_mo)
+void LocalUser::set_voice(crsf::TSoundMemoryObject* voice_mo)
 {
-    User::SetVoice(voice_mo);
+    User::set_voice(voice_mo);
 
     if (!voice_mo_)
         return;

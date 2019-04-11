@@ -12,32 +12,32 @@ RemoteUser::RemoteUser(unsigned int system_index) : User(system_index)
 RemoteUser::~RemoteUser()
 {
     if (point_mo_)
-        point_mo_->DetachPointListener(std::to_string(m_systemIndex) + "-update-user-state");
+        point_mo_->DetachPointListener(std::to_string(system_index_) + "-update-user-state");
 }
 
-void RemoteUser::SetPointMemoryObject(crsf::TPointMemoryObject* pmo)
+void RemoteUser::set_point_memory_object(crsf::TPointMemoryObject* pmo)
 {
-    User::SetPointMemoryObject(pmo);
-    point_mo_->AttachPointListener(std::to_string(m_systemIndex) + "-update-user-state", [this](crsf::TPointMemoryObject* pmo) {
-        SetHeadMatrix(pmo->GetPointMemory(0).m_Pose.GetMatrix());
+    User::set_point_memory_object(pmo);
+    point_mo_->AttachPointListener(std::to_string(system_index_) + "-update-user-state", [this](crsf::TPointMemoryObject* pmo) {
+        set_head_matrix(pmo->GetPointMemory(0).m_Pose.GetMatrix());
 
         for (size_t k = 0; k < controllers_.size(); ++k)
-            SetControllerMatrix(k, pmo->GetPointMemory(k + 1).m_Pose.GetMatrix());
+            set_controller_matrix(k, pmo->GetPointMemory(k + 1).m_Pose.GetMatrix());
     });
 }
 
-void RemoteUser::SetVoice(crsf::TSoundMemoryObject* voice_mo)
+void RemoteUser::set_voice(crsf::TSoundMemoryObject* voice_mo)
 {
-    User::SetVoice(voice_mo);
-    PlayVoice();
+    User::set_voice(voice_mo);
+    play_voice();
 }
 
-void RemoteUser::PlayVoice()
+void RemoteUser::play_voice()
 {
     crsf::TAudioRenderEngine::GetInstance()->AddOutputAudio(voice_mo_);
 }
 
-void RemoteUser::StopVoice()
+void RemoteUser::stop_voice()
 {
     crsf::TAudioRenderEngine::GetInstance()->RemoveOutputAudio(voice_mo_);
 }

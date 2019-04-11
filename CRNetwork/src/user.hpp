@@ -20,27 +20,27 @@ class User : public rppanda::DirectObject
 public:
     virtual ~User();
 
-    unsigned int GetSystemIndex() const;
+    unsigned int get_system_index() const;
 
-    crsf::TPointMemoryObject* GetPointMemoryObject() const;
-    virtual void SetPointMemoryObject(crsf::TPointMemoryObject* pmo);
+    crsf::TPointMemoryObject* get_point_memory_object() const;
+    virtual void set_point_memory_object(crsf::TPointMemoryObject* pmo);
 
-    virtual crsf::TWorldObject* GetHead() const;
-    virtual void SetHeadMatrix(const LMatrix4f& mat);
-    virtual void SetAvatarModel(const NodePath& np);
+    virtual crsf::TWorldObject* get_head() const;
+    virtual void set_head_matrix(const LMatrix4f& mat);
+    virtual void set_avatar_model(const NodePath& np);
 
-    virtual crsf::TWorldObject* GetController(int side) const;
-    virtual void SetControllerMatrix(int side, const LMatrix4f& mat);
-    virtual void SetControllerModel(int side, const NodePath& np);
+    virtual crsf::TWorldObject* get_controller(int side) const;
+    virtual void set_controller_matrix(int side, const LMatrix4f& mat);
+    virtual void set_controller_model(int side, const NodePath& np);
 
-    virtual void SetVoice(crsf::TSoundMemoryObject* voice_mo);
-    virtual void PlayVoice() {}
-    virtual void StopVoice() {}
+    virtual void set_voice(crsf::TSoundMemoryObject* voice_mo);
+    virtual void play_voice() {}
+    virtual void stop_voice() {}
 
 protected:
     User(unsigned int system_index);
 
-    const unsigned int m_systemIndex;
+    const unsigned int system_index_;
 
     crsf::TWorldObject* root_;
     crsf::TWorldObject* head_;
@@ -57,22 +57,22 @@ protected:
     crsf::TSoundMemoryObject* voice_mo_ = nullptr;
 };
 
-inline unsigned int User::GetSystemIndex() const
+inline unsigned int User::get_system_index() const
 {
-    return m_systemIndex;
+    return system_index_;
 }
 
-inline crsf::TPointMemoryObject* User::GetPointMemoryObject() const
+inline crsf::TPointMemoryObject* User::get_point_memory_object() const
 {
     return point_mo_;
 }
 
-inline crsf::TWorldObject* User::GetHead() const
+inline crsf::TWorldObject* User::get_head() const
 {
     return head_;
 }
 
-inline crsf::TWorldObject* User::GetController(int side) const
+inline crsf::TWorldObject* User::get_controller(int side) const
 {
     return controllers_[side].root;
 }

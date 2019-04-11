@@ -3,7 +3,7 @@
 #include <crsf/CRModel/TWorld.h>
 #include <crsf/RenderingEngine/TGraphicRenderEngine.h>
 
-User::User(unsigned int system_index) : m_systemIndex(system_index)
+User::User(unsigned int system_index) : system_index_(system_index)
 {
     auto rendering_engine = crsf::TGraphicRenderEngine::GetInstance();
     auto world = rendering_engine->GetWorld();
@@ -26,27 +26,27 @@ User::User(unsigned int system_index) : m_systemIndex(system_index)
 
 User::~User()
 {
-    StopVoice();
+    stop_voice();
 
     root_->DetachWorldObject();
 }
 
-void User::SetPointMemoryObject(crsf::TPointMemoryObject* pmo)
+void User::set_point_memory_object(crsf::TPointMemoryObject* pmo)
 {
     point_mo_ = pmo;
 }
 
-void User::SetHeadMatrix(const LMatrix4f& mat)
+void User::set_head_matrix(const LMatrix4f& mat)
 {
     head_->SetMatrix(mat);
 }
 
-void User::SetControllerMatrix(int side, const LMatrix4f& mat)
+void User::set_controller_matrix(int side, const LMatrix4f& mat)
 {
     controllers_[side].root->SetMatrix(mat);
 }
 
-void User::SetAvatarModel(const NodePath& np)
+void User::set_avatar_model(const NodePath& np)
 {
     if (!np)
         return;
@@ -59,7 +59,7 @@ void User::SetAvatarModel(const NodePath& np)
     head_->AddWorldObject(avatar);
 }
 
-void User::SetControllerModel(int side, const NodePath& np)
+void User::set_controller_model(int side, const NodePath& np)
 {
     if (!np)
         return;
@@ -72,7 +72,7 @@ void User::SetControllerModel(int side, const NodePath& np)
     controllers_[side].root->AddWorldObject(controllers_[side].model);
 }
 
-void User::SetVoice(crsf::TSoundMemoryObject* voice_mo)
+void User::set_voice(crsf::TSoundMemoryObject* voice_mo)
 {
     voice_mo_ = voice_mo;
 }
