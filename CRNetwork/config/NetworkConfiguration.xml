@@ -3,18 +3,18 @@
     <configpath>CRASNConfig_6Client_NC_VSMH_4Channel_1.xml</configpath>
     <channellist>
         <ch1>
-            <buffer>6220800</buffer>
+            <buffer>1048576</buffer>
             <codec>hw</codec>
         </ch1>
         <ch2>
-            <buffer>8192</buffer>
+            <buffer>20480</buffer>
         </ch2>
         <ch3>
             <muxing/>
-            <buffer>20000</buffer>
+            <buffer>8192</buffer>
         </ch3>
         <ch4>
-            <buffer>8192</buffer>
+            <buffer>1048576</buffer>
         </ch4>
     </channellist>
 </network>
