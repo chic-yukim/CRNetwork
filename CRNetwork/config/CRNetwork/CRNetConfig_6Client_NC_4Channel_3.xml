@@ -23,14 +23,14 @@
     <CommLink name="Data/Physics_Link13" CommNode="CommNode/DestinationPhysics13" Channel="Channel/Recv/Physics13"/>
     <CommLink name="Data/Physics_Link23" CommNode="CommNode/DestinationPhysics23" Channel="Channel/Recv/Physics23"/>
     <CommLink name="Data/Physics_Link43" CommNode="CommNode/DestinationPhysics43" Channel="Channel/Recv/Physics43"/>
-    <CommLink name="Data/Physics_Link53" CommNode="CommNode/DestinationPhysics23" Channel="Channel/Recv/Physics53"/>
-    <CommLink name="Data/Physics_Link63" CommNode="CommNode/DestinationPhysics43" Channel="Channel/Recv/Physics63"/>
+    <CommLink name="Data/Physics_Link53" CommNode="CommNode/DestinationPhysics53" Channel="Channel/Recv/Physics53"/>
+    <CommLink name="Data/Physics_Link63" CommNode="CommNode/DestinationPhysics63" Channel="Channel/Recv/Physics63"/>
     <CommLink name="Data/Control_Link1" CommNode="CommNode/SourceControl" Channel="Channel/Send/Control03"/>
     <CommLink name="Data/Control_Link13" CommNode="CommNode/DestinationControl13" Channel="Channel/Recv/Control13"/>	
     <CommLink name="Data/Control_Link23" CommNode="CommNode/DestinationControl23" Channel="Channel/Recv/Control23"/>	
     <CommLink name="Data/Control_Link43" CommNode="CommNode/DestinationControl43" Channel="Channel/Recv/Control43"/>	
-    <CommLink name="Data/Control_Link53" CommNode="CommNode/DestinationControl23" Channel="Channel/Recv/Control53"/>    
-    <CommLink name="Data/Control_Link63" CommNode="CommNode/DestinationControl43" Channel="Channel/Recv/Control63"/>    
+    <CommLink name="Data/Control_Link53" CommNode="CommNode/DestinationControl53" Channel="Channel/Recv/Control53"/>    
+    <CommLink name="Data/Control_Link63" CommNode="CommNode/DestinationControl63" Channel="Channel/Recv/Control63"/>    
   </CommunicationLinkList>
   <CommunicationNodeList>
 	  <SourceList>
