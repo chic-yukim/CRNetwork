@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NetworkConfig>
+  <Info>
+    <Container name ="CRNetConfigClient1" version="1.0"/>
+    <Topology name ="CS" role="Client"/> <!-- CS, P2P, Relay--> <!-- Client, Server-->
+    <StateConfig type="file" value ="config@CRNetwork@System@NetStateManager.xml"/>
+    <Monitoring name="TBD" type="TBD"/> <!-- TBD, LatencyCheck, --> <!-- TBD, RTT,-->
+  </Info>
+  <CommunicationLinkList>
+    <CommLink name="Data/Video_Link1" CommNode="CommNode/SourceVideo" Channel="Channel/Send/Video05"/>
+    <CommLink name="Data/Video_Link15" CommNode="CommNode/DestinationVideo15" Channel="Channel/Recv/Video15"/>
+    <CommLink name="Data/Video_Link25" CommNode="CommNode/DestinationVideo25" Channel="Channel/Recv/Video25"/>
+    <CommLink name="Data/Video_Link35" CommNode="CommNode/DestinationVideo35" Channel="Channel/Recv/Video35"/>
+    <CommLink name="Data/Video_Link45" CommNode="CommNode/DestinationVideo45" Channel="Channel/Recv/Video45"/>
+    <CommLink name="Data/Video_Link65" CommNode="CommNode/DestinationVideo65" Channel="Channel/Recv/Video65"/>
+    <CommLink name="Data/Audio_Link1" CommNode="CommNode/SourceAudio" Channel="Channel/Send/Audio05"/>
+    <CommLink name="Data/Audio_Link15" CommNode="CommNode/DestinationAudio15" Channel="Channel/Recv/Audio15"/>	
+    <CommLink name="Data/Audio_Link25" CommNode="CommNode/DestinationAudio25" Channel="Channel/Recv/Audio25"/>	
+    <CommLink name="Data/Audio_Link35" CommNode="CommNode/DestinationAudio35" Channel="Channel/Recv/Audio35"/>	
+    <CommLink name="Data/Audio_Link45" CommNode="CommNode/DestinationAudio45" Channel="Channel/Recv/Audio45"/>	
+    <CommLink name="Data/Audio_Link65" CommNode="CommNode/DestinationAudio65" Channel="Channel/Recv/Audio65"/>	
+    <CommLink name="Data/Physics_Link1" CommNode="CommNode/SourcePhysics" Channel="Channel/Send/Physics05"/>
+    <CommLink name="Data/Physics_Link15" CommNode="CommNode/DestinationPhysics15" Channel="Channel/Recv/Physics15"/>
+    <CommLink name="Data/Physics_Link25" CommNode="CommNode/DestinationPhysics25" Channel="Channel/Recv/Physics25"/>
+    <CommLink name="Data/Physics_Link35" CommNode="CommNode/DestinationPhysics35" Channel="Channel/Recv/Physics35"/>
+    <CommLink name="Data/Physics_Link45" CommNode="CommNode/DestinationPhysics45" Channel="Channel/Recv/Physics45"/>
+    <CommLink name="Data/Physics_Link65" CommNode="CommNode/DestinationPhysics65" Channel="Channel/Recv/Physics65"/>
+    <CommLink name="Data/Control_Link1" CommNode="CommNode/SourceControl" Channel="Channel/Send/Control05"/>
+    <CommLink name="Data/Control_Link15" CommNode="CommNode/DestinationControl15" Channel="Channel/Recv/Control15"/>	
+    <CommLink name="Data/Control_Link25" CommNode="CommNode/DestinationControl25" Channel="Channel/Recv/Control25"/>	
+    <CommLink name="Data/Control_Link35" CommNode="CommNode/DestinationControl35" Channel="Channel/Recv/Control35"/>	
+    <CommLink name="Data/Control_Link45" CommNode="CommNode/DestinationControl45" Channel="Channel/Recv/Control45"/>	
+    <CommLink name="Data/Control_Link65" CommNode="CommNode/DestinationControl65" Channel="Channel/Recv/Control65"/>	
+  </CommunicationLinkList>
+  <CommunicationNodeList>
+	  <SourceList>
+	    <Source name="CommNode/SourceVideo" value="CommNode@Source1.xml"/>
+        <Source name="CommNode/SourceAudio" value="CommNode@Source2.xm1"/>	  
+	    <Source name="CommNode/SourcePhysics" value="CommNode@Source1.xml"/>
+        <Source name="CommNode/SourceControl" value="CommNode@Source2.xm1"/>	  
+    </SourceList>
+	  <DestinationList>
+		  <Destination name="CommNode/DestinationVideo15" value="CommNode@Source1Destination1.xml"/>
+		  <Destination name="CommNode/DestinationVideo25" value="CommNode@Source1Destination1.xml"/>
+		  <Destination name="CommNode/DestinationVideo35" value="CommNode@Source1Destination1.xml"/>
+		  <Destination name="CommNode/DestinationVideo45" value="CommNode@Source1Destination1.xml"/>
+		  <Destination name="CommNode/DestinationVideo65" value="CommNode@Source1Destination1.xml"/>
+		  <Destination name="CommNode/DestinationAudio15" value="CommNode@Source1Destination2.xml"/>		  
+		  <Destination name="CommNode/DestinationAudio25" value="CommNode@Source1Destination2.xml"/>		  
+		  <Destination name="CommNode/DestinationAudio35" value="CommNode@Source1Destination2.xml"/>		  
+		  <Destination name="CommNode/DestinationAudio45" value="CommNode@Source1Destination2.xml"/>		  
+		  <Destination name="CommNode/DestinationAudio65" value="CommNode@Source1Destination2.xml"/>		  
+		  <Destination name="CommNode/DestinationPhysics15" value="CommNode@Source1Destination1.xml"/>
+		  <Destination name="CommNode/DestinationPhysics25" value="CommNode@Source1Destination1.xml"/>
+		  <Destination name="CommNode/DestinationPhysics35" value="CommNode@Source1Destination1.xml"/>
+		  <Destination name="CommNode/DestinationPhysics45" value="CommNode@Source1Destination1.xml"/>
+		  <Destination name="CommNode/DestinationPhysics65" value="CommNode@Source1Destination1.xml"/>
+		  <Destination name="CommNode/DestinationControl15" value="CommNode@Source1Destination2.xml"/>		  
+		  <Destination name="CommNode/DestinationControl25" value="CommNode@Source1Destination2.xml"/>		  
+		  <Destination name="CommNode/DestinationControl35" value="CommNode@Source1Destination2.xml"/>		  
+		  <Destination name="CommNode/DestinationControl45" value="CommNode@Source1Destination2.xml"/>		  
+		  <Destination name="CommNode/DestinationControl65" value="CommNode@Source1Destination2.xml"/>		  
+	  </DestinationList>
+  </CommunicationNodeList>
+  <ChannelList>
+    <Channel name="Channel/Send/Video05" value="config@CRNetwork@Channel@DataChannel@Send_Video05.xml"/>
+    <Channel name="Channel/Recv/Video15" value="config@CRNetwork@Channel@DataChannel@Recv_Video15.xml"/>
+    <Channel name="Channel/Recv/Video25" value="config@CRNetwork@Channel@DataChannel@Recv_Video25.xml"/>
+    <Channel name="Channel/Recv/Video35" value="config@CRNetwork@Channel@DataChannel@Recv_Video35.xml"/>
+    <Channel name="Channel/Recv/Video45" value="config@CRNetwork@Channel@DataChannel@Recv_Video45.xml"/>
+    <Channel name="Channel/Recv/Video65" value="config@CRNetwork@Channel@DataChannel@Recv_Video65.xml"/>
+    <Channel name="Channel/Send/Audio05" value="config@CRNetwork@Channel@DataChannel@Send_Audio05.xml"/>
+    <Channel name="Channel/Recv/Audio15" value="config@CRNetwork@Channel@DataChannel@Recv_Audio15.xml"/>	
+    <Channel name="Channel/Recv/Audio25" value="config@CRNetwork@Channel@DataChannel@Recv_Audio25.xml"/>	
+    <Channel name="Channel/Recv/Audio35" value="config@CRNetwork@Channel@DataChannel@Recv_Audio35.xml"/>	
+    <Channel name="Channel/Recv/Audio45" value="config@CRNetwork@Channel@DataChannel@Recv_Audio45.xml"/>	
+    <Channel name="Channel/Recv/Audio65" value="config@CRNetwork@Channel@DataChannel@Recv_Audio65.xml"/>	
+    <Channel name="Channel/Send/Physics05" value="config@CRNetwork@Channel@DataChannel@Send_Physics05.xml"/>
+    <Channel name="Channel/Recv/Physics15" value="config@CRNetwork@Channel@DataChannel@Recv_Physics15.xml"/>
+    <Channel name="Channel/Recv/Physics25" value="config@CRNetwork@Channel@DataChannel@Recv_Physics25.xml"/>
+    <Channel name="Channel/Recv/Physics35" value="config@CRNetwork@Channel@DataChannel@Recv_Physics35.xml"/>
+    <Channel name="Channel/Recv/Physics45" value="config@CRNetwork@Channel@DataChannel@Recv_Physics45.xml"/>
+    <Channel name="Channel/Recv/Physics65" value="config@CRNetwork@Channel@DataChannel@Recv_Physics65.xml"/>
+    <Channel name="Channel/Send/Control05" value="config@CRNetwork@Channel@DataChannel@Send_Control05.xml"/>
+    <Channel name="Channel/Recv/Control15" value="config@CRNetwork@Channel@DataChannel@Recv_Control15.xml"/>	
+    <Channel name="Channel/Recv/Control25" value="config@CRNetwork@Channel@DataChannel@Recv_Control25.xml"/>	
+    <Channel name="Channel/Recv/Control35" value="config@CRNetwork@Channel@DataChannel@Recv_Control35.xml"/>	
+    <Channel name="Channel/Recv/Control45" value="config@CRNetwork@Channel@DataChannel@Recv_Control45.xml"/>	
+    <Channel name="Channel/Recv/Control65" value="config@CRNetwork@Channel@DataChannel@Recv_Control65.xml"/>	
+  </ChannelList>
+</NetworkConfig>

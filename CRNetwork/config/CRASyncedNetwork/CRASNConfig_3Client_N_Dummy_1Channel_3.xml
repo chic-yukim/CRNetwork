@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ASNConfig>
+  <InfoList>
+    <Info name ="ASNVersion" value="1.0"/>
+    <Info name ="Configuration" value="CRASN_Example"/>
+    <Info name ="ASNType" value="N"/>
+    <!-- NCS=N+C+S, NC=N+C, NS=N+S, N, NCS = (N)etwork + (C)odec + (S)ynchronization -->
+    <Info name ="CRSFHeader" value="Detach"/> <!--Attach, Detach-->
+    <Info name ="PrintError" value="yes"/> <!-- yes, no -->
+	<Info name ="ASNStateManagerFileName" value="config@CRASyncedNetwork@State@ASNStateManager.xml"/>
+  </InfoList>
+  <ASNLinkList>
+    <ASNLink>
+      <Property name="ASNSourceVideo" mediatype="VideoRawDepth"/>
+      <Connection ASNNode ="ASNNode/Data/SourceVideo" SyncNode="SyncNode/SourceVideo" CodecNode="CodecNode/SourceVideo01" CommNode="CommNode/SourceVideo"/>
+    </ASNLink>   
+    <ASNLink>
+      <Property name="ASNDestinationVideo13" mediatype=""/>
+      <Connection ASNNode ="ASNNode/Data/DestinationVideo13" SyncNode="SyncNode/DestinationVideo" CodecNode="CodecNode/DestinationVideo01" CommNode="CommNode/DestinationVideo13"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNDestinationVideo23" mediatype=""/>
+      <Connection ASNNode ="ASNNode/Data/DestinationVideo23" SyncNode="SyncNode/DestinationVideo" CodecNode="CodecNode/DestinationVideo02" CommNode="CommNode/DestinationVideo23"/>
+    </ASNLink>
+  </ASNLinkList>
+  <ASyncedNetworkNodeList>
+    <SourceList>
+      <Source name="ASNNode/Data/SourceVideo"/>
+    </SourceList>
+    <DestinationList>
+      <Destination name="ASNNode/Data/DestinationVideo13"/>
+      <Destination name="ASNNode/Data/DestinationVideo23"/>
+    </DestinationList>
+  </ASyncedNetworkNodeList>
+  <SynchronizationNodeList>
+	  <SourceList>
+		  <Source name="SyncNode/SourceVideo"/>        
+	  </SourceList>
+	  <DestinationList>
+		  <Destination name="SyncNode/DestinationVideo"/>        
+	  </DestinationList>
+  </SynchronizationNodeList>
+  <CodecNodeList>
+	  <SourceList>
+		  <Source name="CodecNode/SourceVideo01"/>
+	  </SourceList>
+	  <DestinationList>
+		  <Destination name="CodecNode/DestinationVideo01"/>
+	  </DestinationList>
+  </CodecNodeList>
+  <CommunicationNodeList>
+	  <SourceList>
+	  <Source name="CommNode/SourceVideo"/>
+    </SourceList>
+	  <DestinationList>
+		  <Destination name="CommNode/DestinationVideo13" />
+      <Destination name="CommNode/DestinationVideo23" />
+	  </DestinationList>
+  </CommunicationNodeList>
+  <ConfigurationList>
+    <Configuration name="Network" value="config@CRNetwork@CRNetConfig_3Client_N_Dummy_1Channel_3.xml"/>
+    <Configuration name="Codec" value="config@CRCodec@CRCodecConfig.xml"/>
+    <Configuration name="Synchronization" value="config@CRSynchronization@CRSyncConfig.xml"/>
+    <Configuration name="MediaType" value="config@CRSynchronization@Syncer@CRSyncMediaType.xml"/>
+  </ConfigurationList>
+</ASNConfig>

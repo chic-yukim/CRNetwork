@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ASNConfig>
+  <InfoList>
+    <Info name ="ASNVersion" value="1.0"/>
+    <Info name ="Configuration" value="CRASN_Example"/>
+    <Info name ="ASNType" value="N"/> <!-- NCS=N+C+S, NC=N+C, NS=N+S, N, NCS = (N)etwork + (C)odec + (S)ynchronization -->
+    <Info name ="CRSFHeader" value="Detach"/> <!--Attach, Detach-->
+    <Info name ="PrintError" value="no"/> <!-- yes, no -->
+	<Info name ="ASNStateManagerFileName" value="config@CRASyncedNetwork@State@ASNStateManager.xml"/>
+  </InfoList>
+  <ASNLinkList>
+    <ASNLink>
+      <Property name="ASNSourceControl01" mediatype=""/>
+      <Connection ASNNode="ASNNode/Control/SourceControl01" SyncNode="SyncNode/SourceSyncControl" CodecNode="None" CommNode="CommNode/SourceControl01"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNDestinationControl01" mediatype=""/>
+      <Connection ASNNode ="ASNNode/Control/DestinationControl01" SyncNode="SyncNode/DestinationSyncControl" CodecNode="None" CommNode="CommNode/DestinationControl01"/>
+    </ASNLink>
+  </ASNLinkList>
+  <ASyncedNetworkNodeList>
+    <SourceList>
+      <Source name="ASNNode/Control/SourceControl01"/>
+    </SourceList>
+    <DestinationList>
+      <Destination name="ASNNode/Control/DestinationControl01"/>
+    </DestinationList>
+  </ASyncedNetworkNodeList>
+  <SynchronizationNodeList>
+	  <SourceList>
+		  <Source name="SyncNode/SourceSyncControl"/>
+	  </SourceList>
+	  <DestinationList>
+		  <Destination name="SyncNode/DestinationSyncControl"/>
+	  </DestinationList>
+  </SynchronizationNodeList>
+  <CodecNodeList>
+	  <SourceList>
+	  </SourceList>
+	  <DestinationList>
+	  </DestinationList>
+  </CodecNodeList>
+  <CommunicationNodeList>
+	  <SourceList>
+      <Source name="CommNode/SourceControl01"/>
+    </SourceList>
+	  <DestinationList>
+      	<Destination name="CommNode/DestinationControl01" />
+	  </DestinationList>
+  </CommunicationNodeList>
+  <ConfigurationList>
+    <Configuration name="Network" value="config@CRNetwork@CRNetConfig4ControlServer.xml"/>
+    <Configuration name="Codec" value="config@CRCodec@CRCodecConfig.xml"/>
+    <Configuration name="Synchronization" value="config@CRSynchronization@CRSyncConfig.xml"/>
+    <Configuration name="MediaType" value="config@CRSynchronization@Syncer@CRSyncMediaType.xml"/>
+  </ConfigurationList>
+</ASNConfig>

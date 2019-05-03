@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name="Syncer@IntraSyncer@PlayoutScheduler@PlayoutScheduler_Haptic04.xml" version="0.1" />
+  </Info>
+  <ParameterList>
+    <parameter name="Name"                value="Haptic Destination Intra PlayoutScheduler 04"/>
+    <parameter name="MaxBufferSize"       value="200"/>        <!-- bytes -->
+    <parameter name="MaxBufferCount"      value="500"/>        <!--Buffer Count -->
+    <parameter name="MaxQueueSize"        value="200"/>        <!--Buffer Size-->
+    <parameter name="BufferAllocType"     value="Prealloc" />
+    <parameter name="ExitType"            value="1"/>          <!--eCSAFEQUEUEWORKER_EXIT_IMMEDIATE = 0, eCSAFEQUEUEWORKER_EXIT_UNTILDONE = 1-->
+    <parameter name="ScheduleMode"        value="1"/>          <!--TBD = -1, ByPass = 0, Scheduling = 1-->
+    <parameter name="SchedulerType"       value="0"/>          <!--TBD = -1, TimeBased = 0 etc-->
+    <parameter name="FrameRate"           value="60"/>
+    <parameter name="PlayoutDelay"        value="100"/>
+    <parameter name="MessageSize"         value="1000"/>
+    <parameter name="MessageCount"        value="100"/>
+    <parameter name="Scalable"            value="1"/>
+    <parameter name="MinQueueSize"        value="300"/>
+    <parameter name="TrendAlgorithm"      value="1"/>
+  </ParameterList>
+</ParameterContainer>

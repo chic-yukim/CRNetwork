@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ASNConfig>
+  <InfoList>
+    <Info name ="ASNVersion" value="1.0"/>
+    <Info name ="Configuration" value="CRASN_Example"/>
+    <Info name ="ASNType" value="N"/>
+    <!-- NCS=N+C+S, NC=N+C, NS=N+S, N, NCS = (N)etwork + (C)odec + (S)ynchronization -->
+    <Info name ="CRSFHeader" value="Detach"/> <!--Attach, Detach-->
+    <Info name ="PrintError" value="no"/> <!-- yes, no -->
+	<Info name ="ASNStateManagerFileName" value="config@CRASyncedNetwork@State@ASNStateManager.xml"/>
+  </InfoList>
+  <ASNLinkList>
+	<ASNLink>
+      <Property name="ASNControlSource" mediatype=""/>
+      <Connection ASNNode ="ASNNode/Control/ControlSource" SyncNode="" CodecNode="" CommNode="CommNode/ControlSource"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNControlDestination1" mediatype=""/>
+      <Connection ASNNode ="ASNNode/Control/ControlDestination01" SyncNode="" CodecNode="" CommNode="CommNode/ControlDestination01"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNControlDestination2" mediatype=""/>
+      <Connection ASNNode ="ASNNode/Control/ControlDestination02" SyncNode="" CodecNode="" CommNode="CommNode/ControlDestination02"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNControlDestination3" mediatype=""/>
+      <Connection ASNNode ="ASNNode/Control/ControlDestination03" SyncNode="" CodecNode="" CommNode="CommNode/ControlDestination03"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNControlDestination4" mediatype=""/>
+      <Connection ASNNode ="ASNNode/Control/ControlDestination04" SyncNode="" CodecNode="" CommNode="CommNode/ControlDestination04"/>
+    </ASNLink>
+  </ASNLinkList>
+  <ASyncedNetworkNodeList>
+    <SourceList>
+      <Source name="ASNNode/Control/ControlSource"/>
+    </SourceList>
+    <DestinationList>
+      <Destination name="ASNNode/Data/DestinationAudio19"/>
+      <Destination name="ASNNode/Data/DestinationAudio29"/>
+      <Destination name="ASNNode/Data/DestinationAudio39"/>
+      <Destination name="ASNNode/Data/DestinationAudio49"/>
+      <Destination name="ASNNode/Control/ControlDestination01"/>
+      <Destination name="ASNNode/Control/ControlDestination02"/>
+      <Destination name="ASNNode/Control/ControlDestination03"/>
+      <Destination name="ASNNode/Control/ControlDestination04"/>
+    </DestinationList>
+  </ASyncedNetworkNodeList>
+  <SynchronizationNodeList>
+    <SourceList>
+      <Source name="SyncNode/SourceVideo01"/>
+      <Source name="SyncNode/SourceAudio01"/>
+      <Source name="SyncNode/SourceMotion01"/>
+      <Source name="SyncNode/SourceControl01"/>
+    </SourceList>
+    <DestinationList>
+      <Destination name="SyncNode/DestinationVideo01"/>
+      <Destination name="SyncNode/DestinationAudio01"/>
+      <Destination name="SyncNode/DestinationMotion01"/>
+      <Destination name="SyncNode/DestinationControl01"/>
+      <Destination name="SyncNode/DestinationVideo02"/>
+      <Destination name="SyncNode/DestinationAudio02"/>
+      <Destination name="SyncNode/DestinationMotion02"/>
+      <Destination name="SyncNode/DestinationControl02"/>
+    </DestinationList>
+  </SynchronizationNodeList>
+  <CodecNodeList>
+	  <SourceList>
+	  </SourceList>
+	  <DestinationList>		  
+	  </DestinationList>
+  </CodecNodeList>
+  <CommunicationNodeList>
+	  <SourceList>
+	  <Source name="CommNode/SourceAudio"/>
+	  <Source name="CommNode/ControlSource"/>
+    </SourceList>
+	  <DestinationList>
+		  <Destination name="CommNode/DestinationAudio19" />
+		  <Destination name="CommNode/DestinationAudio29" />
+		  <Destination name="CommNode/DestinationAudio39" />
+		  <Destination name="CommNode/DestinationAudio49" />
+		  <Destination name="CommNode/ControlDestination01" />
+		  <Destination name="CommNode/ControlDestination02" />
+		  <Destination name="CommNode/ControlDestination03" />
+		  <Destination name="CommNode/ControlDestination04" />
+	  </DestinationList>
+  </CommunicationNodeList>
+  <ConfigurationList>
+    <Configuration name="Network" value="config@CRNetwork@CRNetConfig_4Client_Monitor_4Channel_monitor.xml"/>
+    <Configuration name="Codec" value="config@CRCodec@CRCodecConfig1.xml"/>
+    <Configuration name="Synchronization" value="config@CRSynchronization@CRSyncConfigVideoAudioMotion.xml"/>
+    <Configuration name="MediaType" value="config@CRSynchronization@Syncer@CRSyncMediaType.xml"/>
+  </ConfigurationList>
+</ASNConfig>
+

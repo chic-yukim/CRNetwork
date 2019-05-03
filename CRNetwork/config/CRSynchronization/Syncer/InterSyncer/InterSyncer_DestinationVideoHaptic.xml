@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name="Syncer@InterSyncer@InterSyncer_DestinationVideoHaptic.xml" version="0.1" />
+  </Info>
+  <ParameterList>
+    <parameter name="Name"                        value="VideoHaptic Destination InterSyncer"/>
+    <parameter name="MessageSize"                 value="1024" />
+    <parameter name="MessageCount"                value="10" />
+    <parameter name="InterSyncerParameter"        value=""/>
+    <!-- PlayoutController Parameter -->
+    <parameter name="PlayoutControllerParameter"  value="config@CRSynchronization@Syncer@InterSyncer@PlayoutController@PlayoutController_DestinationVideoHaptic.xml"/>
+  </ParameterList>
+</ParameterContainer>
