@@ -26,7 +26,6 @@ public:
     virtual void set_point_memory_object(crsf::TPointMemoryObject* pmo);
 
     virtual crsf::TWorldObject* get_head() const;
-    virtual void set_head_matrix(const LMatrix4f& mat);
     virtual void set_avatar_model(const NodePath& np);
 
     virtual crsf::TWorldObject* get_controller(int side) const;
@@ -56,6 +55,8 @@ protected:
     crsf::TPointMemoryObject* point_mo_ = nullptr;
     crsf::TSoundMemoryObject* voice_mo_ = nullptr;
 };
+
+// ************************************************************************************************
 
 inline unsigned int User::get_system_index() const
 {

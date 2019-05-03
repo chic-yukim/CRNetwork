@@ -8,7 +8,7 @@ User::User(unsigned int system_index) : system_index_(system_index)
     auto rendering_engine = crsf::TGraphicRenderEngine::GetInstance();
     auto world = rendering_engine->GetWorld();
 
-    auto user = crsf::CreateObject<crsf::TWorldObject>("User" + std::to_string(system_index));
+    auto user = crsf::CreateObject<crsf::TWorldObject>("User" + std::to_string(system_index_));
     root_ = user.get();
     world->AddWorldObject(user);
 
@@ -34,11 +34,6 @@ User::~User()
 void User::set_point_memory_object(crsf::TPointMemoryObject* pmo)
 {
     point_mo_ = pmo;
-}
-
-void User::set_head_matrix(const LMatrix4f& mat)
-{
-    head_->SetMatrix(mat);
 }
 
 void User::set_controller_matrix(int side, const LMatrix4f& mat)

@@ -19,7 +19,8 @@ void RemoteUser::set_point_memory_object(crsf::TPointMemoryObject* pmo)
 {
     User::set_point_memory_object(pmo);
     point_mo_->AttachPointListener(std::to_string(system_index_) + "-update-user-state", [this](crsf::TPointMemoryObject* pmo) {
-        set_head_matrix(pmo->GetPointMemory(0).m_Pose.GetMatrix());
+        if (head_)
+            head_->SetMatrix(pmo->GetPointMemory(0).m_Pose.GetMatrix());
 
         for (size_t k = 0; k < controllers_.size(); ++k)
             set_controller_matrix(k, pmo->GetPointMemory(k + 1).m_Pose.GetMatrix());

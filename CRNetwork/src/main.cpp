@@ -29,6 +29,7 @@
 #include <crsf/CRModel/TGraphicModel.h>
 #include <crsf/CRModel/TWorld.h>
 #include <crsf/CRModel/TCube.h>
+#include <crsf/CRModel/TCamera.h>
 #include <crsf/RemoteWorldInterface/TNetworkManager.h>
 #include <crsf/RenderingEngine/TGraphicRenderEngine.h>
 #include <crsf/RenderingEngine/TAudioRenderEngine.h>
@@ -143,7 +144,7 @@ void HandsTogether::ResetUserPose()
         m_property.get("user.user" + std::to_string(dsm_->GetSystemIndex()) + ".position.z", 1.5f));
 
     head_hpr = rpcore::Globals::base->get_cam().get_hpr();
-    head_hpr.set_x(m_property.get("user.user" + std::to_string(dsm_->GetSystemIndex()) + ".hpr.x", 90.0f));
+    head_hpr.set_x(m_property.get("user.user" + std::to_string(dsm_->GetSystemIndex()) + ".hpr.x", 0.0f));
 
     LMatrix4f mat;
     compose_matrix(mat, LVecBase3f(1), LVecBase3f(0), head_hpr, head_position * rendering_engine_->GetRenderingScaleFactor());
@@ -222,8 +223,9 @@ void HandsTogether::SetupLocalUser()
 
     user->add_task([this, user](rppanda::FunctionalTask*) {
         auto world = rendering_engine_->GetWorld();
+        auto main_cam = rendering_engine_->GetCamera();
 
-        user->set_head_matrix(openvr_manager_->get_object(0)->GetMatrix(world));
+        user->get_head()->SetPosHpr(main_cam->GetPosition(world), main_cam->GetHPR(world));
 
         if (m_pControllerID[0] != 0)
         {
