@@ -30,7 +30,7 @@ MainGUI::~MainGUI() = default;
 
 void MainGUI::on_imgui_new_frame()
 {
-    ImGui::Begin("HandsTogether", &is_open_);
+    ImGui::Begin(CRMODULE_ID_STRING, &is_open_);
 
     if (ImGui::Button("Reset User Pose"))
         app_.ResetUserPose();
