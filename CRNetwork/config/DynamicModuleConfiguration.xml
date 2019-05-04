@@ -4,19 +4,19 @@
         <user>
             <user1>
                 <position>
-                    <x>0.6</x>
-                    <y>0</y>
+                    <x>0</x>
+                    <y>1</y>
                     <z>1.2</z>
                 </position>
                 <hpr>
-                    <x>90</x>
+                    <x>180</x>
                 </hpr>
             </user1>
 
             <user2>
                 <position>
                     <x>0</x>
-                    <y>-0.6</y>
+                    <y>-1</y>
                     <z>1.2</z>
                 </position>
                 <hpr>
@@ -26,25 +26,47 @@
 
             <user3>
                 <position>
-                    <x>-0.6</x>
-                    <y>0</y>
+                    <x>0.866</x>
+                    <y>0.5</y>
                     <z>1.2</z>
                 </position>
                 <hpr>
-                    <x>-90</x>
+                    <x>120</x>
                 </hpr>
             </user3>
 
             <user4>
                 <position>
-                    <x>0</x>
-                    <y>0.6</y>
+                    <x>-0.866</x>
+                    <y>-0.5</y>
                     <z>1.2</z>
                 </position>
                 <hpr>
-                    <x>180</x>
+                    <x>-60</x>
                 </hpr>
             </user4>
+
+            <user5>
+                <position>
+                    <x>0.866</x>
+                    <y>-0.5</y>
+                    <z>1.2</z>
+                </position>
+                <hpr>
+                    <x>60</x>
+                </hpr>
+            </user5>
+
+            <user6>
+                <position>
+                    <x>-0.866</x>
+                    <y>0.5</y>
+                    <z>1.2</z>
+                </position>
+                <hpr>
+                    <x>-120</x>
+                </hpr>
+            </user6>
         </user>
     </CRNetwork>
 </modules>

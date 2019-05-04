@@ -275,7 +275,9 @@ void HandsTogether::SetupNetworkReceiver()
 
                 if (openvr_manager_)
                 {
-                    user->set_avatar_model(openvr_manager_->get_plugin()->load_model(0));
+                    auto hmd_model = openvr_manager_->get_plugin()->load_model(0);
+                    hmd_model.set_scale(2.0f);
+                    user->set_avatar_model(hmd_model);
 
                     auto controller_model = openvr_manager_->get_plugin()->load_model("vr_controller_vive_1_5");
                     for (size_t k = 0; k < 2; ++k)
