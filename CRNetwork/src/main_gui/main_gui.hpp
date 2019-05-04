@@ -2,12 +2,12 @@
 
 #include <render_pipeline/rppanda/showbase/direct_object.hpp>
 
-class HandsTogether;
+class MainApp;
 
 class MainGUI : public rppanda::DirectObject
 {
 public:
-    MainGUI(HandsTogether& app);
+    MainGUI(MainApp& app);
 
     virtual ~MainGUI();
 
@@ -20,7 +20,7 @@ private:
     void ui_openvr();
 
     bool is_open_ = true;
-    HandsTogether& app_;
+    MainApp& app_;
 
     std::string today_date_;
 };

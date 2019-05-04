@@ -14,7 +14,7 @@
 #include "main.h"
 #include "openvr_manager.hpp"
 
-MainGUI::MainGUI(HandsTogether& app) : app_(app)
+MainGUI::MainGUI(MainApp& app) : app_(app)
 {
     rppanda::Messenger::get_global_instance()->send(
         "imgui-setup-context",

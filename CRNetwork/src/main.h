@@ -25,11 +25,11 @@ class User;
 class MainGUI;
 class OpenVRManager;
 
-class HandsTogether: public crsf::TDynamicModuleInterface, public rppanda::DirectObject
+class MainApp: public crsf::TDynamicModuleInterface, public rppanda::DirectObject
 {
 public:
-    HandsTogether();
-    ~HandsTogether() override;
+    MainApp();
+    ~MainApp() override;
 
     void OnLoad() override;
     void OnStart() override;

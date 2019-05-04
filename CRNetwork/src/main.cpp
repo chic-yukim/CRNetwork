@@ -43,11 +43,11 @@
 
 #include <render_pipeline/rpcore/util/rpgeomnode.hpp>
 
-CRSEEDLIB_MODULE_CREATOR(HandsTogether);
+CRSEEDLIB_MODULE_CREATOR(MainApp);
 
 spdlog::logger* global_logger;
 
-HandsTogether::HandsTogether() : crsf::TDynamicModuleInterface(CRMODULE_ID_STRING)
+MainApp::MainApp() : crsf::TDynamicModuleInterface(CRMODULE_ID_STRING)
 {
     global_logger = m_logger.get();
 
@@ -58,14 +58,14 @@ HandsTogether::HandsTogether() : crsf::TDynamicModuleInterface(CRMODULE_ID_STRIN
     m_pControllerID = { 0, 0 };
 }
 
-HandsTogether::~HandsTogether() = default;
+MainApp::~MainApp() = default;
 
-void HandsTogether::OnLoad()
+void MainApp::OnLoad()
 {
     cr_world_ = rendering_engine_->GetWorld();
 }
 
-void HandsTogether::OnStart()
+void MainApp::OnStart()
 {
     rendering_engine_->SetWindowTitle(CRMODULE_ID_STRING);
 
@@ -108,7 +108,7 @@ void HandsTogether::OnStart()
     main_gui_ = std::make_unique<MainGUI>(*this);
 }
 
-void HandsTogether::OnExit()
+void MainApp::OnExit()
 {
     remove_all_tasks();
 
@@ -117,13 +117,13 @@ void HandsTogether::OnExit()
     network_manager_->Exit();
 }
 
-void HandsTogether::SetupNetwork()
+void MainApp::SetupNetwork()
 {
     SetupNetworkReceiver();
     network_manager_->Init();
 }
 
-User* HandsTogether::GetUser(unsigned int system_index)
+User* MainApp::GetUser(unsigned int system_index)
 {
     if (m_users.find(system_index) != m_users.end())
         return m_users[system_index].get();
@@ -134,7 +134,7 @@ User* HandsTogether::GetUser(unsigned int system_index)
         return m_users.emplace(system_index, std::make_unique<RemoteUser>(system_index)).first->second.get();
 }
 
-void HandsTogether::ResetUserPose()
+void MainApp::ResetUserPose()
 {
     LVecBase3f head_position;
     LVecBase3f head_hpr;
@@ -158,7 +158,7 @@ void HandsTogether::ResetUserPose()
     }
 }
 
-void HandsTogether::ResetControllerMatch()
+void MainApp::ResetControllerMatch()
 {
     if (!openvr_manager_)
         return;
@@ -188,7 +188,7 @@ void HandsTogether::ResetControllerMatch()
     m_logger->info("Found {} controllers", hand_index);
 }
 
-void HandsTogether::MakeScene()
+void MainApp::MakeScene()
 {
     // Set cube graphics
     crsf::TCube::Parameters params;
@@ -211,7 +211,7 @@ void HandsTogether::MakeScene()
     }, "check_cube_state");
 }
 
-void HandsTogether::SetupLocalUser()
+void MainApp::SetupLocalUser()
 {
     auto user = GetUser(dsm_->GetSystemIndex());
     ResetUserPose();
@@ -247,7 +247,7 @@ void HandsTogether::SetupLocalUser()
     }, "update_openvr_to_user", -5);
 }
 
-void HandsTogether::SetupMicrophone()
+void MainApp::SetupMicrophone()
 {
     auto m_pAudioRenderingEngine = crsf::TAudioRenderEngine::GetInstance();
     m_pAudioRenderingEngine->Setup();
@@ -256,7 +256,7 @@ void HandsTogether::SetupMicrophone()
     GetUser(dsm_->GetSystemIndex())->set_voice(crsf::TAudioRenderEngine::GetInstance()->GetCaptureMemoryObject());
 }
 
-void HandsTogether::SetupNetworkReceiver()
+void MainApp::SetupNetworkReceiver()
 {
     dsm_->AttachCreateEventListener<crsf::TPointMemoryObject>([this](crsf::TCRMemory* crmemory) {
         if (dsm_->IsLocalMemory(crmemory))
@@ -328,7 +328,7 @@ void HandsTogether::SetupNetworkReceiver()
     });
 }
 
-void HandsTogether::AllUserTouchedEvent(const Event* ev)
+void MainApp::AllUserTouchedEvent(const Event* ev)
 {
     int contact_id = ev->get_parameter(0).get_int_value();
 
@@ -341,12 +341,12 @@ void HandsTogether::AllUserTouchedEvent(const Event* ev)
         VibrateController(1);
 }
 
-void HandsTogether::NotTouchedEvent(const Event* ev)
+void MainApp::NotTouchedEvent(const Event* ev)
 {
     UpdateCubeColor(false);
 }
 
-void HandsTogether::VibrateController(int hand_index)
+void MainApp::VibrateController(int hand_index)
 {
     if (!openvr_manager_)
         return;
@@ -357,14 +357,14 @@ void HandsTogether::VibrateController(int hand_index)
     openvr_manager_->get_plugin()->get_vr_system()->TriggerHapticPulse(m_pControllerID[hand_index], 0, 40000);
 }
 
-void HandsTogether::UpdateCubeColor(bool contacted)
+void MainApp::UpdateCubeColor(bool contacted)
 {
     auto pCubeGraphicModel = m_pCube->GetGraphicModel();
     rpcore::RPMaterial mat(pCubeGraphicModel->GetMaterial());
     mat.set_base_color(contacted ? LColor(0.2, 0.2, 1.0, 1) : LColorf(1.0, 0.2, 0.2, 1));
 }
 
-void HandsTogether::CheckCubeState()
+void MainApp::CheckCubeState()
 {
     static bool prev_all_touched = false;
 
@@ -406,7 +406,7 @@ void HandsTogether::CheckCubeState()
     prev_all_touched = all_touched;
 }
 
-void HandsTogether::SetupEvent()
+void MainApp::SetupEvent()
 {
     accept("openvr::k_EButton_Grip", [this](const Event* ev) { ResetUserPose(); });
     accept("AllUserTouched", [this](const Event* ev) { AllUserTouchedEvent(ev); });
