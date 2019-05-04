@@ -1,5 +1,7 @@
 # CRSF Network 기본 샘플
 
+- YouTube: https://youtu.be/0jMtm5oT4UM
+
 ## 사용 방법
 - `SystemConfiguration.xml`
   - `system_index`: 다른 시스템과 겹치지 않는 값으로 변경
