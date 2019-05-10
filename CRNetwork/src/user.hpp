@@ -11,6 +11,9 @@ namespace crsf {
 class TWorldObject;
 class TPointMemoryObject;
 class TSoundMemoryObject;
+class TImageMemoryObject;
+class TPlane;
+class TTexture;
 }
 
 class NodePath;
@@ -36,6 +39,9 @@ public:
     virtual void play_voice() {}
     virtual void stop_voice() {}
 
+    virtual void set_front_view(crsf::TImageMemoryObject* front_view_mo);
+    virtual void set_front_view(const std::shared_ptr<crsf::TTexture>& front_view_tex);
+
 protected:
     User(unsigned int system_index);
 
@@ -52,8 +58,11 @@ protected:
     };
     std::array<ControllerData, 2> controllers_;
 
+    crsf::TPlane* front_view_plane_ = nullptr;
+
     crsf::TPointMemoryObject* point_mo_ = nullptr;
     crsf::TSoundMemoryObject* voice_mo_ = nullptr;
+    crsf::TImageMemoryObject* front_view_mo_ = nullptr;
 };
 
 // ************************************************************************************************

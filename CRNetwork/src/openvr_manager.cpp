@@ -17,8 +17,7 @@
 #include <render_pipeline/rpcore/util/rptextnode.hpp>
 
 #include <rpplugins/openvr/plugin.hpp>
-
-#include <openvr_camera_object.h>
+#include <rpplugins/openvr/camera_interface.hpp>
 
 #include <crsf/CRModel/TWorldObject.h>
 #include <crsf/CRModel/TWorld.h>
@@ -183,3 +182,77 @@ void OpenVRManager::setup_auto_sync_objects()
         return AsyncTask::DS_cont;
     }, "setup_auto_sync_objects", -20);
 }
+
+void OpenVRManager::enable_camera_streaming()
+{
+    if (is_streamed_)
+        return;
+
+    if (!openvr_camera_)
+    {
+        if (openvr_plugin_->has_tracked_camera())
+            openvr_camera_ = openvr_plugin_->get_tracked_camera();
+    }
+
+    if (openvr_camera_)
+    {
+        is_streamed_ = openvr_camera_->acquire_video_streaming_service();
+        if (!is_streamed_)
+            return;
+
+        uint32_t width;
+        uint32_t height;
+        uint32_t buffer_size;
+        if (openvr_camera_->get_frame_size(width, height, buffer_size, frame_type_) != vr::EVRTrackedCameraError::VRTrackedCameraError_None)
+        {
+            global_logger->error("Failed to call OpenVRCameraInterface::get_frame_size.");
+            is_streamed_ = false;
+            return;
+        }
+
+        last_task_time_ = 0;
+        framebuffer_.resize(buffer_size);
+
+        add_task([this](rppanda::FunctionalTask * task) { return fetch_camera_framebuffer(task); }, "upload_texture");
+    }
+}
+
+void OpenVRManager::disable_camera_streaming()
+{
+    if (!is_streamed_)
+        return;
+
+    remove_task("upload_texture");
+    openvr_camera_->release_video_streaming_service();
+    is_streamed_ = false;
+}
+
+AsyncTask::DoneStatus OpenVRManager::fetch_camera_framebuffer(rppanda::FunctionalTask* task)
+{
+    auto elapsed_time = task->get_elapsed_time();
+    if ((elapsed_time - last_task_time_) < (16.0 / 1000.0))
+        return AsyncTask::DS_cont;
+
+    last_task_time_ = elapsed_time;
+
+    vr::CameraVideoStreamFrameHeader_t header;
+    openvr_camera_->get_frame_header(header, frame_type_);
+
+    static uint32_t last_frame_sequence = 0;
+
+    // frame hasn't changed yet, nothing to do
+    if (header.nFrameSequence == last_frame_sequence)
+        return AsyncTask::DS_cont;
+
+    // Frame has changed, do the more expensive frame buffer copy
+    auto err = openvr_camera_->get_framebuffer(header, framebuffer_, frame_type_);
+    if (err != vr::VRTrackedCameraError_None)
+        return AsyncTask::DS_cont;
+
+    rpcore::Globals::base->get_messenger()->send("OpenVRManager::fetch_camera_framebuffer", false);
+
+    last_frame_sequence = header.nFrameSequence;
+
+    return AsyncTask::DS_cont;
+}
+

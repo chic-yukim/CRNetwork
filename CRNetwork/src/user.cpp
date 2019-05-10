@@ -1,7 +1,10 @@
 #include "user.hpp"
 
 #include <crsf/CRModel/TWorld.h>
+#include <crsf/CRModel/TPlane.h>
+#include <crsf/CRModel/TGraphicModel.h>
 #include <crsf/RenderingEngine/TGraphicRenderEngine.h>
+#include <crsf/RenderingEngine/GraphicRenderEngine/TTexture.h>
 
 User::User(unsigned int system_index) : system_index_(system_index)
 {
@@ -70,4 +73,54 @@ void User::set_controller_model(int side, const NodePath& np)
 void User::set_voice(crsf::TSoundMemoryObject* voice_mo)
 {
     voice_mo_ = voice_mo;
+}
+
+void User::set_front_view(crsf::TImageMemoryObject* front_view_mo)
+{
+    front_view_mo_ = front_view_mo;
+
+    if (!front_view_plane_)
+    {
+        crsf::TRectangle rect(
+            { -0.3f, 0.3f, -0.3f },
+            { -0.3f, 0.3f, 0.3f },
+            { 0.3f, 0.3f, -0.3f },
+            { 0.3f, 0.3f, 0.3f }
+        );
+
+        auto plane = crsf::CreateObject<crsf::TPlane>("front_view_plane", rect);
+        plane->CreateGraphicModel();
+
+        head_->AddWorldObject(plane);
+
+        front_view_plane_ = plane.get();
+    }
+
+    if (front_view_mo_)
+        front_view_plane_->GetGraphicModel()->MakeTexture(front_view_mo_);
+}
+
+void User::set_front_view(const std::shared_ptr<crsf::TTexture>& front_view_tex)
+{
+    if (!front_view_tex)
+        return;
+
+    if (!front_view_plane_)
+    {
+        crsf::TRectangle rect(
+            { -0.3f, 0.3f, -0.3f },
+            { -0.3f, 0.3f, 0.3f },
+            { 0.3f, 0.3f, -0.3f },
+            { 0.3f, 0.3f, 0.3f }
+        );
+
+        auto plane = crsf::CreateObject<crsf::TPlane>("front_view_plane", rect);
+        plane->CreateGraphicModel();
+
+        head_->AddWorldObject(plane);
+
+        front_view_plane_ = plane.get();
+    }
+
+    front_view_plane_->GetGraphicModel()->SetTexture(front_view_tex);
 }

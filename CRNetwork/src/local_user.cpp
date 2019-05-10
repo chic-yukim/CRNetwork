@@ -3,6 +3,7 @@
 #include <crsf/CoexistenceInterface/TDynamicStageMemory.h>
 #include <crsf/CoexistenceInterface/TPointMemoryObject.h>
 #include <crsf/CoexistenceInterface/TSoundMemoryObject.h>
+#include <crsf/CoexistenceInterface/TImageMemoryObject.h>
 #include <crsf/CRModel/TWorldObject.h>
 
 LocalUser::LocalUser(unsigned int system_index) : User(system_index)
@@ -48,10 +49,33 @@ LocalUser::~LocalUser()
 
 void LocalUser::set_voice(crsf::TSoundMemoryObject* voice_mo)
 {
+    if (voice_mo_)
+        crsf::TDynamicStageMemory::GetInstance()->DisableNetworking(voice_mo_);
+
     User::set_voice(voice_mo);
 
     if (!voice_mo_)
         return;
 
     crsf::TDynamicStageMemory::GetInstance()->EnableNetworking(voice_mo_, 2);
+}
+
+void LocalUser::set_front_view(crsf::TImageMemoryObject* front_view_mo)
+{
+    if (front_view_mo_)
+        crsf::TDynamicStageMemory::GetInstance()->DisableNetworking(front_view_mo_);
+
+    User::set_front_view(front_view_mo);
+
+    if (!front_view_mo_)
+        return;
+
+    crsf::TDynamicStageMemory::GetInstance()->EnableNetworking(front_view_mo_, 1);
+}
+
+void LocalUser::set_front_view(const std::shared_ptr<crsf::TTexture>& front_view_tex)
+{
+    User::set_front_view(front_view_tex);
+
+    auto dsm = crsf::TDynamicStageMemory::GetInstance();
 }

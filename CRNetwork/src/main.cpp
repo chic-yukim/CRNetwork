@@ -35,6 +35,7 @@
 #include <crsf/RenderingEngine/TAudioRenderEngine.h>
 
 #include <rpplugins/openvr/plugin.hpp>
+#include <rpplugins/openvr/camera_interface.hpp>
 
 #include "main_gui/main_gui.hpp"
 #include "openvr_manager.hpp"
@@ -245,6 +246,13 @@ void MainApp::SetupLocalUser()
 
         return AsyncTask::DS_cont;
     }, "update_openvr_to_user", -5);
+
+    auto openvr_plugin = openvr_manager_->get_plugin();
+    if (openvr_plugin->has_tracked_camera())
+    {
+        auto cam = openvr_plugin->get_tracked_camera();
+
+    }
 }
 
 void MainApp::SetupMicrophone()

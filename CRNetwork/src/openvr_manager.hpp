@@ -19,6 +19,7 @@ class RenderPipeline;
 
 namespace rpplugins {
 class OpenVRPlugin;
+class OpenVRCameraInterface;
 }
 
 namespace crsf {
@@ -48,9 +49,15 @@ public:
     crsf::TWorldObject* get_object_root() const;
     crsf::TWorldObject* get_object(vr::TrackedDeviceIndex_t device_index) const;
 
+    void enable_camera_streaming();
+    void disable_camera_streaming();
+    const std::vector<uint8_t>& get_camera_framebuffer() const;
+
 private:
     void caching_devices();
     void process_controller_event();
+
+    AsyncTask::DoneStatus fetch_camera_framebuffer(rppanda::FunctionalTask* task);
 
     rpcore::RenderPipeline& pipeline_;
     rpplugins::OpenVRPlugin* openvr_plugin_ = nullptr;
@@ -64,6 +71,12 @@ private:
 
     crsf::TWorldObject* object_root_;
     std::unordered_map<vr::TrackedDeviceIndex_t, crsf::TWorldObject*> objects_;
+
+    rpplugins::OpenVRCameraInterface* openvr_camera_ = nullptr;
+    bool is_streamed_ = false;
+    std::vector<uint8_t> framebuffer_;
+    vr::EVRTrackedCameraFrameType frame_type_ = vr::VRTrackedCameraFrameType_Undistorted;
+    double last_task_time_ = 0.0f;
 };
 
 inline bool OpenVRManager::is_available() const
@@ -108,4 +121,9 @@ inline crsf::TWorldObject* OpenVRManager::get_object(vr::TrackedDeviceIndex_t de
         return nullptr;
     else
         return objects_.at(device_index);
+}
+
+inline const std::vector<uint8_t>& OpenVRManager::get_camera_framebuffer() const
+{
+    return framebuffer_;
 }
