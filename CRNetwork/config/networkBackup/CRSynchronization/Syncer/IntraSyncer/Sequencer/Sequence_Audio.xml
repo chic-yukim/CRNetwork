@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name="IntraSyncer@Sequencer@Sequencer_Audio" version="0.1" />
+  </Info>
+  <ParameterList>
+    <parameter name="Name"              value="Audio Sequencer"/>
+    <parameter name="MaxBufferSize"     value="48" />     <!-- bytes-->
+    <parameter name="MaxBufferCount"    value="200" />    <!--Buffer Count-->
+    <parameter name="MaxQueueSize"      value="200" />    <!--Buffer Size-->
+    <parameter name="BufferAllocType"   value="Prealloc" />
+  </ParameterList>
+</ParameterContainer>

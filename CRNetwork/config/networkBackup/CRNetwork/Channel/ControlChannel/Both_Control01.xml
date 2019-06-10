@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name ="Channel@ControlChannel@Both_Control01_1G" version="0.1"/>
+  </Info>
+  <ParameterList>
+  	<parameter name="ChannelType" value="FULLDUPLEX"/> <!-- TBD, SIMPLEX, FULLDUPLEX -->
+    <parameter name="CommModelType" value="BOTH"/> <!-- TBD, SENDER, RECEIVER, BOTH -->
+  	<parameter name="DataType" value="CONTROL"/> <!-- TBD, DATA, CONTROL--> 
+  	<parameter name="MaxDataSize" value="1024"/>
+  	<parameter name="ContentType" value="CONTROL"/> <!-- TBD, VIDEO, AUDIO, HAPTIC--> 
+	  <parameter name="AccessType" value="DEDICATED"/> <!-- DEDICATED, SHARED -->
+	  <parameter name="TargetFPS" value="0"/> 
+	  <parameter name="PortParameter" value="config@CRNetwork@Port@UdpPort@Client@Both_Control01_1G.xml"/>
+  </ParameterList>
+</ParameterContainer>

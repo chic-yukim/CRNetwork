@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name ="Port@TcpPort@Service@ARSNetService_SendPhysics41" version="0.1"/>
+  </Info>
+  <ParameterList>
+    <parameter name="ServiceType" value="SERVER"/>    <!-- CLIENT, SERVER-->
+    <parameter name="TransmitType" value="SEND"/>   <!-- TBD, SEND, RECV -->
+	  <parameter name="UseDamper" value="0"/>
+    <parameter name="SenderName"  value="SenderPhysics41"/>
+    <parameter name="SenderParameter" value="config@CRNetwork@Port@TcpPort@Service@Sender_Physics41.xml"/>
+    <parameter name="ReceiverName"  value="ReceiverPhysics41"/>
+    <parameter name="ReceiverParameter" value="config@CRNetwork@Port@TcpPort@Service@Receiver_Physics01.xml"/>
+    <parameter name="AcceptorName"  value="AcceptorSendPhysics41"/>
+    <parameter name="AcceptorParameter" value="config@CRNetwork@Port@TcpPort@Service@Acceptor_Physics01.xml"/>
+    <!-- FSMInfo -->
+    <parameter name="MaxStateCount"  value="50"/>
+    <parameter name="MaxParamSize"  value="100"/>
+  	<parameter name="StartState"  value="State:ARSSServer:Hello"/> <!-- Server : State:ARSSServer:Hello, Client : State:ARSSClient:Hello-->
+    <parameter name="FSMConfigFileName" value="config@CRNetwork@System@ARSFSM_Server.xml"/>
+  	<!-- MessageQueue Configuration -->
+    <parameter name="MessageSize" value="1024"/>
+    <parameter name="MessageCount" value="100"/>
+  </ParameterList>
+</ParameterContainer>
+

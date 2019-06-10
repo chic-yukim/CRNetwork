@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name ="Port@UDPPort@Service@ARSNetService_RecvMotion02" version="0.1"/>
+  </Info>
+  <ParameterList>
+    <parameter name="ServiceType" value="CLIENT"/>    <!-- CLIENT, SERVER-->
+    <parameter name="TransmitType" value="RECV"/>     <!-- TBD, SEND, RECV -->
+	  <parameter name="UseDamper" value="0"/>
+    <parameter name="SenderName"  value="SenderMotion"/>
+    <parameter name="SenderParameter" value="config@CRNetwork@Port@UDPPort@Service@Sender_Motion.xml"/>
+    <parameter name="ReceiverName"  value="ReceiverMotion"/>
+    <parameter name="ReceiverParameter" value="config@CRNetwork@Port@UDPPort@Service@Receiver_Motion.xml"/>
+    <parameter name="AcceptorName"  value="AcceptorMotion"/>
+    <parameter name="AcceptorParameter" value="config@CRNetwork@Port@UDPPort@Service@Acceptor_Motion.xml"/>
+    <!-- FSMInfo -->
+    <parameter name="MaxStateCount"  value="40"/>
+	  <parameter name="StartState"  value="State:ReceiverCreated"/> <!-- Server : AcceptorCreate, Client : SenderCreated/ReceiverCreated -->
+    <parameter name="FSMConfigFileName" value="config@CRNetwork@System@ARSFSM_Client.xml"/>
+    <!-- MessageQueue Configuration -->
+    <parameter name="MessageSize" value="1024"/>
+    <parameter name="MessageCount" value="100"/>
+  </ParameterList>
+</ParameterContainer>
+

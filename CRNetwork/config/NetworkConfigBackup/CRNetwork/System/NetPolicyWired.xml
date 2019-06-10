@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Policy>
+  <RuleList>
+    <Rule name="IncreaseBuffer" condition="BufferLessThanHalf" action="IncreaseBuffer50"/>
+    <Rule name="DropAllNoti" condition="BufferEmpty" action="DropAllBuffer+aBufNotiOn"/>
+  </RuleList>
+  <ConditionList>
+	  <Conditon name="BufferLessThanHalf" feature="buffer" operator="<" reference="50"/>      <!--feature:buffer/connection/throughput/channel_count/channel_buff/channel_conn/channel_content, operator 1(==)/2(!=)/3(<)/4(>) -->
+	  <Conditon name="BufferEmpty" feature="buffer" operator="==" reference="0"/>      <!--feature:buffer/connection/throughput/channel_count/channel_buff/channel_conn/channel_content, operator 1(==)/2(!=)/3(<)/4(>) -->
+	  <Conditon name="ConnectionAlive" feature="connection" operator="==" reference="1"/>      <!--feature:buffer/connection/throughput/channel_count/channel_buff/channel_conn/channel_content, operator 1(==)/2(!=)/3(<)/4(>) -->
+  </ConditionList>
+  <ActionList>
+	<Action name="IncreaseBuffer50" feature="buffer" value="150" external=""/> <!-- 0: drop all, 1: drop Half, over 100 : increase %, under 100 : decrease --> 
+	<Action name="DropAllBuffer" feature="buffer" value="0" external=""/> <!-- 0: drop all, 1: drop Half, over 100 : increase %, under 100 : decrease --> 
+	<Action name="aBufNotiOff" feature="buffer" value="0" external="app"/> <!-- command : app, wireless, mng -->
+    <Action name="aBufNotiOn" feature="buffer" value="1" external="app"/>
+  </ActionList>
+</Policy>

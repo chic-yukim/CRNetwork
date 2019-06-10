@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name ="System@CRNetworkStateManager" version="0.1"/>
+  </Info>
+  <ParameterList>
+    <!-- FSMInfo -->
+    <parameter name="MaxStateCount"  value="300"/>
+    <parameter name="MaxParamSize"  value="100"/>
+	  <parameter name="StartState"  value="State:ASN:Hello"/> 
+    <parameter name="FSMConfigFileName" value="config@CRASyncedNetwork@State@ASNClientStateFSM.xml"/>
+	  <!-- MessageQueue Configuration -->
+    <parameter name="MessageSize" value="1024"/>
+    <parameter name="MessageCount" value="100"/>
+  </ParameterList>
+</ParameterContainer>
+
+

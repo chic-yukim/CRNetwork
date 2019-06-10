@@ -5,7 +5,7 @@
   </Info>
   <ParameterList>
     <parameter name="NetworkType" value="Socket_UDP"/>
-    <parameter name="ServerIP" value="127.0.0.1"/>  <!-- only for client, for binding -->
+    <parameter name="ServerIP" value="192.168.100.25"/>  <!-- only for client, for binding -->
     <parameter name="SocketPort" value="8313"/> <!-- only for client-->
     <parameter name="NetworkBufferSize" value="1024"/> <!--byte -->
     <parameter name="SocketBufferSize" value="8192"/> <!-- byte -->

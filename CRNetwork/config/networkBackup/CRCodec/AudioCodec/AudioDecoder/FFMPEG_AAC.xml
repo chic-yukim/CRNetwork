@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name ="AudioDecoder@FFMPEG_AAC" version="1.0"/>
+  </Info>
+  <ParameterList>
+    <parameter name="BitRate" value="448000"/>
+    <parameter name="SampleRate" value="44100"/> <!--  -->
+    <parameter name="ChannelCount" value="2"/> <!-- 2, 6  -->
+    <parameter name="SampleCount" value="1024"/>
+    <parameter name="BytePerChannel" value="2"/>
+    <!-- ===================================================  -->
+    <parameter name="MaxBufferSize" value="3110400"/> <!-- bytes -->
+    <parameter name="MaxBufferCount" value="10"/>
+    <parameter name="MaxQueueSize" value="10"/> <!-- <= BufferCount -->
+    <parameter name="BufferAllocType" value="Prealloc"/> <!-- Prealloc, Dynamic -->
+    <parameter name="ExitType" value="UntilDone"/> <!-- Immediate, UntilDone -->
+  </ParameterList>
+</ParameterContainer>

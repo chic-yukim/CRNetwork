@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name="Sequencer@IntraSequencer@SequenceBoard_Video" version="0.1" />
+  </Info>
+  <ParameterList>
+    <parameter name="Name"                  value="Video SequenceBoard"/>
+    <parameter name="MediaTypeCount"        value="2"/> <!-- Sequence, (Video or Depth), (Video and Depth) -->
+    <parameter name="SequenceBoardCount"    value="100"/>
+  </ParameterList>
+</ParameterContainer>

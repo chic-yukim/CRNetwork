@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name ="Port@UdpPort@Client@Recv_ControlUDP01_1G" version="0.1"/>
+  </Info>
+  <ParameterList>
+    <parameter name="Protocol" value="UDP"/> <!-- TCP, UDP, UART-->
+    <parameter name="ServiceType" value="CLIENT"/> <!-- CLIENT, SERVER-->
+    <parameter name="PortType" value="SIMPLEX"/> <!-- TBD, SIMPLEX, FULLDUPLEX --> 
+    <parameter name="CommModelType" value="RECEIVER"/> <!-- TBD, SENDER, RECEIVER, BOTH -->
+    <parameter name="CustomizedProtocol" value="TBD"/> <!-- TBD, CRNetwork-->
+    <parameter name="NetworkParameter" value="config@CRNetwork@Network@Socket@UDP_ControlRecv01_1G.xml"/>
+    <parameter name="ARSNetServiceParameter" value="config@CRNetwork@Port@UDPPort@Service@ARSNetService_RecvControlUDP01.xml"/>
+  </ParameterList>
+</ParameterContainer>
+

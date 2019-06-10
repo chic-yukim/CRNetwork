@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name="Sequencer@IntraSequencer@IntraSequencer_DestinationMotion.xml" version="0.1" />
+  </Info>
+  <ParameterList>
+    <parameter name="Name"                    value="Motion Destination Intra Sequencer 03"/>
+    <parameter name="MessageSize"             value="100" />;
+    <parameter name="MessageCount"            value="100" />
+    <parameter name="SequencerParameter"      value="config@CRSynchronization@Syncer@IntraSyncer@Sequencer@Sequence_Motion.xml"/>
+    <parameter name="SequencerBoardParameter" value="config@CRSynchronization@Syncer@IntraSyncer@Sequencer@SequenceBoard_Motion.xml"/>
+  </ParameterList>
+</ParameterContainer>

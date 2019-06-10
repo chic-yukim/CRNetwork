@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name="Syncer@IntraSyncer@PlayoutController@PlayoutController_DestinationAudio05.xml" version="0.1" />
+  </Info>
+  <ParameterList>
+    <parameter name="Name"                value="Audio Destination Intra PlayoutController 05"/>
+    <parameter name="MessageSize"         value="1024" />;
+    <parameter name="MessageCount"        value="100" />
+    <parameter name="ControllerType"      value="EWMA"/>  <!-- EWMA = 0, etc -->
+    <parameter name="EWMAParameter"       value="config@CRSynchronization@Syncer@IntraSyncer@PlayoutController@EWMAController_Audio.xml"/><!--example--><!--Naming rule : Method + Parameter-->
+  </ParameterList>
+</ParameterContainer>

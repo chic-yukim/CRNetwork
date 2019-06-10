@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name="Syncer@IntraSyncer@PlayoutController@EWMAController_Video.xml" version="0.1" />
+  </Info>
+  <ParameterList>
+    <parameter name="MethodName"        value="Video EWMAController"/>
+    <parameter name="Alpha"             value="0.50"/>
+    <parameter name="Beta"              value="0.25"/>
+    <parameter name="Sigma"             value="0.05"/>   <!-- 0 <= sigma <= 2-->
+    <parameter name="Period"            value="10"/>     <!-- Unit : Second, Update Freq. -->
+  </ParameterList>
+</ParameterContainer>

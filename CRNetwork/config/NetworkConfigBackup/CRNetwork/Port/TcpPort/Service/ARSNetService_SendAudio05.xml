@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name ="Port@TcpPort@Service@ARSNetService_SendAudio05" version="0.1"/>
+  </Info>
+  <ParameterList>
+    <parameter name="ServiceType" value="CLIENT"/>     <!-- CLIENT, SERVER-->
+    <parameter name="TransmitType" value="SEND"/>     <!-- TBD, SEND, RECV -->
+	  <parameter name="UseDamper" value="0"/>
+    <parameter name="SenderName"  value="SenderAudio"/>
+    <parameter name="SenderParameter" value="config@CRNetwork@Port@TcpPort@Service@Sender_Audio05.xml"/>
+    <parameter name="ReceiverName"  value="ReceiverAudio"/>
+    <parameter name="ReceiverParameter" value="config@CRNetwork@Port@TcpPort@Service@Receiver_Audio05.xml"/>
+    <parameter name="AcceptorName"  value="AcceptorAudio"/>
+    <parameter name="AcceptorParameter" value="config@CRNetwork@Port@TcpPort@Service@Acceptor_Audio05.xml"/>
+    <!-- FSMInfo -->
+    <parameter name="MaxStateCount"  value="40"/>
+    <parameter name="MaxParamSize"  value="100"/>
+    <parameter name="StartState"  value="State:SenderCreated"/> <!-- Server : AcceptorCreate, Client : SenderCreated/ReceiverCreated -->
+    <parameter name="FSMConfigFileName" value="config@CRNetwork@System@ARSFSM_Client.xml"/>
+	<!-- MessageQueue Configuration -->
+    <parameter name="MessageSize" value="1024"/>
+    <parameter name="MessageCount" value="100"/>
+  </ParameterList>
+</ParameterContainer>
+

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name ="Network@Socket@UDP_NetTime" version="0.1"/>
+  </Info>
+  <ParameterList>
+    <parameter name="NetworkType" value="Socket_UDP"/>
+    <parameter name="ServerIP" value="161.122.113.171"/>  <!-- only for client-->
+    <parameter name="SocketPort" value="123"/> <!-- only for client-->
+    <parameter name="NetworkBufferSize" value="1024"/> <!--byte -->
+    <parameter name="SocketBufferSize" value="8196"/> <!-- byte -->
+    <parameter name="Nodelay" value="0"/> <!-- 1: noDelay set, 0 : None -->
+	  <parameter name="SendTimeout" value="100"/>  <!-- ms -->
+	  <parameter name="RecvTimeout" value="100"/>  <!-- ms -->
+    <parameter name="KeepAlive" value="1"/>    <!-- 1 : enable, 0 : disable -->
+    <parameter name="ImmediatelyDisconnect" value="0"/>    <!-- 1 : enable, 0 : disable -->
+    <parameter name="SendRetry" value="0"/>    <!-- count -->
+  </ParameterList>
+</ParameterContainer>
+

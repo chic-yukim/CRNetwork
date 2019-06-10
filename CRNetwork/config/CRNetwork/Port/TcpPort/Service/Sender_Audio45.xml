@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name ="Port@TcpPort@Service@Sender_Audio45" version="0.1"/>
+  </Info>
+  <ParameterList>    
+	  <parameter name="MaxBufferSize" value="20480"/> <!-- bytes -->
+    <parameter name="MaxBufferCount" value="300"/>
+    <parameter name="MaxQueueSize" value="200"/>    <!-- <= BufferCount -->
+	  <parameter name="BufferAllocType" value="Prealloc"/>
+    <parameter name="MaxFailedCount" value="5"/>
+  </ParameterList>
+</ParameterContainer>
+

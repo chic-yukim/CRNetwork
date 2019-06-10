@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name ="CRDepthCodecConfiguration" version="1.0"/>
+  </Info>
+  <ParameterList>
+    <parameter name="CodecType" value="BOTH"/>  <!-- TBD, COMPRESS, DECOMPRESS, BOTH -->
+    <parameter name="CompressCoreType" value="FFMPEGH264"/> <!-- TBD, NVIDIA6, FFMPEGH264 -->
+    <parameter name="DeCompressCoreType" value="FFMPEGH264"/> <!-- TBD, NVIDIA6, FFMPEGH264 -->
+    <parameter name="EncoderParameter" value="config@CRCodec@DepthCodec@DepthEncoder@FFMPEG_H264.xml"/> <!-- NVIDIA_NVENC6, FFMPEG_H264-->
+    <parameter name="DecoderParameter" value="config@CRCodec@DepthCodec@DepthDecoder@FFMPEG_H264.xml"/> <!-- NVIDIA_NVCUVID6, FFMPEG_H264-->
+  </ParameterList>
+</ParameterContainer>

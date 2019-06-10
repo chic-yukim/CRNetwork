@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ASNConfig>
+  <InfoList>
+    <Info name ="ASNVersion" value="1.0"/>
+    <Info name ="Configuration" value="CRASN_Example"/>
+    <Info name ="ASNType" value="NC"/> <!-- NCS=N+C+S, NC=N+C, NS=N+S, N, NCS = (N)etwork + (C)odec + (S)ynchronization -->
+    <Info name ="CRSFHeader" value="Attach"/> <!--Attach, Detach-->
+    <Info name ="PrintError" value="no"/> <!-- yes, no -->
+	<Info name ="ASNStateManagerFileName" value="config@CRASyncedNetwork@State@ASNStateManager.xml"/>
+  </InfoList>
+  <ASNLinkList>
+    <ASNLink>
+      <Property name="ASNSourceVideo" mediatype="VideoRawDepth"/>
+      <Connection ASNNode ="ASNNode/Data/SourceVideo" SyncNode="SyncNode/SourceVideo01" CodecNode="" CommNode="CommNode/SourceVideo"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNDestinationVideo16" mediatype="VideoRawDepth"/>
+      <Connection ASNNode ="ASNNode/Data/DestinationVideo16" SyncNode="SyncNode/DestinationVideo01" CodecNode="CodecNode/DestinationVideo01" CommNode="CommNode/DestinationVideo16"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNDestinationVideo26" mediatype="VideoRawDepth"/>
+      <Connection ASNNode ="ASNNode/Data/DestinationVideo26" SyncNode="SyncNode/DestinationVideo02" CodecNode="CodecNode/DestinationVideo02" CommNode="CommNode/DestinationVideo26"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNDestinationVideo36" mediatype="VideoRawDepth"/>
+      <Connection ASNNode ="ASNNode/Data/DestinationVideo36" SyncNode="SyncNode/DestinationVideo03" CodecNode="CodecNode/DestinationVideo03" CommNode="CommNode/DestinationVideo36"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNDestinationVideo46" mediatype="VideoRawDepth"/>
+      <Connection ASNNode ="ASNNode/Data/DestinationVideo46" SyncNode="SyncNode/DestinationVideo04" CodecNode="CodecNode/DestinationVideo04" CommNode="CommNode/DestinationVideo46"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNDestinationVideo56" mediatype="VideoRawDepth"/>
+      <Connection ASNNode ="ASNNode/Data/DestinationVideo56" SyncNode="SyncNode/DestinationVideo05" CodecNode="CodecNode/DestinationVideo05" CommNode="CommNode/DestinationVideo56"/>
+    </ASNLink>
+	<ASNLink>
+      <Property name="ASNSourceAudio" mediatype="RawSound"/>
+      <Connection ASNNode ="ASNNode/Data/SourceAudio" SyncNode="SyncNode/SourceAudio01" CodecNode="" CommNode="CommNode/SourceAudio"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNDestinationAudio16" mediatype="RawSound"/>
+      <Connection ASNNode ="ASNNode/Data/DestinationAudio16" SyncNode="SyncNode/DestinationAudio01" CodecNode="" CommNode="CommNode/DestinationAudio16"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNDestinationAudio26" mediatype="RawSound"/>
+      <Connection ASNNode ="ASNNode/Data/DestinationAudio26" SyncNode="SyncNode/DestinationAudio02" CodecNode="" CommNode="CommNode/DestinationAudio26"/>
+    </ASNLink>
+	<ASNLink>
+      <Property name="ASNDestinationAudio36" mediatype="RawSound"/>
+      <Connection ASNNode ="ASNNode/Data/DestinationAudio36" SyncNode="SyncNode/DestinationAudio03" CodecNode="" CommNode="CommNode/DestinationAudio36"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNDestinationAudio46" mediatype="RawSound"/>
+      <Connection ASNNode ="ASNNode/Data/DestinationAudio46" SyncNode="SyncNode/DestinationAudio04" CodecNode="" CommNode="CommNode/DestinationAudio46"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNDestinationAudio66" mediatype="RawSound"/>
+      <Connection ASNNode ="ASNNode/Data/DestinationAudio56" SyncNode="SyncNode/DestinationAudio05" CodecNode="" CommNode="CommNode/DestinationAudio56"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNSourcePhysics" mediatype="RawMotion"/>
+      <Connection ASNNode ="ASNNode/Data/SourcePhysics" SyncNode="SyncNode/SourceMotion01" CodecNode="" CommNode="CommNode/SourcePhysics"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNDestinationPhysics16" mediatype="RawMotion"/>
+      <Connection ASNNode ="ASNNode/Data/DestinationPhysics16" SyncNode="SyncNode/DestinationMotion01" CodecNode="" CommNode="CommNode/DestinationPhysics16"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNDestinationPhysics26" mediatype="RawMotion"/>
+      <Connection ASNNode ="ASNNode/Data/DestinationPhysics26" SyncNode="SyncNode/DestinationMotion02" CodecNode="" CommNode="CommNode/DestinationPhysics26"/>
+    </ASNLink>
+	<ASNLink>
+      <Property name="ASNDestinationPhysics36" mediatype="RawMotion"/>
+      <Connection ASNNode ="ASNNode/Data/DestinationPhysics36" SyncNode="SyncNode/DestinationMotion03" CodecNode="" CommNode="CommNode/DestinationPhysics36"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNDestinationPhysics46" mediatype="RawMotion"/>
+      <Connection ASNNode ="ASNNode/Data/DestinationPhysics46" SyncNode="SyncNode/DestinationMotion04" CodecNode="" CommNode="CommNode/DestinationPhysics46"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNDestinationPhysics56" mediatype="RawMotion"/>
+      <Connection ASNNode ="ASNNode/Data/DestinationPhysics56" SyncNode="SyncNode/DestinationMotion05" CodecNode="" CommNode="CommNode/DestinationPhysics56"/>
+    </ASNLink>
+	<ASNLink>
+      <Property name="ASNSourceControl" mediatype=""/>
+      <Connection ASNNode ="ASNNode/Data/SourceControl" SyncNode="SyncNode/SourceControl01" CodecNode="" CommNode="CommNode/SourceControl"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNDestinationControl16" mediatype=""/>
+      <Connection ASNNode ="ASNNode/Data/DestinationControl16" SyncNode="SyncNode/DestinationControl01" CodecNode="" CommNode="CommNode/DestinationControl16"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNDestinationControl26" mediatype=""/>
+      <Connection ASNNode ="ASNNode/Data/DestinationControl26" SyncNode="SyncNode/DestinationControl02" CodecNode="" CommNode="CommNode/DestinationControl26"/>
+    </ASNLink>
+	<ASNLink>
+      <Property name="ASNDestinationControl36" mediatype=""/>
+      <Connection ASNNode ="ASNNode/Data/DestinationControl36" SyncNode="SyncNode/DestinationControl03" CodecNode="" CommNode="CommNode/DestinationControl36"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNDestinationControl46" mediatype=""/>
+      <Connection ASNNode ="ASNNode/Data/DestinationControl46" SyncNode="SyncNode/DestinationControl04" CodecNode="" CommNode="CommNode/DestinationControl46"/>
+    </ASNLink>
+    <ASNLink>
+      <Property name="ASNDestinationControl56" mediatype=""/>
+      <Connection ASNNode ="ASNNode/Data/DestinationControl56" SyncNode="SyncNode/DestinationControl05" CodecNode="" CommNode="CommNode/DestinationControl56"/>
+    </ASNLink>
+  </ASNLinkList>
+  <ASyncedNetworkNodeList>
+    <SourceList>
+      <Source name="ASNNode/Data/SourceVideo"/>
+      <Source name="ASNNode/Data/SourceAudio"/>
+      <Source name="ASNNode/Data/SourcePhysics"/>
+      <Source name="ASNNode/Data/SourceControl"/>
+    </SourceList>
+    <DestinationList>
+      <Destination name="ASNNode/Data/DestinationVideo16"/>
+      <Destination name="ASNNode/Data/DestinationVideo26"/>
+      <Destination name="ASNNode/Data/DestinationVideo36"/>
+      <Destination name="ASNNode/Data/DestinationVideo46"/>
+      <Destination name="ASNNode/Data/DestinationVideo56"/>
+      <Destination name="ASNNode/Data/DestinationAudio16"/>
+      <Destination name="ASNNode/Data/DestinationAudio26"/>
+      <Destination name="ASNNode/Data/DestinationAudio36"/>
+      <Destination name="ASNNode/Data/DestinationAudio46"/>
+      <Destination name="ASNNode/Data/DestinationAudio56"/>
+      <Destination name="ASNNode/Data/DestinationPhysics16"/>
+      <Destination name="ASNNode/Data/DestinationPhysics26"/>
+      <Destination name="ASNNode/Data/DestinationPhysics36"/>
+      <Destination name="ASNNode/Data/DestinationPhysics46"/>
+      <Destination name="ASNNode/Data/DestinationPhysics56"/>
+      <Destination name="ASNNode/Data/DestinationControl16"/>
+      <Destination name="ASNNode/Data/DestinationControl26"/>
+      <Destination name="ASNNode/Data/DestinationControl36"/>
+      <Destination name="ASNNode/Data/DestinationControl46"/>
+      <Destination name="ASNNode/Data/DestinationControl56"/>
+    </DestinationList>
+  </ASyncedNetworkNodeList>
+  <CodecNodeList>
+	  <SourceList> 
+	  </SourceList>
+	  <DestinationList>		  
+		  <Destination name="CodecNode/DestinationVideo01" />
+		  <Destination name="CodecNode/DestinationVideo02" />
+		  <Destination name="CodecNode/DestinationVideo03" />
+		  <Destination name="CodecNode/DestinationVideo04" />
+		  <Destination name="CodecNode/DestinationVideo05" />
+	  </DestinationList>
+  </CodecNodeList>
+  <CommunicationNodeList>
+	  <SourceList>
+		  <Source name="CommNode/SourceVideo"/>
+		  <Source name="CommNode/SourceAudio"/>
+		  <Source name="CommNode/SourcePhysics"/>
+		  <Source name="CommNode/SourceControl"/>
+    </SourceList>
+	  <DestinationList>
+		  <Destination name="CommNode/DestinationVideo16" />
+		  <Destination name="CommNode/DestinationVideo26" />
+		  <Destination name="CommNode/DestinationVideo36" />
+		  <Destination name="CommNode/DestinationVideo46" />
+		  <Destination name="CommNode/DestinationVideo56" />
+		  <Destination name="CommNode/DestinationAudio16" />
+		  <Destination name="CommNode/DestinationAudio26" />
+		  <Destination name="CommNode/DestinationAudio36" />
+		  <Destination name="CommNode/DestinationAudio56" />
+		  <Destination name="CommNode/DestinationAudio66" />
+		  <Destination name="CommNode/DestinationPhysics16" />
+		  <Destination name="CommNode/DestinationPhysics26" />
+		  <Destination name="CommNode/DestinationPhysics36" />
+		  <Destination name="CommNode/DestinationPhysics46" />
+		  <Destination name="CommNode/DestinationPhysics56" />
+		  <Destination name="CommNode/DestinationControl16" />
+		  <Destination name="CommNode/DestinationControl26" />
+		  <Destination name="CommNode/DestinationControl36" />
+		  <Destination name="CommNode/DestinationControl46" />
+		  <Destination name="CommNode/DestinationControl56" />
+	  </DestinationList>
+  </CommunicationNodeList>
+  <ConfigurationList>
+    <Configuration name="Network" value="config@CRNetwork@CRNetConfig_6Client_NC_4Channel_6.xml"/>
+    <Configuration name="Codec" value="config@CRCodec@CRCodecConfig.xml"/>
+    <Configuration name="Synchronization" value="config@CRSynchronization@CRSyncConfigVideoAudioMotion.xml"/>
+    <Configuration name="MediaType" value="config@CRSynchronization@Syncer@CRSyncMediaType.xml"/>
+  </ConfigurationList>
+</ASNConfig>
+

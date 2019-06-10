@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ParameterContainer>
+  <Info>
+    <Container name="Sequencer@IntraSequencer@SequenceBoard_Audio" version="0.1" />
+  </Info>
+  <ParameterList>
+    <parameter name="Name"                  value="Audio SequenceBoard"/>
+    <parameter name="MediaTypeCount"        value="2"/>    <!-- Sequence, Audio data -->
+    <parameter name="SequenceBoardCount"    value="100"/>
+  </ParameterList>
+</ParameterContainer>
