@@ -89,9 +89,19 @@ void MainApp::OnStart()
     SetupNetwork();
 
     do_method_later(1.0f, [this](rppanda::FunctionalTask*) {
+
+		m_logger->debug("status : {}", network_manager_->GetStatus());
         if (!network_manager_->IsConnected())
         {
+			if (network_manager_->IsError())
+			{
+
+				m_logger->debug("Error : Server cannot be connected");
+
+				return AsyncTask::DS_exit;
+			}
             m_logger->debug("Waiting for establishing network connection ...");
+			
             return AsyncTask::DS_again;
         }
 
