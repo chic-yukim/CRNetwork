@@ -1,50 +1,53 @@
 <StateMachine>
 	<Configuration>
-		<Property startState="State:Hello" bufferSize="20" />
+		<Property startState="State:Synchronization:Hello" finalState="State:Synchronization:Bye" bufferSize="30" />
 	</Configuration>
-<TransitionRuleList>
-		<TransitionRule name="Trans:1"   fromState="State:Hello"        event="Event:Synchronization:Initialize"     toState="State:Initializing" type="Conditional" err="Error:SynchronizationStateError"/>
-		<TransitionRule name="Trans:2"   fromState="State:Initializing" event="Event:Synchronization:Initialize"     toState="State:Initializing" type="Conditional" err="Error:SynchronizationStateError"/>
-		<TransitionRule name="Trans:2-1" fromState="State:Initializing" event="Event:Synchronization:InitializedAll" toState="State:Initialized"  type="Conditional" err="Error:SynchronizationStateError"/>
-		<TransitionRule name="Trans:2-2" fromState="State:Initializing" event="Event:Synchronization:Error"          toState="State:Error"        type="Conditional" err="Error:SynchronizationStateError"/>
-		<TransitionRule name="Trans:3"   fromState="State:Initialized"  event="Event:Synchronization:Start"          toState="State:Starting"     type="Conditional" err="Error:SynchronizationStateError"/>
-		<TransitionRule name="Trans:3-1" fromState="State:Initialized"  event="Event:Synchronization:Error"          toState="State:Error"        type="Conditional" err="Error:SynchronizationStateError"/>
-		<TransitionRule name="Trans:4"   fromState="State:Starting"     event="Event:Synchronization:Start"          toState="State:Starting"     type="Conditional" err="Error:SynchronizationStateError"/>
-		<TransitionRule name="Trans:4-1" fromState="State:Starting"     event="Event:Synchronization:StartedAll"     toState="State:Started"      type="Conditional" err="Error:SynchronizationStateError"/>
-		<TransitionRule name="Trans:4-2" fromState="State:Starting"     event="Event:Synchronization:Error"          toState="State:Error"        type="Conditional" err="Error:SynchronizationStateError"/>		
-		<TransitionRule name="Trans:5"   fromState="State:Started"      event="Event:Synchronization:Stop"           toState="State:Stopping"     type="Conditional" err="Error:SynchronizationStateError"/>
-		<TransitionRule name="Trans:5-1" fromState="State:Started"      event="Event:Synchronization:Error"          toState="State:Error"        type="Conditional" err="Error:SynchronizationStateError"/>
-		<TransitionRule name="Trans:6"   fromState="State:Stopping"     event="Event:Synchronization:Stop"           toState="State:Stopping"     type="Conditional" err="Error:SynchronizationStateError"/>
-		<TransitionRule name="Trans:6-1" fromState="State:Stopping"     event="Event:Synchronization:StoppedAll"     toState="State:Stopped"      type="Conditional" err="Error:SynchronizationStateError"/>
-		<TransitionRule name="Trans:6-2" fromState="State:Stopping"     event="Event:Synchronization:Error"          toState="State:Error"        type="Conditional" err="Error:SynchronizationStateError"/>
-		<TransitionRule name="Trans:7"   fromState="State:Stopped"      event="Event:Synchronization:Finalize"       toState="State:Finalizing"   type="Conditional" err="Error:SynchronizationStateError"/>
-		<TransitionRule name="Trans:7-1" fromState="State:Stopped"      event="Event:Synchronization:Error"          toState="State:Error"        type="Conditional" err="Error:SynchronizationStateError"/>
-		<TransitionRule name="Trans:8"   fromState="State:Finalizing"   event="Event:Synchronization:Finalize"       toState="State:Finalizing"   type="Conditional" err="Error:SynchronizationStateError"/>
-		<TransitionRule name="Trans:8-1" fromState="State:Finalizing"   event="Event:Synchronization:FinalizedAll"   toState="State:Finalized"    type="Conditional" err="Error:SynchronizationStateError"/>
-		<TransitionRule name="Trans:8-2" fromState="State:Finalizing"   event="Event:Synchronization:Error"          toState="State:Error"        type="Conditional" err="Error:SynchronizationStateError"/>
-	</TransitionRuleList>
+  <TransitionRuleList>
+		<TransitionRule name="Trans:11" fromState="State:Synchronization:Hello"      event="Event:Synchronization:Prepare"      toState="State:Synchronization:Preparing"    type="Determined"  err="Error:SynchronizationStateError"/>
+		<TransitionRule name="Trans:12" fromState="State:Synchronization:Preparing"  event="Event:Synchronization:Prepare"      toState="State:Synchronization:Preparing"    type="Conditional" err="Error:SynchronizationStateError"/>
+		<TransitionRule name="Trans:13" fromState="State:Synchronization:Preparing"  event="Event:Synchronization:PreparedAll"  toState="State:Synchronization:Prepared"     type="Conditional" err="Error:SynchronizationStateError"/>
+		<TransitionRule name="Trans:14" fromState="State:Synchronization:Preparing"  event="Event:Synchronization:Error"        toState="State:Synchronization:Error"        type="Conditional" err="Error:SynchronizationStateError"/>
+		<TransitionRule name="Trans:15" fromState="State:Synchronization:Prepared"   event="Event:Synchronization:Start"        toState="State:Synchronization:Starting"     type="Conditional" err="Error:SynchronizationStateError"/>
+		<TransitionRule name="Trans:16" fromState="State:Synchronization:Prepared"   event="Event:Synchronization:Error"        toState="State:Synchronization:Error"        type="Conditional" err="Error:SynchronizationStateError"/>
+		<TransitionRule name="Trans:17" fromState="State:Synchronization:Starting"   event="Event:Synchronization:Start"        toState="State:Synchronization:Starting"     type="Conditional" err="Error:SynchronizationStateError"/>
+		<TransitionRule name="Trans:18" fromState="State:Synchronization:Starting"   event="Event:Synchronization:StartedAll"   toState="State:Synchronization:Started"      type="Conditional" err="Error:SynchronizationStateError"/>
+		<TransitionRule name="Trans:19" fromState="State:Synchronization:Starting"   event="Event:Synchronization:Error"        toState="State:Synchronization:Error"        type="Conditional" err="Error:SynchronizationStateError"/>		
+		<TransitionRule name="Trans:20" fromState="State:Synchronization:Started"    event="Event:Synchronization:Stop"         toState="State:Synchronization:Stopping"     type="Conditional" err="Error:SynchronizationStateError"/>
+		<TransitionRule name="Trans:21" fromState="State:Synchronization:Started"    event="Event:Synchronization:Error"        toState="State:Synchronization:Error"        type="Conditional" err="Error:SynchronizationStateError"/>
+		<TransitionRule name="Trans:22" fromState="State:Synchronization:Stopping"   event="Event:Synchronization:Stop"         toState="State:Synchronization:Stopping"     type="Conditional" err="Error:SynchronizationStateError"/>
+		<TransitionRule name="Trans:23" fromState="State:Synchronization:Stopping"   event="Event:Synchronization:StoppedAll"   toState="State:Synchronization:Stopped"      type="Conditional" err="Error:SynchronizationStateError"/>
+		<TransitionRule name="Trans:24" fromState="State:Synchronization:Stopping"   event="Event:Synchronization:Error"        toState="State:Synchronization:Error"        type="Conditional" err="Error:SynchronizationStateError"/>
+		<TransitionRule name="Trans:25" fromState="State:Synchronization:Stopped"    event="Event:Synchronization:Finalize"     toState="State:Synchronization:Finalizing"   type="Conditional" err="Error:SynchronizationStateError"/>
+		<TransitionRule name="Trans:26" fromState="State:Synchronization:Stopped"    event="Event:Synchronization:Error"        toState="State:Synchronization:Error"        type="Conditional" err="Error:SynchronizationStateError"/>
+		<TransitionRule name="Trans:27" fromState="State:Synchronization:Finalizing" event="Event:Synchronization:Finalize"     toState="State:Synchronization:Finalizing"   type="Conditional" err="Error:SynchronizationStateError"/>
+		<TransitionRule name="Trans:28" fromState="State:Synchronization:Finalizing" event="Event:Synchronization:FinalizedAll" toState="State:Synchronization:Finalized"    type="Conditional" err="Error:SynchronizationStateError"/>
+		<TransitionRule name="Trans:29" fromState="State:Synchronization:Finalizing" event="Event:Synchronization:Error"        toState="State:Synchronization:Error"        type="Conditional" err="Error:SynchronizationStateError"/>
+    <TransitionRule name="Trans:30" fromState="State:Synchronization:Finalized"  event="Event:Synchronization:Exit"         toState="State:Synchronization:Bye"          type="Determined"  err="Error:SynchronizationStateError"/>
+  </TransitionRuleList>
 	<EventList>
-		<Event name="Event:Synchronization:Initialize" location="Outer" process="Sync"/>      <!-- location=Inner/Outer, process=Sync/ASync -->
-		<Event name="Event:Synchronization:InitializedAll" location="Inner" process="Sync"/>  <!-- location=Inner/Outer, process=Sync/ASync -->
+		<Event name="Event:Synchronization:Prepare" location="Outer" process="Sync"/>         <!-- location=Inner/Outer, process=Sync/ASync -->
+		<Event name="Event:Synchronization:PreparedAll" location="Inner" process="Sync"/>     <!-- location=Inner/Outer, process=Sync/ASync -->
 		<Event name="Event:Synchronization:Start" location="Outer" process="Sync"/>           <!-- location=Inner/Outer, process=Sync/ASync -->
 		<Event name="Event:Synchronization:StartedAll" location="Inner" process="Sync"/>      <!-- location=Inner/Outer, process=Sync/ASync -->
 		<Event name="Event:Synchronization:Stop" location="Outer" process="Sync"/>            <!-- location=Inner/Outer, process=Sync/ASync -->
 		<Event name="Event:Synchronization:StoppedAll" location="Inner" process="Sync"/>      <!-- location=Inner/Outer, process=Sync/ASync -->
 		<Event name="Event:Synchronization:Finalize" location="Outer" process="Sync"/>        <!-- location=Inner/Outer, process=Sync/ASync -->
 		<Event name="Event:Synchronization:FinalizedAll" location="Outer" process="Sync"/>    <!-- location=Inner/Outer, process=Sync/ASync -->
-		<Event name="Event:Synchronization:Error" location="Inner" process="Sync"/>           <!-- location=Inner/Outer, process=Sync/ASync -->
-	</EventList>
+    <Event name="Event:Synchronization:Exit" location="Outer" process="Sync"/>            <!-- location=Inner/Outer, process=Sync/ASync -->
+    <Event name="Event:Synchronization:Error" location="Inner" process="Sync"/>           <!-- location=Inner/Outer, process=Sync/ASync -->
+  </EventList>
 	<StateList>
-		<State name="State:Hello"/>
-		<State name="State:Initializing"/>
-		<State name="State:Initialized"/>
-		<State name="State:Starting"/>
-		<State name="State:Started"/>
-		<State name="State:Stopping"/>
-		<State name="State:Stopped"/>
-		<State name="State:Finalizing"/>
-		<State name="State:Finalized"/>
-		<State name="State:Error"/>
+		<State name="State:Synchronization:Hello"/>
+		<State name="State:Synchronization:Preparing"/>
+		<State name="State:Synchronization:Prepared"/>
+		<State name="State:Synchronization:Starting"/>
+		<State name="State:Synchronization:Started"/>
+		<State name="State:Synchronization:Stopping"/>
+		<State name="State:Synchronization:Stopped"/>
+		<State name="State:Synchronization:Finalizing"/>
+		<State name="State:Synchronization:Finalized"/>
+    <State name="State:Synchronization:Bye"/>
+		<State name="State:Synchronization:Error"/>
 	</StateList>
 	<ErrorList>
 		<Error name="Error:TBD"/>

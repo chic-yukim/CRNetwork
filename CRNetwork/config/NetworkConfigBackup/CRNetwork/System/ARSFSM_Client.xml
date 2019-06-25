@@ -1,105 +1,169 @@
 <StateMachine>
 	<Configuration>
- 		<Property startState="" bufferSize="60" />
+ 		<Property startState="State:ARSSClient:Hello" finalState="State:ARSSClient:Bye" bufferSize="60" />
 	</Configuration>
 	<TransitionRuleList>
-		<TransitionRule name="Trans:CS11" fromState="State:SenderCreated" event="Event:Network:SenderInitialize" toState="State:SenderInitialized" type="Conditional" err="Error:ClientSendError"/>
-		<TransitionRule name="Trans:CS12" fromState="State:SenderInitialized" event="Event:Network:SenderSetNetwork" toState="State:SenderSetNetwork" type="Determined" err="Error:ClientSendError"/>
-		<TransitionRule name="Trans:CS13" fromState="State:SenderSetNetwork" event="Event:Network:SenderOpen" toState="State:SenderOpened" type="Determined" err="Error:ClientSendError"/>
-		<TransitionRule name="Trans:CS14" fromState="State:SenderOpened" event="Event:Network:SenderStart" toState="State:SenderStarted" type="Determined" err="Error:ClientSendError"/>
-		<TransitionRule name="Trans:CS15" fromState="State:SenderOpened" event="Event:Network:SenderClose" toState="State:SenderStarted" type="Conditional" err="Error:ClientSendError"/>
-		<TransitionRule name="Trans:CS16" fromState="State:SenderStarted" event="Event:Network:SenderStop" toState="State:SenderStopped" type="Conditional" err="Error:ClientSendError"/>
-		<TransitionRule name="Trans:CS17" fromState="State:SenderStarted" event="Event:Network:SenderStart" toState="State:SenderStarted" type="Conditional" err="Error:ClientSendError"/>
-		<TransitionRule name="Trans:CS21" fromState="State:SenderStopped" event="Event:Network:SenderClose" toState="State:SenderClosed" type="Determined" err="Error:ClientSendError"/>
-		<TransitionRule name="Trans:CS22" fromState="State:SenderClosed" event="Event:Network:SenderInitialize" toState="State:SenderInitialized" type="Conditional" err="Error:ClientSendError"/>
-		<TransitionRule name="Trans:CS23" fromState="State:SenderClosed" event="Event:Network:SenderStop" toState="State:SenderClosed" type="Conditional" err="Error:ClientSendError"/>
-		<TransitionRule name="Trans:CS24" fromState="State:SenderClosed" event="Event:Network:SenderFinalize" toState="State:SenderFinal" type="Conditional" err="Error:ClientSendError"/>
-
-		<TransitionRule name="Trans:CS31" fromState="State:ReceiverCreated" event="Event:Network:ReceiverInitialize" toState="State:ReceiverInitialized" type="Conditional" err="Error:ClientRecvError"/>
-		<TransitionRule name="Trans:CS32" fromState="State:ReceiverInitialized" event="Event:Network:ReceiverSetNetwork" toState="State:ReceiverSetNetwork" type="Determined" err="Error:ClientRecvError"/>
-		<TransitionRule name="Trans:CS33" fromState="State:ReceiverSetNetwork" event="Event:Network:ReceiverOpen" toState="State:ReceiverOpened" type="Determined" err="Error:ClientRecvError"/>
-		<TransitionRule name="Trans:CS34" fromState="State:ReceiverOpened" event="Event:Network:ReceiverStart" toState="State:ReceiverStarted" type="Determined" err="Error:ClientRecvError"/>
-		<TransitionRule name="Trans:CS35" fromState="State:ReceiverOpened" event="Event:Network:ReceiverClose" toState="State:ReceiverStarted" type="Conditional" err="Error:ClientRecvError"/>
-		<TransitionRule name="Trans:CS36" fromState="State:ReceiverStarted" event="Event:Network:ReceiverStop" toState="State:ReceiverStopped" type="Conditional" err="Error:ClientRecvError"/>
-		<TransitionRule name="Trans:CS37" fromState="State:ReceiverStarted" event="Event:Network:ReceiverStart" toState="State:ReceiverStarted" type="Conditional" err="Error:ClientRecvError"/>
-		<TransitionRule name="Trans:CS41" fromState="State:ReceiverStopped" event="Event:Network:ReceiverClose" toState="State:ReceiverClosed" type="Determined" err="Error:ClientRecvError"/>
-		<TransitionRule name="Trans:CS42" fromState="State:ReceiverClosed" event="Event:Network:ReceiverInitialize" toState="State:ReceiverInitialized" type="Conditional" err="Error:ClientRecvError"/>
-		<TransitionRule name="Trans:CS43" fromState="State:ReceiverClosed" event="Event:Network:ReceiverStop" toState="State:ReceiverClosed" type="Conditional" err="Error:ClientRecvError"/>
-		<TransitionRule name="Trans:CS44" fromState="State:ReceiverClosed" event="Event:Network:ReceiverFinalize" toState="State:ReceiverFinal" type="Conditional" err="Error:ClientRecvError"/>
+    <TransitionRule name="Trans:CS10" fromState="State:ARSSClient:Hello" event="Event:ARSSClient:SenderInitialize" toState="State:ARSSClient:SenderInitialized" type="Conditional" err="Error:SenderReadyError"/>
 		
-    <TransitionRule name="Trans:CS101" fromState="State:BothCreated" event="Event:Network:ReceiverInitialize" toState="State:BothReceiverInitialized" type="Conditional" err="Error:ClientBothError"/>
-    <TransitionRule name="Trans:CS102" fromState="State:BothReceiverInitialized" event="Event:Network:ReceiverSetNetwork" toState="State:BothReceiverSetNetwork" type="Determined" err="Error:ClientBothError"/>
-    <TransitionRule name="Trans:CS103" fromState="State:BothReceiverSetNetwork" event="Event:Network:SenderInitialize" toState="State:BothSenderInitialized" type="Determined" err="Error:ClientBothError"/>
-    <TransitionRule name="Trans:CS104" fromState="State:BothSenderInitialized" event="Event:Network:SenderSetNetwork" toState="State:BothSenderSetNetwork" type="Determined" err="Error:ClientBothError"/>
-    <TransitionRule name="Trans:CS110" fromState="State:BothSenderSetNetwork" event="Event:Network:ReceiverOpen" toState="State:BothReceiverOpened" type="Determined" err="Error:ClientBothError"/>
-    <TransitionRule name="Trans:CS111" fromState="State:BothReceiverOpened" event="Event:Network:SenderOpen" toState="State:BothSenderOpened" type="Determined" err="Error:ClientBothError"/>
-    <TransitionRule name="Trans:CS112" fromState="State:BothReceiverOpened" event="Event:Network:ReceiverClose" toState="State:BothReceiverClosed" type="Conditional" err="Error:ClientBothError"/>
-    <TransitionRule name="Trans:CS113" fromState="State:BothSenderOpened" event="Event:Network:ReceiverStart" toState="State:BothReceiverStarted" type="Determined" err="Error:ClientBothError"/>
-    <TransitionRule name="Trans:CS114" fromState="State:BothReceiverStarted" event="Event:Network:SenderStart" toState="State:BothSenderStarted" type="Determined" err="Error:ClientBothError"/>
-    <TransitionRule name="Trans:CS120" fromState="State:BothSenderStarted" event="Event:Network:ReceiverStop" toState="State:BothReceiverStopped" type="Conditional" err="Error:ClientBothError"/>
-    <TransitionRule name="Trans:CS121" fromState="State:BothSenderStarted" event="Event:Network:ReceiverStart" toState="State:BothSenderStarted" type="Conditional" err="Error:ClientBothError"/>
-    <TransitionRule name="Trans:CS122" fromState="State:BothReceiverStopped" event="Event:Network:SenderStop" toState="State:BothSenderStopped" type="Determined" err="Error:ClientBothError"/>
-    <TransitionRule name="Trans:CS123" fromState="State:BothSenderStopped" event="Event:Network:ReceiverClose" toState="State:BothReceiverClosed" type="Determined" err="Error:ClientBothError"/>
-    <TransitionRule name="Trans:CS130" fromState="State:BothReceiverClosed" event="Event:Network:SenderClose" toState="State:BothSenderClosed" type="Determined" err="Error:ClientBothError"/>
-    <TransitionRule name="Trans:CS131" fromState="State:BothSenderClosed" event="Event:Network:ReceiverFinalize" toState="State:BothReceiverFinal" type="Conditional" err="Error:ClientBothError"/>
-    <TransitionRule name="Trans:CS132" fromState="State:BothSenderClosed" event="Event:Network:ReceiverInitialize" toState="State:BothReceiverInitialized" type="Conditional" err="Error:ClientBothError"/>
-    <TransitionRule name="Trans:CS133" fromState="State:BothSenderClosed" event="Event:Network:ReceiverStart" toState="State:BothSenderClosed" type="Conditional" err="Error:ClientBothError"/>
-    <TransitionRule name="Trans:CS134" fromState="State:BothReceiverFinal" event="Event:Network:SenderFinalize" toState="State:BothSenderFinal" type="Conditional" err="Error:ClientBothError"/>
+    <TransitionRule name="Trans:CS11" fromState="State:ARSSClient:SenderInitialized" event="Event:ARSSClient:SenderSetNetwork" toState="State:ARSSClient:SenderSetNetwork" type="Determined" err="Error:SenderReadyError"/>
+		
+    <TransitionRule name="Trans:CS12" fromState="State:ARSSClient:SenderSetNetwork" event="Event:ARSSClient:SenderOpen" toState="State:ARSSClient:SenderOpened" type="Conditional" err="Error:SenderOpenError"/>
+    <TransitionRule name="Trans:CS13" fromState="State:ARSSClient:SenderSetNetwork" event="Event:ARSSClient:SenderClose" toState="State:ARSSClient:SenderClosed" type="Conditional" err="Error:SenderReadyError"/>
+    <TransitionRule name="Trans:CS13" fromState="State:ARSSClient:SenderSetNetwork" event="Event:ARSSClient:SenderStop" toState="State:ARSSClient:SenderStopped" type="Conditional" err="Error:SenderReadyError"/>
+    <TransitionRule name="Trans:CS13" fromState="State:ARSSClient:SenderSetNetwork" event="Event:ARSSClient:SenderFinalize" toState="State:ARSSClient:SenderFinalized" type="Conditional" err="Error:SenderReadyError"/>
+    <TransitionRule name="Trans:CS14" fromState="State:ARSSClient:SenderSetNetwork" event="Event:ARSSClient:SenderHandleError" toState="State:ARSSClient:SenderErrorHandling" type="Conditional" err="Error:SenderReadyError"/>
+    
+    <TransitionRule name="Trans:CS15" fromState="State:ARSSClient:SenderOpened" event="Event:ARSSClient:SenderStart" toState="State:ARSSClient:SenderStarted" type="Determined" err="Error:SenderReadyError"/>
+		
+    <TransitionRule name="Trans:CS16" fromState="State:ARSSClient:SenderStarted" event="Event:ARSSClient:SenderStop" toState="State:ARSSClient:SenderStopped" type="Conditional" err="Error:SenderReadyError"/>
+    <TransitionRule name="Trans:CS17" fromState="State:ARSSClient:SenderStarted" event="Event:ARSSClient:SenderDisable" toState="State:ARSSClient:SenderDisabled" type="Conditional" err="Error:SenderReadyError"/>
+    
+    <TransitionRule name="Trans:CS18" fromState="State:ARSSClient:SenderStopped" event="Event:ARSSClient:SenderClose" toState="State:ARSSClient:SenderClosed" type="Determined" err="Error:SenderReadyError"/>
+		
+    <TransitionRule name="Trans:CS19" fromState="State:ARSSClient:SenderClosed" event="Event:ARSSClient:SenderFinalize" toState="State:ARSSClient:SenderFinalized" type="Conditional" err="Error:SenderReadyError"/>
+    <TransitionRule name="Trans:CS19" fromState="State:ARSSClient:SenderClosed" event="Event:ARSSClient:SenderStop" toState="State:ARSSClient:SenderStopped" type="Conditional" err="Error:SenderReadyError"/>
+    <TransitionRule name="Trans:CS19" fromState="State:ARSSClient:SenderClosed" event="Event:ARSSClient:SenderStart" toState="State:ARSSClient:SenderStarted" type="Conditional" err="Error:SenderReadyError"/>
+    <TransitionRule name="Trans:CS19" fromState="State:ARSSClient:SenderClosed" event="Event:ARSSClient:SenderOpen" toState="State:ARSSClient:SenderOpened" type="Conditional" err="Error:SenderOpenError"/>
+    <TransitionRule name="Trans:CS19" fromState="State:ARSSClient:SenderClosed" event="Event:ARSSClient:SenderHandleError" toState="State:ARSSClient:SenderErrorHandling" type="Conditional" err="Error:SenderReadyError"/>
+    
+    <TransitionRule name="Trans:CS20" fromState="State:ARSSClient:SenderFinalized" event="Event:ARSSClient:Exit" toState="State:ARSSClient:Bye" type="Determined" err="Error:AcceptorError"/>
+    
+    <TransitionRule name="Trans:CS21" fromState="State:ARSSClient:SenderDisabled" event="Event:ARSSClient:SenderStop" toState="State:ARSSClient:SenderStopped" type="Determined" err="Error:SenderReadyError"/>
+
+    <TransitionRule name="Trans:CS22" fromState="State:ARSSClient:SenderErrorHandling" event="Event:ARSSClient:SenderStop" toState="State:ARSSClient:SenderStopped" type="Conditional" err="Error:SenderOpenError"/>
+    
+    
+    <TransitionRule name="Trans:CS24" fromState="State:ARSSClient:Hello" event="Event:ARSSClient:ReceiverInitialize" toState="State:ARSSClient:ReceiverInitialized" type="Conditional" err="Error:ReceiverReadyError"/>
+    
+  	<TransitionRule name="Trans:CS25" fromState="State:ARSSClient:ReceiverInitialized" event="Event:ARSSClient:ReceiverSetNetwork" toState="State:ARSSClient:ReceiverSetNetwork" type="Determined" err="Error:ReceiverReadyError"/>
+    
+    <TransitionRule name="Trans:CS26" fromState="State:ARSSClient:ReceiverSetNetwork" event="Event:ARSSClient:ReceiverOpen" toState="State:ARSSClient:ReceiverOpened" type="Conditional" err="Error:ReceiverOpenError"/>
+    <TransitionRule name="Trans:CS27" fromState="State:ARSSClient:ReceiverSetNetwork" event="Event:ARSSClient:ReceiverClose" toState="State:ARSSClient:ReceiverClosed" type="Conditional" err="Error:ReceiverReadyError"/>
+    <TransitionRule name="Trans:CS28" fromState="State:ARSSClient:ReceiverSetNetwork" event="Event:ARSSClient:ReceiverStop" toState="State:ARSSClient:ReceiverStopped" type="Conditional" err="Error:ReceiverReadyError"/>
+    <TransitionRule name="Trans:CS28" fromState="State:ARSSClient:ReceiverSetNetwork" event="Event:ARSSClient:ReceiverFinalize" toState="State:ARSSClient:ReceiverFinalized" type="Conditional" err="Error:ReceiverReadyError"/>
+    <TransitionRule name="Trans:CS28" fromState="State:ARSSClient:ReceiverSetNetwork" event="Event:ARSSClient:ReceiverHandleError" toState="State:ARSSClient:ReceiverErrorHandling" type="Conditional" err="Error:ReceiverReadyError"/>
+     
+    <TransitionRule name="Trans:CS29" fromState="State:ARSSClient:ReceiverOpened" event="Event:ARSSClient:ReceiverStart" toState="State:ARSSClient:ReceiverStarted" type="Determined" err="Error:ReceiverReadyError"/>
+    
+  	<TransitionRule name="Trans:CS30" fromState="State:ARSSClient:ReceiverStarted" event="Event:ARSSClient:ReceiverStop" toState="State:ARSSClient:ReceiverStopped" type="Conditional" err="Error:ReceiverReadyError"/>
+    <TransitionRule name="Trans:CS31" fromState="State:ARSSClient:ReceiverStarted" event="Event:ARSSClient:ReceiverDisable" toState="State:ARSSClient:ReceiverDisabled" type="Conditional" err="Error:ReceiverReadyError"/>
+    
+    <TransitionRule name="Trans:CS32" fromState="State:ARSSClient:ReceiverStopped" event="Event:ARSSClient:ReceiverClose" toState="State:ARSSClient:ReceiverClosed" type="Determined" err="Error:ReceiverReadyError"/>
+    <TransitionRule name="Trans:CS32" fromState="State:ARSSClient:ReceiverStopped" event="Event:ARSSClient:ReceiverDisable" toState="State:ARSSClient:ReceiverDisabled" type="Determined" err="Error:ReceiverReadyError"/>
+		
+    <TransitionRule name="Trans:CS33" fromState="State:ARSSClient:ReceiverClosed" event="Event:ARSSClient:ReceiverStop" toState="State:ARSSClient:ReceiverStopped" type="Conditional" err="Error:ReceiverReadyError"/>
+    <TransitionRule name="Trans:CS33" fromState="State:ARSSClient:ReceiverClosed" event="Event:ARSSClient:ReceiverFinalize" toState="State:ARSSClient:ReceiverFinalized" type="Conditional" err="Error:ReceiverReadyError"/>
+    <TransitionRule name="Trans:CS33" fromState="State:ARSSClient:ReceiverClosed" event="Event:ARSSClient:ReceiverDisable" toState="State:ARSSClient:ReceiverDisabled" type="Conditional" err="Error:ReceiverReadyError"/>
+    <TransitionRule name="Trans:CS33" fromState="State:ARSSClient:ReceiverClosed" event="Event:ARSSClient:ReceiverStart" toState="State:ARSSClient:ReceiverStarted" type="Conditional" err="Error:ReceiverReadyError"/>
+    <TransitionRule name="Trans:CS33" fromState="State:ARSSClient:ReceiverClosed" event="Event:ARSSClient:ReceiverOpen" toState="State:ARSSClient:ReceiverOpened" type="Conditional" err="Error:ReceiverOpenError"/>
+    <TransitionRule name="Trans:CS33" fromState="State:ARSSClient:ReceiverClosed" event="Event:ARSSClient:ReceiverHandleError" toState="State:ARSSClient:ReceiverErrorHandling" type="Conditional" err="Error:ReceiverOpenError"/>
+
+    <TransitionRule name="Trans:CS34" fromState="State:ARSSClient:ReceiverFinalized" event="Event:ARSSClient:Exit" toState="State:ARSSClient:Bye" type="Determined" err="Error:AcceptorError"/>
+    
+    <TransitionRule name="Trans:CS35" fromState="State:ARSSClient:ReceiverDisabled" event="Event:ARSSClient:ReceiverStop" toState="State:ARSSClient:ReceiverStopped" type="Determined" err="Error:AcceptorError"/>
+
+    <TransitionRule name="Trans:CS36" fromState="State:ARSSClient:ReceiverErrorHandling" event="Event:ARSSClient:ReceiverStop" toState="State:ARSSClient:ReceiverStopped" type="Conditional" err="Error:AcceptorError"/>
+    <TransitionRule name="Trans:CS36" fromState="State:ARSSClient:ReceiverErrorHandling" event="Event:ARSSClient:ReceiverOpen" toState="State:ARSSClient:ReceiverOpened" type="Conditional" err="Error:ReceiverOpenError"/>
+
+   
+    
+    <TransitionRule name="Trans:CS38" fromState="State:ARSSClient:Hello" event="Event:ARSSClient:BothReceiverInitialize" toState="State:ARSSClient:BothReceiverInitialized" type="Conditional" err="Error:BothReadyError"/>
+    
+    <TransitionRule name="Trans:CS39" fromState="State:ARSSClient:BothReceiverInitialized" event="Event:ARSSClient:BothSenderInitialize" toState="State:ARSSClient:BothSenderInitialized" type="Determined" err="Error:BothReadyError"/>
+    <TransitionRule name="Trans:CS40" fromState="State:ARSSClient:BothSenderInitialized" event="Event:ARSSClient:SenderSetNetwork" toState="State:ARSSClient:BothSenderSetNetwork" type="Determined" err="Error:BothReadyError"/>
+    <TransitionRule name="Trans:CS41" fromState="State:ARSSClient:BothSenderSetNetwork" event="Event:ARSSClient:ReceiverOpen" toState="State:ARSSClient:BothReceiverOpened" type="Conditional" err="Error:BothReadyError"/>
+    <TransitionRule name="Trans:CS42" fromState="State:ARSSClient:BothSenderSetNetwork" event="Event:ARSSClient:ReceiverClose" toState="State:ARSSClient:BothReceiverClosed" type="Conditional" err="Error:BothReadyError"/>
+    
+    <TransitionRule name="Trans:CS43" fromState="State:ARSSClient:BothReceiverOpened" event="Event:ARSSClient:SenderOpen" toState="State:ARSSClient:BothSenderOpened" type="Conditional" err="Error:BothReadyError"/>
+    <TransitionRule name="Trans:CS44" fromState="State:ARSSClient:BothSenderOpened" event="Event:ARSSClient:SenderClose" toState="State:ARSSClient:BothReceiverClosed" type="Conditional" err="Error:BothReadyError"/>
+    <TransitionRule name="Trans:CS45" fromState="State:ARSSClient:BothSenderOpened" event="Event:ARSSClient:ReceiverStart" toState="State:ARSSClient:BothReceiverStarted" type="Conditional" err="Error:BothReadyError"/>
+    <TransitionRule name="Trans:CS46" fromState="State:ARSSClient:BothReceiverStarted" event="Event:ARSSClient:SenderStart" toState="State:ARSSClient:BothSenderStarted" type="Conditional" err="Error:BothReadyError"/>
+    <TransitionRule name="Trans:CS47" fromState="State:ARSSClient:BothSenderStarted" event="Event:ARSSClient:ReceiverStop" toState="State:ARSSClient:BothReceiverStopped" type="Conditional" err="Error:BothReadyError"/>
+    <TransitionRule name="Trans:CS48" fromState="State:ARSSClient:BothReceiverStopped" event="Event:ARSSClient:SenderStop" toState="State:ARSSClient:BothSenderStopped" type="Conditional" err="Error:BothReadyError"/>
+    <TransitionRule name="Trans:CS49" fromState="State:ARSSClient:BothSenderStopped" event="Event:ARSSClient:ReceiverClose" toState="State:ARSSClient:BothReceiverClosed" type="Conditional" err="Error:BothReadyError"/>
+    <TransitionRule name="Trans:CS50" fromState="State:ARSSClient:BothReceiverClosed" event="Event:ARSSClient:SenderClose" toState="State:ARSSClient:BothSenderClosed" type="Determined" err="Error:BothReadyError"/>
+    <TransitionRule name="Trans:CS51" fromState="State:ARSSClient:BothSenderClosed" event="Event:ARSSClient:ReceiverFinalize" toState="State:ARSSClient:BothReceiverFinalized" type="Conditional" err="Error:BothReadyError"/>
+    <TransitionRule name="Trans:CS52" fromState="State:ARSSClient:BothReceiverFinalized" event="Event:ARSSClient:SenderFinalize" toState="State:ARSSClient:BothSenderFinalized" type="Determined" err="Error:BothReadyError"/>
+    <TransitionRule name="Trans:CS53" fromState="State:ARSSClient:BothSenderFinalized" event="Event:ARSSClient:Exit" toState="State:ARSSClient:Bye" type="Conditional" err="Error:AcceptorError"/>
   </TransitionRuleList>
 	<EventList>
-		<Event name="Event:Network:SenderInitialize" location="Inner" process="Sync" /> <!-- location=Inner/Outer, process=Sync/ASync -->
-		<Event name="Event:Network:SenderSetNetwork" location="Inner" process="Sync" />
-		<Event name="Event:Network:SenderOpen" location="Outer" process="Sync" />
-		<Event name="Event:Network:SenderStart" location="Outer" process="Sync" />
-		<Event name="Event:Network:SenderStop" location="Outer" process="Sync" />
-		<Event name="Event:Network:SenderClose" location="Outer" process="Sync" />
-		<Event name="Event:Network:SenderFinalize" location="Outer" process="Sync" />
-		<Event name="Event:Network:ReceiverInitialize" location="Inner" process="Sync" />
-		<Event name="Event:Network:ReceiverSetNetwork" location="Inner" process="Sync" />
-		<Event name="Event:Network:ReceiverOpen" location="Outer" process="Sync" />
-		<Event name="Event:Network:ReceiverStart" location="Outer" process="Sync" />
-		<Event name="Event:Network:ReceiverStop" location="Outer" process="Sync" />
-		<Event name="Event:Network:ReceiverClose" location="Outer" process="Sync" />
-		<Event name="Event:Network:ReceiverFinalize" location="Outer" process="Sync" />
+		<Event name="Event:ARSSClient:SenderInitialize" location="Outer" process="Sync" />  <!-- location=Inner/Outer, process=Sync/ASync -->
+		<Event name="Event:ARSSClient:SenderSetNetwork" location="Inner" process="Sync" />
+		<Event name="Event:ARSSClient:SenderOpen" location="Outer" process="Sync" />
+		<Event name="Event:ARSSClient:SenderStart" location="Inner" process="Sync" />
+		<Event name="Event:ARSSClient:SenderStop" location="Outer" process="Sync" />
+		<Event name="Event:ARSSClient:SenderClose" location="Inner" process="Sync" />
+		<Event name="Event:ARSSClient:SenderFinalize" location="Outer" process="Sync" />
+    <Event name="Event:ARSSClient:SenderDisable" location="Inner" process="Sync" />
+    <Event name="Event:ARSSClient:SenderHandleError" location="Inner" process="Sync" />
+   
+    <Event name="Event:ARSSClient:ReceiverInitialize" location="Outer" process="Sync" />
+		<Event name="Event:ARSSClient:ReceiverSetNetwork" location="Inner" process="Sync" />
+		<Event name="Event:ARSSClient:ReceiverOpen" location="Outer" process="Sync" />
+		<Event name="Event:ARSSClient:ReceiverStart" location="Inner" process="Sync" />
+		<Event name="Event:ARSSClient:ReceiverStop" location="Outer" process="Sync" />
+		<Event name="Event:ARSSClient:ReceiverClose" location="Inner" process="Sync" />
+		<Event name="Event:ARSSClient:ReceiverFinalize" location="Outer" process="Sync" />
+    <Event name="Event:ARSSClient:ReceiverDisable" location="Inner" process="Sync" />
+    <Event name="Event:ARSSClient:ReceiverHandleError" location="Inner" process="Sync" />
+    
+    <Event name="Event:ARSSClient:BothReceiverInitialize" location="Outer" process="Sync" />
+    <Event name="Event:ARSSClient:BothSenderInitialize" location="Outer" process="Sync" />
+
+    <Event name="Event:ARSSClient:Exit" location="Outer" process="Sync" />
   </EventList>
 	<StateList>
-		<State name="State:SenderCreated"/>
-		<State name="State:SenderInitialized"/>
-		<State name="State:SenderSetNetwork"/>
-		<State name="State:SenderOpened"/>
-		<State name="State:SenderStarted"/>
-		<State name="State:SenderStopped"/>
-		<State name="State:SenderClosed"/>
-		<State name="State:SenderFinal"/>
-		<State name="State:ReceiverCreated"/>
-		<State name="State:ReceiverInitialized"/>
-		<State name="State:ReceiverSetNetwork"/>
-		<State name="State:ReceiverOpened"/>
-		<State name="State:ReceiverStarted"/>
-		<State name="State:ReceiverStopped"/>
-		<State name="State:ReceiverClosed"/>
-		<State name="State:ReceiverFinal"/>
-    <State name="State:BothCreated"/>
-    <State name="State:BothReceiverInitialized"/>
-    <State name="State:BothSenderInitialized"/>
-    <State name="State:BothReceiverSetNetwork"/>
-    <State name="State:BothSenderSetNetwork"/>
-    <State name="State:BothReceiverOpened"/>
-    <State name="State:BothSenderOpened"/>
-    <State name="State:BothReceiverStarted"/>
-    <State name="State:BothSenderStarted"/>
-    <State name="State:BothReceiverStopped"/>
-    <State name="State:BothSenderStopped"/>
-    <State name="State:BothReceiverClosed"/>
-    <State name="State:BothSenderClosed"/>
-    <State name="State:BothReceiverFinal"/>
-    <State name="State:BothSenderFinal"/>
+    <State name="State:ARSSClient:Hello"/>
+    
+		<State name="State:ARSSClient:SenderInitialized"/>
+		<State name="State:ARSSClient:SenderSetNetwork"/>
+		<State name="State:ARSSClient:SenderOpened"/>
+		<State name="State:ARSSClient:SenderStarted"/>
+		<State name="State:ARSSClient:SenderStopped"/>
+		<State name="State:ARSSClient:SenderClosed"/>
+		<State name="State:ARSSClient:SenderFinalized"/>
+    <State name="State:ARSSClient:SenderDisabled"/>
+    <State name="State:ARSSClient:SenderErrorHandling"/>
+ 
+    <State name="State:ARSSClient:ReceiverInitialized"/>
+		<State name="State:ARSSClient:ReceiverSetNetwork"/>
+		<State name="State:ARSSClient:ReceiverOpened"/>
+		<State name="State:ARSSClient:ReceiverStarted"/>
+		<State name="State:ARSSClient:ReceiverStopped"/>
+		<State name="State:ARSSClient:ReceiverClosed"/>
+		<State name="State:ARSSClient:ReceiverFinalized"/>
+    <State name="State:ARSSClient:ReceiverDisabled"/>
+    <State name="State:ARSSClient:ReceiverErrorHandling"/>
+    
+    <State name="State:ARSSClient:BothReceiverInitialized"/>
+    <State name="State:ARSSClient:BothReceiverSetNetwork"/>
+    <State name="State:ARSSClient:BothReceiverOpened"/>
+    <State name="State:ARSSClient:BothReceiverStarted"/>
+    <State name="State:ARSSClient:BothReceiverStopped"/>
+    <State name="State:ARSSClient:BothReceiverClosed"/>
+    <State name="State:ARSSClient:BothReceiverFinalized"/>
+
+    <State name="State:ARSSClient:BothSenderInitialized"/>
+    <State name="State:ARSSClient:BothSenderSetNetwork"/>
+    <State name="State:ARSSClient:BothSenderOpened"/>
+    <State name="State:ARSSClient:BothSenderStarted"/>
+    <State name="State:ARSSClient:BothSenderStopped"/>
+    <State name="State:ARSSClient:BothSenderClosed"/>
+    <State name="State:ARSSClient:BothSenderFinalized"/>
+
+    <State name="State:ARSSClient:Bye"/>
   </StateList>
 	<ErrorList>
 		<Error name="Error:TBD"/>
-		<Error name="Error:ReadyError"/>
-		<Error name="Error:ClientSendError"/>
-		<Error name="Error:ClientRecvError"/>
-    <Error name="Error:ClientBothError"/>
+		<Error name="Error:SenderReadyError"/>
+    <Error name="Error:ReceiverReadyError"/>
+    <Error name="Error:SenderOpenError"/>
+    <Error name="Error:ReceiverOpenError"/>
+		<Error name="Error:SenderSendError"/>
+		<Error name="Error:ReceiverRecvError"/>
+    <Error name="Error:BothReadyError"/>
+    <Error name="Error:BothOpenError"/>
+    <Error name="Error:BothSendError"/>
+    <Error name="Error:BothRecvError"/>
   </ErrorList>
 </StateMachine>

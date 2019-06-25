@@ -14,11 +14,11 @@
     <parameter name="AcceptorName"  value="AcceptorControl"/>
     <parameter name="AcceptorParameter" value="config@CRNetwork@Port@TcpPort@Service@Acceptor_Control02.xml"/>
     <!-- FSMInfo -->
-    <parameter name="MaxStateCount"  value="40"/>
+    <parameter name="MaxStateCount"  value="50"/>
     <parameter name="MaxParamSize"  value="100"/>
-  	<parameter name="StartState"  value="State:SenderCreated"/> <!-- Server : AcceptorCreate, Client : SenderCreated/ReceiverCreated -->
+  	<parameter name="StartState"  value="State:ARSSClient:Hello"/> <!-- Server : State:ARSSServer:Hello, Client : State:ARSSClient:Hello-->
     <parameter name="FSMConfigFileName" value="config@CRNetwork@System@ARSFSM_Client.xml"/>
-	<!-- MessageQueue Configuration -->
+	  <!-- MessageQueue Configuration -->
     <parameter name="MessageSize" value="1024"/>
     <parameter name="MessageCount" value="100"/>
   </ParameterList>

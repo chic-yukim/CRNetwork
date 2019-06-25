@@ -5,11 +5,12 @@
   </Info>
   <ParameterList>
     <!-- FSMInfo -->
-    <parameter name="MaxStateCount"  value="20"/>
+    <parameter name="NetworkFSMType"  value="NetworkClientFSM"/>  <!-- NetworkServerFSM, NetworkClientFSM -->
+    <parameter name="MaxStateCount"  value="500"/>
     <parameter name="MaxParamSize"  value="100"/>
-	<parameter name="StartState"  value="State:Network:Hello"/> 
-    <parameter name="FSMConfigFileName" value="config@CRNetwork@System@NetStateFSM.xml"/>
-	<!-- MessageQueue Configuration -->
+  	<parameter name="StartState"  value="State:Network:Hello"/> 
+    <parameter name="FSMConfigFileName" value="config@CRNetwork@System@NetClientStateFSM.xml"/>
+  	<!-- MessageQueue Configuration -->
     <parameter name="MessageSize" value="1024"/>
     <parameter name="MessageCount" value="1024"/>
   </ParameterList>

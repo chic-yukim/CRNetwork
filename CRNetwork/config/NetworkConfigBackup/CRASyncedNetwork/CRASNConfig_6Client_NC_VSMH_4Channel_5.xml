@@ -3,10 +3,10 @@
   <InfoList>
     <Info name ="ASNVersion" value="1.0"/>
     <Info name ="Configuration" value="CRASN_Example"/>
-    <Info name ="ASNType" value="NC"/> <!-- NCS=N+C+S, NC=N+C, NS=N+S, N, NCS = (N)etwork + (C)odec + (S)ynchronization -->
+    <Info name ="ASNType" value="N"/> <!-- NCS=N+C+S, NC=N+C, NS=N+S, N, NCS = (N)etwork + (C)odec + (S)ynchronization -->
     <Info name ="CRSFHeader" value="Attach"/> <!--Attach, Detach-->
     <Info name ="PrintError" value="no"/> <!-- yes, no -->
-	<Info name ="ASNStateManagerFileName" value="config@CRASyncedNetwork@State@ASNStateManager.xml"/>
+	<Info name ="ASNStateManagerFileName" value="config@CRASyncedNetwork@State@ASNClientStateManager.xml"/>
   </InfoList>
   <ASNLinkList>
     <ASNLink>

@@ -95,7 +95,6 @@ void MainApp::OnStart()
         {
 			if (network_manager_->IsError())
 			{
-
 				m_logger->debug("Error : Server cannot be connected");
 
 				return AsyncTask::DS_exit;
